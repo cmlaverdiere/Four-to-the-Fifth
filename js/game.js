@@ -10,26 +10,23 @@ Q.Sprite.extend("Player", {
   init: function(p) {
     this._super(p, {
       asset: "player.png",
-      hp: 10,
       damage: 2,
-      speed: 200,
-      jumpSpeed: -400,
+      hp: 10,
+      gravity: 0,
+      speed: 300,
+      stepDistance: 5,
+      stepDelay: 0.01,
       x: 300,
       y: 300
     });
 
-    this.add('2d, platformerControls');
+    this.add('2d, stepControls');
 
-    this.on("jump");
     Q.input.on("fire", this, "fireGun");
   },
 
   step: function(dt) {
     // console.log(this.p.x, this.p.y);
-    if(this.p.y > 5000) {
-      Q.audio.stop("test.wav");
-      Q.stageScene("start");
-    }
   },
 
   fireGun: function() {
@@ -53,7 +50,6 @@ Q.scene("start", function(stage) {
   var player = stage.insert(new Q.Player());
 
   stage.insert(new Q.Ground( {x: 300, y: 500} ));
-
   for(var i=0; i < 150; i++){
     stage.insert(new Q.Ground( {x: Math.random() * 1000, y: Math.random() * 10000} ));
   }
