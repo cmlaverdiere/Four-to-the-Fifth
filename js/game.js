@@ -1,6 +1,7 @@
 // Setup Quintus instance
-var Q = Quintus({ development: true })
-          .include("Sprites, Scenes, Input, 2D")
+var Q = Quintus({ development: true, audioSupported: [ 'wav' ] })
+          .include("Sprites, Scenes, Input, 2D, Audio")
+          .enableSound()
           .setup({ maximize:true })
           .controls();
           
@@ -26,6 +27,7 @@ Q.Sprite.extend("Player", {
   step: function(dt) {
     // console.log(this.p.x, this.p.y);
     if(this.p.y > 5000) {
+      Q.audio.stop("test.wav");
       Q.stageScene("start");
     }
   },
@@ -56,11 +58,13 @@ Q.scene("start", function(stage) {
     stage.insert(new Q.Ground( {x: Math.random() * 1000, y: Math.random() * 10000} ));
   }
 
+  Q.audio.play('test.wav', { loop: true });
+
   stage.add("viewport").follow(player);
 });
 
 // Load resources
-Q.load([ "player.png", "ground.png" ], function() {
+Q.load([ "player.png", "ground.png", "test.wav" ], function() {
     console.log("Done loading assets.");
     Q.stageScene("start");
 });
