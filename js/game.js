@@ -1,7 +1,8 @@
 // Setup Quintus instance
 var Q = Quintus({ development: true })
-          .include("Sprites, Scenes, Input")
-          .setup({ maximize:true });
+          .include("Sprites, Scenes, Input, 2D")
+          .setup({ maximize:true })
+          .controls();
           
 // Create player class
 Q.Sprite.extend("Player", {
@@ -10,32 +11,57 @@ Q.Sprite.extend("Player", {
       asset: "player.png",
       hp: 10,
       damage: 2,
+      speed: 200,
+      jumpSpeed: -400,
       x: 300,
-      y: 300,
-      vx: 0,
-      vy: -40
+      y: 300
     });
+
+    this.add('2d, platformerControls');
+
+    this.on("jump");
+    Q.input.on("fire", this, "fireGun");
   },
 
   step: function(dt) {
-    this.p.vy += dt * 9.8; 
+    // console.log(this.p.x, this.p.y);
+    if(this.p.y > 5000) {
+      Q.stageScene("start");
+    }
+  },
 
-    this.p.x += this.p.vx * dt;
-    this.p.y += this.p.vy * dt;
-    console.log(this.p.vy);
+  fireGun: function() {
+    console.log("Player fired gun. Bang!") ;
   }
 });
 
-// Load resources
-Q.load([ "player.png" ], function() {
-    console.log("Done loading assets.");
+Q.Sprite.extend("Ground", {
+  init: function(p) {
+    this._super(p, {
+      asset: "ground.png",
+      gravity: 0
+    });
+
+    this.add('2d');
+  }
 });
 
 // Create scene
-Q.scene("level1", function(stage) {
+Q.scene("start", function(stage) {
   var player = stage.insert(new Q.Player());
-  var player2 = stage.insert(new Q.Player( {x:500, y:500, vy:-80} ));
+
+  stage.insert(new Q.Ground( {x: 300, y: 500} ));
+
+  for(var i=0; i < 150; i++){
+    stage.insert(new Q.Ground( {x: Math.random() * 1000, y: Math.random() * 10000} ));
+  }
+
+  stage.add("viewport").follow(player);
 });
 
-// Stage scene
-Q.stageScene("level1");
+// Load resources
+Q.load([ "player.png", "ground.png" ], function() {
+    console.log("Done loading assets.");
+    Q.stageScene("start");
+});
+
