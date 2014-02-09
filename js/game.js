@@ -1,10 +1,14 @@
 // Setup Quintus instance
 var Q = Quintus({ development: true, audioSupported: [ 'wav' ] })
-          .include("Sprites, Scenes, Input, 2D, Audio")
+          .include("Sprites, Scenes, Input, 2D, Audio, Anim")
           .enableSound()
           .setup({ maximize:true })
           .controls();
           
+// Collision masks
+Q.SPRITE_PLAYER = 1;
+Q.SPRITE_ALL = 0xFFFF;
+
 // Create player class
 Q.Sprite.extend("Player", {
   init: function(p) {
@@ -16,6 +20,7 @@ Q.Sprite.extend("Player", {
       speed: 300,
       stepDistance: 5,
       stepDelay: 0.01,
+      type: Q.SPRITE_PLAYER,
       x: 300,
       y: 300
     });
@@ -34,34 +39,24 @@ Q.Sprite.extend("Player", {
   }
 });
 
-Q.Sprite.extend("Ground", {
-  init: function(p) {
-    this._super(p, {
-      asset: "ground.png",
-      gravity: 0
-    });
+// Create player scene
+Q.scene("level1", function(stage) {
 
-    this.add('2d');
-  }
-});
+  // Draw the background
+  stage.insert(new Q.Repeater({ asset: "floor_tile.png" }));
 
-// Create scene
-Q.scene("start", function(stage) {
+  // Create our player
   var player = stage.insert(new Q.Player());
 
-  stage.insert(new Q.Ground( {x: 300, y: 500} ));
-  for(var i=0; i < 150; i++){
-    stage.insert(new Q.Ground( {x: Math.random() * 1000, y: Math.random() * 10000} ));
-  }
-
   Q.audio.play('test.wav', { loop: true });
-
   stage.add("viewport").follow(player);
 });
 
 // Load resources
-Q.load([ "player.png", "ground.png", "test.wav" ], function() {
+Q.load([ "player.png",
+         "floor_tile.png", 
+         "test.wav" ], function() {
     console.log("Done loading assets.");
-    Q.stageScene("start");
+    Q.stageScene("level1", 0);
 });
 
