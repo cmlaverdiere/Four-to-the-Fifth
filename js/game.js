@@ -1,6 +1,6 @@
 // Setup Quintus instance
 var Q = Quintus({ development: true, audioSupported: [ 'wav' ] })
-          .include("Sprites, Scenes, Input, 2D, Audio, Anim, Touch")
+          .include("Sprites, Scenes, Input, 2D, Audio, Anim, Touch, UI")
           .enableSound()
           .setup({ maximize:true });
           
@@ -30,6 +30,7 @@ Q.SPRITE_PLAYER = 2;
 Q.SPRITE_ACCESSORY = 4;
 Q.SPRITE_INTERACTIVE = 8;
 Q.SPRITE_ALL = 0xFFFF;
+
 
 // Create player class
 Q.Sprite.extend("Player", {
@@ -89,6 +90,7 @@ Q.Sprite.extend("Player", {
     }
   }
 });
+
 
 Q.Sprite.extend("Wall", {
   init: function(p) {
@@ -150,6 +152,16 @@ Q.scene("level1", function(stage) {
   stage.add("viewport").follow(player);
 });
 
+
+Q.scene("ui", function(stage){
+  // Print controls / instructions
+  var controls_label = stage.insert(new Q.UI.Text({
+    x: Q.width / 2, 
+    y: Q.height - 30,
+    label: "Controls: WASD for movement, F to swing sword, Q and E to rotate."
+  }));
+});
+
 // Load resources
 Q.load([ "player.png",
          "floor_tile.png", 
@@ -158,5 +170,6 @@ Q.load([ "player.png",
          "test.wav" ], function() {
     console.log("Done loading assets.");
     Q.stageScene("level1", 0);
+    Q.stageScene("ui", 1);
 });
 
