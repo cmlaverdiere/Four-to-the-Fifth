@@ -7,6 +7,11 @@ var Q = Quintus({ development: true, audioSupported: [ 'wav' ] })
 // Define custom key mappings
 Q.KEY_NAMES.Q = 81;
 Q.KEY_NAMES.E = 69;
+Q.KEY_NAMES.W = 87;
+Q.KEY_NAMES.A = 65;
+Q.KEY_NAMES.S = 83;
+Q.KEY_NAMES.D = 68;
+Q.KEY_NAMES.F = 70;
 
 // Key actions
 Q.input.keyboardControls({
@@ -16,11 +21,14 @@ Q.input.keyboardControls({
   RIGHT: 'right', D: 'right',
   SPACE: 'fire',
   Q:     'ror',
-  E:     'rol'
+  E:     'rol',
+  F:     'sword'
 });
 
 // Collision masks
-Q.SPRITE_PLAYER = 1;
+Q.SPRITE_PLAYER = 2;
+Q.SPRITE_ACCESSORY = 4;
+Q.SPRITE_INTERACTIVE = 8;
 Q.SPRITE_ALL = 0xFFFF;
 
 // Create player class
@@ -30,12 +38,14 @@ Q.Sprite.extend("Player", {
       angle: 0,
       asset: "player.png",
       bullets: 10,
+      collisionMask: Q.SPRITE_INTERACTIVE,
       damage: 2,
-      hp: 10,
       gravity: 0,
       speed: 300,
       stepDistance: 5,
       stepDelay: 0.01,
+      swinging_sword: false,
+      sword: null,
       type: Q.SPRITE_PLAYER,
       x: 300,
       y: 300
@@ -44,16 +54,31 @@ Q.Sprite.extend("Player", {
     this.add('2d, stepControls');
 
     Q.input.on("fire", this, "fireGun");
+    Q.input.on("sword", this, "swing_sword");
     Q.input.on("ror", this, "ror");
     Q.input.on("rol", this, "rol");
   },
 
   step: function(dt) {
     // Update anything each frame
+    if(this.p.swinging_sword){
+      this.p.angle += 10;
+      if(this.p.angle === 360){
+        Q("Sword").destroy();
+        this.p.swinging_sword = false;
+        this.p.angle = 0;
+      }
+    }
   },
 
   ror: function(dr=10) { this.p.angle += dr; },
   rol: function(dr=10) { this.p.angle -= dr; },
+
+  swing_sword: function() {
+    this.p.sword = Q.stage().insert(new Q.Sword({ x: 22, y: -25 }), this);
+    this.p.swinging_sword = true;
+    console.log("Swung sword!");
+  },
 
   fireGun: function() {
     if (this.p.bullets > 0){
@@ -69,10 +94,25 @@ Q.Sprite.extend("Wall", {
   init: function(p) {
     this._super(p, {
       asset: "wall.png",
-      gravity: 0
+      gravity: 0,
+      type: Q.SPRITE_INTERACTIVE
     });
   }
 });
+
+
+Q.Sprite.extend("Sword", {
+  init: function(p) {
+    this._super(p, {
+      asset: "sword.png",
+      atk_type: "melee",
+      collisionMask: Q.SPRITE_INTERACTIVE,
+      gravity: 0,
+      type: Q.SPRITE_ACCESSORY
+    });
+  }
+});
+
 
 // Create player scene
 Q.scene("level1", function(stage) {
@@ -100,7 +140,7 @@ Q.scene("level1", function(stage) {
     if(rot && bx && by) rota = 135;
 
     stage.insert(new Q.Wall( { x: px, y: py, angle: rota })); 
-    console.log("New wall at x: " + px + ", y: " + py + ", angle: " + rota);
+    // console.log("New wall at x: " + px + ", y: " + py + ", angle: " + rota);
   }
 
   // Create our player
@@ -114,6 +154,7 @@ Q.scene("level1", function(stage) {
 Q.load([ "player.png",
          "floor_tile.png", 
          "wall.png", 
+         "sword.png", 
          "test.wav" ], function() {
     console.log("Done loading assets.");
     Q.stageScene("level1", 0);
