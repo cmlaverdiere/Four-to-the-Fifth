@@ -25,6 +25,8 @@ Q.input.keyboardControls({
   F:     'sword'
 });
 
+Q.input.mouseControls({ cursor: "on" });
+
 // Collision masks
 Q.SPRITE_PLAYER = 2;
 Q.SPRITE_ACCESSORY = 4;
@@ -61,7 +63,13 @@ Q.Sprite.extend("Player", {
   },
 
   step: function(dt) {
-    // Update anything each frame
+    // Mouse detection, movement
+    console.log(Q.inputs['mouseX'] + ", " + Q.inputs['mouseY']);
+
+    // Update player angle based on mouse position.
+    this.p.angle = -1 * (180 / Math.PI) * Math.atan2( (Q.inputs['mouseX'] - this.p.x), (Q.inputs['mouseY'] - this.p.y) );
+
+    // Sword swinging animation
     if(this.p.swinging_sword){
       this.p.angle += 10;
       if(this.p.angle === 360){
