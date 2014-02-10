@@ -72,8 +72,8 @@ Q.Sprite.extend("Player", {
     }
   },
 
-  ror: function(dr=10) { this.p.angle += dr; },
-  rol: function(dr=10) { this.p.angle -= dr; },
+  ror: function(dr) { this.p.angle += dr || 10; },
+  rol: function(dr) { this.p.angle -= dr || 10; },
 
   swing_sword: function() {
     this.p.sword = Q.stage().insert(new Q.Sword({ x: 22, y: -25 }), this);
