@@ -63,16 +63,17 @@ Q.Sprite.extend("Player", {
   },
 
   step: function(dt) {
-    // Mouse detection, movement
-    console.log(Q.inputs['mouseX'] + ", " + Q.inputs['mouseY']);
-
     // Update player angle based on mouse position.
-    this.p.angle = -1 * (180 / Math.PI) * Math.atan2( (Q.inputs['mouseX'] - this.p.x), (Q.inputs['mouseY'] - this.p.y) );
+    if (!this.p.swinging_sword){
+      this.p.angle = -1 * (180 / Math.PI) * Math.atan2( (Q.inputs['mouseX'] - this.p.x), (Q.inputs['mouseY'] - this.p.y) );
+    }
+
+    console.log(this.p.angle);
 
     // Sword swinging animation
     if(this.p.swinging_sword){
       this.p.angle += 10;
-      if(this.p.angle === 360){
+      if(this.p.angle > 360){
         Q("Sword").destroy();
         this.p.swinging_sword = false;
         this.p.angle = 0;
