@@ -2,7 +2,8 @@
 var Q = Quintus({ development: true, audioSupported: [ 'wav' ] })
           .include("Sprites, Scenes, Input, 2D, Audio, Anim, Touch, UI")
           .enableSound()
-          .setup({ maximize:true });
+          .setup({ maximize:true })
+          .touch();
           
 // Define custom key mappings
 Q.KEY_NAMES.Q = 81;
@@ -67,8 +68,6 @@ Q.Sprite.extend("Player", {
     if (!this.p.swinging_sword){
       this.p.angle = -1 * (180 / Math.PI) * Math.atan2( (Q.inputs['mouseX'] - this.p.x), (Q.inputs['mouseY'] - this.p.y) );
     }
-
-    console.log(this.p.angle);
 
     // Sword swinging animation
     if(this.p.swinging_sword){
@@ -163,12 +162,65 @@ Q.scene("level1", function(stage) {
 
 
 Q.scene("ui", function(stage){
-  // Print controls / instructions
-  var controls_label = stage.insert(new Q.UI.Text({
-    x: Q.width / 2, 
-    y: Q.height - 30,
-    label: "Controls: WASD for movement, F to swing sword, Q and E to rotate."
+
+  // Container for instructions, alerts, etc.
+  var bottom_cont = stage.insert(new Q.UI.Container({
+    border: 2,
+    fill: "white",
+    radius: 3,
+    x: Q.width/2,
+    y: Q.height - 50,
   }));
+
+  // Player Controls label
+  var controls_label = stage.insert(new Q.UI.Text({
+    label: "Controls: WASD for movement, F to swing sword"
+  }), bottom_cont);
+
+  // Container for options menu
+  var options_cont = stage.insert(new Q.UI.Container({
+    border: 2,
+    hidden: true,
+    fill: "white",
+    radius: 3,
+    x: 120,
+    y: Q.height - 100,
+  }));
+
+  // Button to display the options menu.
+  var options_btn = stage.insert(new Q.UI.Button({
+    border: 2,
+    fill: "white",
+    label: "Options",
+    radius: 3,
+    x: 80,
+    y: Q.height - 50,
+  }, function() {
+    options_cont.p.hidden = !(options_cont.p.hidden); 
+  })); 
+
+  // Turn music on or off option
+  var music_toggle = stage.insert(new Q.UI.Button({
+    y: -60,
+    label: "Music on/off"
+  }, function(){
+    // TODO: This should toggle music, not just stop it.
+    Q.audio.stop();     
+  }), options_cont);
+
+  // Switch music track
+  var music_track = stage.insert(new Q.UI.Button({
+    y: -20,
+    label: "Next Music Track"
+  }, function(){
+    // TODO: We should have an easy way to play the 'next' music track in order. 
+    Q.audio.stop();     
+    Q.audio.play("disp_heroes.wav", { loop: true });     
+  }), options_cont);
+
+  bottom_cont.fit(10, 10);
+  options_cont.fit(10, 10);
+
 });
 
 // Load resources
@@ -176,7 +228,9 @@ Q.load([ "player.png",
          "floor_tile.png", 
          "wall.png", 
          "sword.png", 
-         "test.wav" ], function() {
+         "test.wav", 
+         "disp_heroes.wav", 
+         ], function() {
     console.log("Done loading assets.");
     Q.stageScene("level1", 0);
     Q.stageScene("ui", 1);
