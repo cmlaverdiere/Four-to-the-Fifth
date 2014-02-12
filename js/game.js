@@ -196,6 +196,8 @@ Q.scene("ui", function(stage){
     x: 80,
     y: Q.height - 50,
   }, function() {
+    if(this.p.fill == "white") this.p.fill = "red";
+    else this.p.fill = "white";
     options_cont.p.hidden = !(options_cont.p.hidden); 
   })); 
 
