@@ -28,13 +28,6 @@ Q.input.keyboardControls({
 
 Q.input.mouseControls({ cursor: "on" });
 
-// Collision masks
-Q.SPRITE_PLAYER = 2;
-Q.SPRITE_ACCESSORY = 4;
-Q.SPRITE_INTERACTIVE = 8;
-Q.SPRITE_ALL = 0xFFFF;
-
-
 // Create player class
 Q.Sprite.extend("Player", {
   init: function(p) {
@@ -42,7 +35,7 @@ Q.Sprite.extend("Player", {
       angle: 0,
       asset: "player.png",
       bullets: 10,
-      collisionMask: Q.SPRITE_INTERACTIVE,
+      collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY,
       damage: 2,
       gravity: 0,
       speed: 300,
@@ -100,12 +93,29 @@ Q.Sprite.extend("Player", {
 });
 
 
+Q.Sprite.extend("Enemy", {
+  init: function(p) {
+    this._super(p, {
+      angle: 0,
+      asset: "enemy.png", 
+      gravity: 0,
+      player: Q("Player").first(),
+      type: Q.SPRITE_ENEMY
+    });
+  },
+  
+  step: function(dt){
+    // look at player (I like this, it's creepy)
+    this.p.angle = -1 * (180 / Math.PI) * Math.atan2( (this.p.player.p.x - this.p.x), (this.p.player.p.y - this.p.y) );
+  }
+});
+
 Q.Sprite.extend("Wall", {
   init: function(p) {
     this._super(p, {
       asset: "wall.png",
       gravity: 0,
-      type: Q.SPRITE_INTERACTIVE
+      type: Q.SPRITE_ACTIVE
     });
   }
 });
@@ -116,9 +126,9 @@ Q.Sprite.extend("Sword", {
     this._super(p, {
       asset: "sword.png",
       atk_type: "melee",
-      collisionMask: Q.SPRITE_INTERACTIVE,
+      collisionMask: Q.SPRITE_ENEMY,
       gravity: 0,
-      type: Q.SPRITE_ACCESSORY
+      type: Q.SPRITE_POWERUP
     });
   }
 });
@@ -155,6 +165,11 @@ Q.scene("level1", function(stage) {
 
   // Create our player
   var player = stage.insert(new Q.Player());
+
+  // Create some enemies
+  for(var i=0; i<50; i++){
+    stage.insert(new Q.Enemy({x: Math.random() * 1000, y: Math.random() * 1000}));
+  }
 
   Q.audio.play('test.wav', { loop: true });
   stage.add("viewport").follow(player);
@@ -227,6 +242,7 @@ Q.scene("ui", function(stage){
 
 // Load resources
 Q.load([ 
+         "enemy.png",
          "floor_tile.png", 
          "floor_tile_pencil.png", 
          "line_paper.png", 
@@ -234,6 +250,7 @@ Q.load([
          "sword.png", 
          "tough_guy.png",
          "wall.png", 
+
          "disp_heroes.wav", 
          "test.wav", 
          ], function() {
