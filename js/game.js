@@ -128,7 +128,7 @@ Q.Sprite.extend("Sword", {
 Q.scene("level1", function(stage) {
 
   // Draw the background
-  stage.insert(new Q.Repeater({ asset: "floor_tile.png" }));
+  stage.insert(new Q.Repeater({ asset: "line_paper.png" }));
 
   // Generate some random wall groupings that hopefully don't collide too much.
   // A map editor would be better for this.
@@ -226,12 +226,16 @@ Q.scene("ui", function(stage){
 });
 
 // Load resources
-Q.load([ "player.png",
+Q.load([ 
          "floor_tile.png", 
-         "wall.png", 
+         "floor_tile_pencil.png", 
+         "line_paper.png", 
+         "player.png",
          "sword.png", 
-         "test.wav", 
+         "tough_guy.png",
+         "wall.png", 
          "disp_heroes.wav", 
+         "test.wav", 
          ], function() {
     console.log("Done loading assets.");
     Q.stageScene("level1", 0);
