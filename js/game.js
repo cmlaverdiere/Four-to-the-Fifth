@@ -26,7 +26,7 @@ Q.input.keyboardControls({
   RIGHT: 'right', D: 'right',
   SPACE: 'fire',
   Q:     'ror',
-  E:     'rol',
+  E:     'follow',
   F:     'sword'
 });
 
@@ -52,9 +52,10 @@ Q.Sprite.extend("Player", {
       y: 300
     });
 
+
     this.add('2d, stepControls');
 
-    Q.input.on("fire", this, "fireGun");
+    Q.input.on("fire", this, "follow_mouse");
     Q.input.on("sword", this, "swing_sword");
     Q.input.on("ror", this, "ror");
     Q.input.on("rol", this, "rol");
@@ -65,6 +66,12 @@ Q.Sprite.extend("Player", {
     if (!this.p.swinging_sword){
       this.p.angle = -1 * TO_DEG * Math.atan2( (Q.inputs['mouseX'] - this.p.x), (Q.inputs['mouseY'] - this.p.y) );
     }
+
+    // When press the 'follow' key player follows mouse
+    if (Q.inputs['follow']) {
+    	this.p.x += (this.p.speed / 90) * Math.cos(TO_RAD * (this.p.angle+90));
+      	this.p.y += (this.p.speed / 90) * Math.sin(TO_RAD * (this.p.angle+90));
+    };
 
     // Sword swinging animation
     if(this.p.swinging_sword){
@@ -102,12 +109,14 @@ Q.Sprite.extend("Enemy", {
     this._super(p, {
       angle: 0,
       asset: "enemy.png", 
-      collisionMask: Q.SPRITE_ACTIVE,
+      collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_PLAYER | Q.SPRITE_ENEMY,
       gravity: 0,
       player: Q("Player").first(),
       speed: 1,
       type: Q.SPRITE_ENEMY
     });
+
+    this.add('2d');
   },
   
   // This is likely not the best way to do this.
@@ -211,7 +220,7 @@ Q.scene("ui", function(stage){
     hidden: true,
     fill: "white",
     radius: 3,
-    x: 120,
+    x: 160,
     y: Q.height - 100,
   }));
 
@@ -221,7 +230,7 @@ Q.scene("ui", function(stage){
     fill: "white",
     label: "Options",
     radius: 3,
-    x: 80,
+    x: 100,
     y: Q.height - 50,
   }, function() {
     if(this.p.fill == "white") this.p.fill = "red";
@@ -231,12 +240,43 @@ Q.scene("ui", function(stage){
 
   // Turn music on or off option
   var music_toggle = stage.insert(new Q.UI.Button({
-    y: -60,
+    y: -100,
     label: "Music on/off"
   }, function(){
     // TODO: This should toggle music, not just stop it.
     Q.audio.stop();     
   }), options_cont);
+
+  // Pause Game
+  var pause_toggle = stage.insert(new Q.UI.Button({
+  	y: -60,
+  	fill: "white",
+  	label: "Pause/Unpause Game",
+  }, function(){
+  	// Pause Game
+  	if(pause_toggle.p.fill == "white") {
+  		pause_toggle.p.fill = "red";
+  		Q.pauseGame();
+  		Q.audio.stop();
+  	}
+    else {
+    	Q.unpauseGame();
+    	Q.audio.play('test.wav', { loop: true });
+    	pause_toggle.p.fill = "white";
+    	options_btn.p.fill = "white";
+    	options_cont.p.hidden = !(options_cont.p.hidden); 
+    };
+  }), options_cont);
+
+  // Unpause Game
+  /*var unpause_toggle = stage.insert(new Q.UI.Button({
+  	y: -60,
+  	label: "Unpause Game"
+  }, function(){
+  	// Unpause Game
+  	Q.unpauseGame();
+  	Q.audio.play('test.wav', { loop: true });
+  }), options_cont);*/
 
   // Switch music track
   var music_track = stage.insert(new Q.UI.Button({
