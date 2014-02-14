@@ -109,12 +109,14 @@ Q.Sprite.extend("Enemy", {
     this._super(p, {
       angle: 0,
       asset: "enemy.png", 
-      collisionMask: Q.SPRITE_ACTIVE,
+      collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_PLAYER | Q.SPRITE_ENEMY,
       gravity: 0,
       player: Q("Player").first(),
       speed: 1,
       type: Q.SPRITE_ENEMY
     });
+
+    this.add('2d');
   },
   
   // This is likely not the best way to do this.
