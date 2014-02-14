@@ -14,6 +14,10 @@ Q.KEY_NAMES.S = 83;
 Q.KEY_NAMES.D = 68;
 Q.KEY_NAMES.F = 70;
 
+// Some useful constants for speeding things up.
+var TO_RAD = Math.PI / 180
+var TO_DEG = 180 / Math.PI
+
 // Key actions
 Q.input.keyboardControls({
   UP:    'up',    W: 'up',
@@ -59,7 +63,7 @@ Q.Sprite.extend("Player", {
   step: function(dt) {
     // Update player angle based on mouse position.
     if (!this.p.swinging_sword){
-      this.p.angle = -1 * (180 / Math.PI) * Math.atan2( (Q.inputs['mouseX'] - this.p.x), (Q.inputs['mouseY'] - this.p.y) );
+      this.p.angle = -1 * TO_DEG * Math.atan2( (Q.inputs['mouseX'] - this.p.x), (Q.inputs['mouseY'] - this.p.y) );
     }
 
     // Sword swinging animation
@@ -98,15 +102,24 @@ Q.Sprite.extend("Enemy", {
     this._super(p, {
       angle: 0,
       asset: "enemy.png", 
+      collisionMask: Q.SPRITE_ACTIVE,
       gravity: 0,
       player: Q("Player").first(),
+      speed: 1,
       type: Q.SPRITE_ENEMY
     });
   },
   
+  // This is likely not the best way to do this.
+  // We should see if Quintus has a simpler way of 'focusing' an enemy to the player,
+  //   other than doing manual trig.
   step: function(dt){
     // look at player (I like this, it's creepy)
-    this.p.angle = -1 * (180 / Math.PI) * Math.atan2( (this.p.player.p.x - this.p.x), (this.p.player.p.y - this.p.y) );
+    this.p.angle = -1 * TO_DEG * Math.atan2( (this.p.player.p.x - this.p.x), (this.p.player.p.y - this.p.y) );
+
+    // Chase the player!
+    this.p.x += this.p.speed * Math.cos(TO_RAD * (this.p.angle+90));
+    this.p.y += this.p.speed * Math.sin(TO_RAD * (this.p.angle+90));
   }
 });
 
@@ -168,7 +181,7 @@ Q.scene("level1", function(stage) {
 
   // Create some enemies
   for(var i=0; i<50; i++){
-    stage.insert(new Q.Enemy({x: Math.random() * 1000, y: Math.random() * 1000}));
+    stage.insert(new Q.Enemy({x: Math.random() * 3000, y: Math.random() * 3000, speed: 1 + Math.random()}));
   }
 
   Q.audio.play('test.wav', { loop: true });
