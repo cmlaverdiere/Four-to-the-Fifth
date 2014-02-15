@@ -25,7 +25,6 @@ Q.input.keyboardControls({
   DOWN:  'down',  S: 'down',
   RIGHT: 'right', D: 'right',
   SPACE: 'fire',
-  Q:     'ror',
   E:     'follow',
   F:     'sword'
 });
@@ -42,7 +41,7 @@ Q.Sprite.extend("Player", {
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY,
       damage: 2,
       gravity: 0,
-      speed: 300,
+      speed: 5,
       stepDistance: 5,
       stepDelay: 0.01,
       swinging_sword: false,
@@ -55,10 +54,8 @@ Q.Sprite.extend("Player", {
 
     this.add('2d, stepControls');
 
-    Q.input.on("fire", this, "follow_mouse");
+    Q.input.on("fire", this, "fire_gun");
     Q.input.on("sword", this, "swing_sword");
-    Q.input.on("ror", this, "ror");
-    Q.input.on("rol", this, "rol");
   },
 
   step: function(dt) {
@@ -67,11 +64,12 @@ Q.Sprite.extend("Player", {
       this.p.angle = -1 * TO_DEG * Math.atan2( (Q.inputs['mouseX'] - this.p.x), (Q.inputs['mouseY'] - this.p.y) );
     }
 
-    // When press the 'follow' key player follows mouse
-    if (Q.inputs['follow']) {
-    	this.p.x += (this.p.speed / 90) * Math.cos(TO_RAD * (this.p.angle+90));
-      	this.p.y += (this.p.speed / 90) * Math.sin(TO_RAD * (this.p.angle+90));
-    };
+    // When pressing the 'follow' key, the player follows mouse.
+    // Maybe we should use this as 'W' instead.
+    if(Q.inputs['follow']){
+    	this.p.x += (this.p.speed) * Math.cos(TO_RAD * (this.p.angle+90));
+      this.p.y += (this.p.speed) * Math.sin(TO_RAD * (this.p.angle+90));
+    }
 
     // Sword swinging animation
     if(this.p.swinging_sword){
@@ -84,16 +82,13 @@ Q.Sprite.extend("Player", {
     }
   },
 
-  ror: function(dr) { this.p.angle += dr || 10; },
-  rol: function(dr) { this.p.angle -= dr || 10; },
-
   swing_sword: function() {
     this.p.sword = Q.stage().insert(new Q.Sword({ x: 22, y: -25 }), this);
     this.p.swinging_sword = true;
     console.log("Swung sword!");
   },
 
-  fireGun: function() {
+  fire_gun: function() {
     if (this.p.bullets > 0){
       this.p.bullets -= 1;
       console.log("Player fired gun. Bang! Bullets left: " + this.p.bullets);
