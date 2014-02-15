@@ -13,6 +13,7 @@ Q.KEY_NAMES.A = 65;
 Q.KEY_NAMES.S = 83;
 Q.KEY_NAMES.D = 68;
 Q.KEY_NAMES.F = 70;
+Q.KEY_NAMES.SHIFT = 16;
 
 // Some useful constants for speeding things up.
 var TO_RAD = Math.PI / 180
@@ -20,13 +21,14 @@ var TO_DEG = 180 / Math.PI
 
 // Key actions
 Q.input.keyboardControls({
-  UP:    'up',    W: 'up',
-  LEFT:  'left',  A: 'left',
-  DOWN:  'down',  S: 'down',
-  RIGHT: 'right', D: 'right',
-  SPACE: 'fire',
-  E:     'follow',
-  F:     'sword'
+  UP:     'up',    W: 'up',
+  LEFT:   'left',  A: 'left',
+  DOWN:   'down',  S: 'down',
+  RIGHT:  'right', D: 'right',
+  SPACE:  'fire',
+  SHIFT: 'sprint',
+  E:      'follow',
+  F:      'sword'
 });
 
 Q.input.mouseControls({ cursor: "on" });
@@ -41,7 +43,7 @@ Q.Sprite.extend("Player", {
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY,
       damage: 2,
       gravity: 0,
-      speed: 5,
+      sprinting: false,
       stepDistance: 5,
       stepDelay: 0.01,
       swinging_sword: false,
@@ -67,8 +69,23 @@ Q.Sprite.extend("Player", {
     // When pressing the 'follow' key, the player follows mouse.
     // Maybe we should use this as 'W' instead.
     if(Q.inputs['follow']){
-    	this.p.x += (this.p.speed) * Math.cos(TO_RAD * (this.p.angle+90));
-      this.p.y += (this.p.speed) * Math.sin(TO_RAD * (this.p.angle+90));
+    	this.p.x += (this.p.stepDistance) * Math.cos(TO_RAD * (this.p.angle+90));
+      this.p.y += (this.p.stepDistance) * Math.sin(TO_RAD * (this.p.angle+90));
+    }
+
+    // Sprint activation and deactivation.
+    if(Q.inputs['sprint']){
+      if(!this.p.sprinting){
+        console.log("Sprinting!");
+        this.p.sprinting = true; 
+        this.p.stepDistance *= 2;
+      }
+    } else {
+      if(this.p.sprinting){
+        console.log("Walking!");
+        this.p.sprinting = false; 
+        this.p.stepDistance /= 2;
+      } 
     }
 
     // Sword swinging animation
@@ -206,7 +223,7 @@ Q.scene("ui", function(stage){
 
   // Player Controls label
   var controls_label = stage.insert(new Q.UI.Text({
-    label: "Controls: WASD for movement, F to swing sword"
+    label: "Controls: WASD for strafe | SHIFT to sprint | E to walk forward | F to swing sword"
   }), bottom_cont);
 
   // Container for options menu
