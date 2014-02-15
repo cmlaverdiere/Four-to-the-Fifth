@@ -21,13 +21,12 @@ var TO_DEG = 180 / Math.PI
 
 // Key actions
 Q.input.keyboardControls({
-  UP:     'up',    W: 'up',
-  LEFT:   'left',  A: 'left',
-  DOWN:   'down',  S: 'down',
-  RIGHT:  'right', D: 'right',
+  UP:     'forward', W: 'forward',
+  LEFT:   'left',   A: 'left',
+  DOWN:   'down',   S: 'down',
+  RIGHT:  'right',  D: 'right',
   SPACE:  'fire',
-  SHIFT: 'sprint',
-  E:      'follow',
+  SHIFT:  'sprint',
   F:      'sword'
 });
 
@@ -66,9 +65,8 @@ Q.Sprite.extend("Player", {
       this.p.angle = -1 * TO_DEG * Math.atan2( (Q.inputs['mouseX'] - this.p.x), (Q.inputs['mouseY'] - this.p.y) );
     }
 
-    // When pressing the 'follow' key, the player follows mouse.
-    // Maybe we should use this as 'W' instead.
-    if(Q.inputs['follow']){
+    // When pressing the 'forward' key, the player follows mouse.
+    if(Q.inputs['forward']){
     	this.p.x += (this.p.stepDistance) * Math.cos(TO_RAD * (this.p.angle+90));
       this.p.y += (this.p.stepDistance) * Math.sin(TO_RAD * (this.p.angle+90));
     }
