@@ -221,7 +221,7 @@ Q.scene("ui", function(stage){
 
   // Player Controls label
   var controls_label = stage.insert(new Q.UI.Text({
-    label: "Controls: WASD for strafe | SHIFT to sprint | E to walk forward | F to swing sword"
+    label: "Controls: WASD for movement | SHIFT to sprint | F to swing sword"
   }), bottom_cont);
 
   // Container for options menu
