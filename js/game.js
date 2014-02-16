@@ -38,7 +38,7 @@ Q.Sprite.extend("Player", {
     this._super(p, {
       angle: 0,
       asset: "player.png",
-      bullets: 10,
+      bullets: 50,
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY,
       damage: 2,
       gravity: 0,
@@ -104,7 +104,17 @@ Q.Sprite.extend("Player", {
   },
 
   fire_gun: function() {
+    this.p.asset = "player_with_gun.png";
     if (this.p.bullets > 0){
+      Q.stage().insert(new Q.Bullet(
+      { 
+        x: this.p.x,
+        y: this.p.y, 
+        vx: 500 * Math.cos(TO_RAD * (this.p.angle+90)), 
+        vy: 500 * Math.sin(TO_RAD * (this.p.angle+90)), 
+      }
+      ));
+
       this.p.bullets -= 1;
       console.log("Player fired gun. Bang! Bullets left: " + this.p.bullets);
     } else{
@@ -152,6 +162,20 @@ Q.Sprite.extend("Wall", {
   }
 });
 
+Q.Sprite.extend("Bullet", {
+  init: function(p) {
+    this._super(p, {
+      asset: "bullet.png",
+      atk_type: "projectile",
+      collisionMask: Q.SPRITE_ENEMY,
+      gravity: 0,
+      type: Q.SPRITE_POWERUP,
+    });
+
+  this.add('2d');
+
+  }
+});
 
 Q.Sprite.extend("Sword", {
   init: function(p) {
@@ -278,16 +302,6 @@ Q.scene("ui", function(stage){
     };
   }), options_cont);
 
-  // Unpause Game
-  /*var unpause_toggle = stage.insert(new Q.UI.Button({
-  	y: -60,
-  	label: "Unpause Game"
-  }, function(){
-  	// Unpause Game
-  	Q.unpauseGame();
-  	Q.audio.play('test.wav', { loop: true });
-  }), options_cont);*/
-
   // Switch music track
   var music_track = stage.insert(new Q.UI.Button({
     y: -20,
@@ -305,11 +319,13 @@ Q.scene("ui", function(stage){
 
 // Load resources
 Q.load([ 
+         "bullet.png",
          "enemy.png",
          "floor_tile.png", 
          "floor_tile_pencil.png", 
          "line_paper.png", 
          "player.png",
+         "player_with_gun.png",
          "sword.png", 
          "tough_guy.png",
          "wall.png", 
