@@ -46,6 +46,7 @@ Q.Sprite.extend("Player", {
       bullets: 50,
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY,
       damage: 2,
+      shooting: false,
       sprinting: false,
       stepDistance: 5,
       stepDelay: 0.01,
@@ -108,14 +109,19 @@ Q.Sprite.extend("Player", {
   },
 
   fire_gun: function() {
-    this.p.asset = "player_with_gun.png";
-    if (this.p.bullets > 0){
+    if(!this.p.shooting){
+      Q.audio.play("gun_cock.wav");
+      this.p.asset = "player_with_gun.png";
+      this.p.shooting = true;
+    }
+    else if (this.p.bullets > 0){
+      Q.audio.play("gun_shot.wav");
       Q.stage().insert(new Q.Bullet(
       { 
         x: this.p.x,
         y: this.p.y, 
-        vx: 500 * Math.cos(TO_RAD * (this.p.angle+90)), 
-        vy: 500 * Math.sin(TO_RAD * (this.p.angle+90)), 
+        vx: 1000 * Math.cos(TO_RAD * (this.p.angle+90)), 
+        vy: 1000 * Math.sin(TO_RAD * (this.p.angle+90)), 
       }
       ));
 
@@ -337,6 +343,8 @@ Q.load([
          "wall.png", 
 
          "disp_heroes.wav", 
+         "gun_cock.wav", 
+         "gun_shot.wav", 
          "test.wav", 
          ], function() {
     console.log("Done loading assets.");
