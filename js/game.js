@@ -5,6 +5,11 @@ var Q = Quintus({ development: true, audioSupported: [ 'wav' ] })
           .setup({ maximize:true })
           .touch();
           
+
+// Turn off gravity, the game is top down.
+Q.gravityX = 0;
+Q.gravityY = 0;
+
 // Define custom key mappings
 Q.KEY_NAMES.Q = 81;
 Q.KEY_NAMES.E = 69;
@@ -41,7 +46,6 @@ Q.Sprite.extend("Player", {
       bullets: 50,
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY,
       damage: 2,
-      gravity: 0,
       sprinting: false,
       stepDistance: 5,
       stepDelay: 0.01,
@@ -130,13 +134,19 @@ Q.Sprite.extend("Enemy", {
       angle: 0,
       asset: "enemy.png", 
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_PLAYER | Q.SPRITE_ENEMY,
-      gravity: 0,
       player: Q("Player").first(),
       speed: 1,
       type: Q.SPRITE_ENEMY
     });
 
     this.add('2d');
+    this.on("bump.left,bump.right,bump.top,bump.bottom", function(collision){
+      if(collision.obj.isA("Bullet")){
+        // enemy owned.
+        this.destroy();
+        collision.obj.destroy();
+      } 
+    });
   },
   
   // This is likely not the best way to do this.
@@ -156,7 +166,6 @@ Q.Sprite.extend("Wall", {
   init: function(p) {
     this._super(p, {
       asset: "wall.png",
-      gravity: 0,
       type: Q.SPRITE_ACTIVE
     });
   }
@@ -167,13 +176,11 @@ Q.Sprite.extend("Bullet", {
     this._super(p, {
       asset: "bullet.png",
       atk_type: "projectile",
-      collisionMask: Q.SPRITE_ENEMY,
-      gravity: 0,
+      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
       type: Q.SPRITE_POWERUP,
     });
 
   this.add('2d');
-
   }
 });
 
@@ -183,7 +190,6 @@ Q.Sprite.extend("Sword", {
       asset: "sword.png",
       atk_type: "melee",
       collisionMask: Q.SPRITE_ENEMY,
-      gravity: 0,
       type: Q.SPRITE_POWERUP
     });
   }
