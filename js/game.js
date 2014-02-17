@@ -246,6 +246,11 @@ Q.scene("level1", function(stage) {
 
 Q.scene("ui", function(stage){
 
+  // Store music track state
+  var tracks = ["test.wav", "disp_heroes.wav"];
+  var track_no = 0;
+  var track_playing = true;
+
   // Container for instructions, alerts, etc.
   var bottom_cont = stage.insert(new Q.UI.Container({
     border: 2,
@@ -289,8 +294,13 @@ Q.scene("ui", function(stage){
     y: -100,
     label: "Music on/off"
   }, function(){
-    // TODO: This should toggle music, not just stop it.
-    Q.audio.stop();     
+    if(track_playing){
+      Q.audio.stop();     
+      track_playing = false;
+    } else{
+      Q.audio.play(tracks[track_no], { loop: true });
+      track_playing = true;
+    }
   }), options_cont);
 
   // Pause Game
