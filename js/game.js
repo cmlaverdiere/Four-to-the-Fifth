@@ -1,6 +1,6 @@
 // Setup Quintus instance
 var Q = Quintus({ development: true, audioSupported: [ 'wav' ] })
-          .include("Sprites, Scenes, Input, 2D, Audio, Anim, Touch, UI")
+          .include("Sprites, Scenes, Input, 2D, Audio, Anim, Touch, UI, TMX")
           .enableSound()
           .setup({ maximize:true })
           .touch();
@@ -67,6 +67,7 @@ Q.state.set({ killed: 0,
 });
 
 // Load resources
+Q.loadTMX("testmap.tmx");
 Q.load([ 
          "ammo_clip.png",
          "bullet.png",
