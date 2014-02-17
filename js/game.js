@@ -251,6 +251,9 @@ Q.scene("ui", function(stage){
   var track_no = 0;
   var track_playing = true;
 
+  // Store pause state
+  var paused = false;
+
   // Container for instructions, alerts, etc.
   var bottom_cont = stage.insert(new Q.UI.Container({
     border: 2,
@@ -298,6 +301,7 @@ Q.scene("ui", function(stage){
       Q.audio.stop();     
       track_playing = false;
     } else{
+      Q.audio.stop();     
       Q.audio.play(tracks[track_no], { loop: true });
       track_playing = true;
     }
@@ -309,17 +313,15 @@ Q.scene("ui", function(stage){
   	fill: "white",
   	label: "Pause/Unpause Game",
   }, function(){
-  	if(pause_toggle.p.fill == "white") {
-  		pause_toggle.p.fill = "red";
+  	if(!paused) {
+      paused = true;
   		Q.pauseGame();
   		Q.audio.stop();
   	}
     else {
+      paused = false;
     	Q.unpauseGame();
-    	Q.audio.play('test.wav', { loop: true });
-    	pause_toggle.p.fill = "white";
-    	options_btn.p.fill = "white";
-    	options_cont.p.hidden = !(options_cont.p.hidden); 
+    	Q.audio.play(tracks[track_no], { loop: true });
     };
   }), options_cont);
 
@@ -328,14 +330,15 @@ Q.scene("ui", function(stage){
     y: -20,
     label: "Next Music Track"
   }, function(){
-    // TODO: We should have an easy way to play the 'next' music track in order. 
     Q.audio.stop();     
-    Q.audio.play("disp_heroes.wav", { loop: true });     
+    if(++track_no >= tracks.length){
+      track_no = 0;
+    }
+    Q.audio.play(tracks[track_no], { loop: true });     
   }), options_cont);
 
   bottom_cont.fit(10, 10);
   options_cont.fit(10, 10);
-
 });
 
 // Load resources
