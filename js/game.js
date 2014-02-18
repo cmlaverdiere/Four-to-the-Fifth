@@ -177,6 +177,26 @@ Q.Sprite.extend("Wall", {
   }
 });
 
+// Should make this more generic, extendable for more ammo types, obviously.
+Q.Sprite.extend("Ammo", {
+  init: function(p) {
+    this._super(p, {
+      asset: "ammo_clip.png",
+      capacity: 15,
+    });
+
+  this.add('2d');
+
+  this.on("bump.left,bump.right,bump.top,bump.bottom", function(collision){
+    if(collision.obj.isA("Player")){
+      // ammo collected.
+      this.destroy();
+      collision.obj.p.bullets += this.p.capacity;
+    } 
+  });
+  }
+});
+
 Q.Sprite.extend("Bullet", {
   init: function(p) {
     this._super(p, {
@@ -200,7 +220,6 @@ Q.Sprite.extend("Sword", {
     });
   }
 });
-
 
 // Create player scene
 Q.scene("level1", function(stage) {
@@ -237,6 +256,11 @@ Q.scene("level1", function(stage) {
   // Create some enemies
   for(var i=0; i<50; i++){
     stage.insert(new Q.Enemy({x: Math.random() * 3000, y: Math.random() * 3000, speed: 1 + Math.random()}));
+  }
+
+  // Create some ammo clips
+  for(var i=0; i<10; i++){
+    stage.insert(new Q.Ammo({x: Math.random() * 3000, y: Math.random() * 3000}));
   }
 
   Q.audio.play('test.wav', { loop: true });
@@ -343,6 +367,7 @@ Q.scene("ui", function(stage){
 
 // Load resources
 Q.load([ 
+         "ammo_clip.png",
          "bullet.png",
          "enemy.png",
          "floor_tile.png", 
