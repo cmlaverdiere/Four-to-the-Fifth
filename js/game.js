@@ -190,6 +190,7 @@ Q.Sprite.extend("Ammo", {
   this.on("bump.left,bump.right,bump.top,bump.bottom", function(collision){
     if(collision.obj.isA("Player")){
       // ammo collected.
+      Q.audio.play("gun_cock.wav");
       this.destroy();
       collision.obj.p.bullets += this.p.capacity;
     } 
