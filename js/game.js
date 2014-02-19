@@ -6,6 +6,9 @@ var Q = Quintus({ development: true, audioSupported: [ 'wav' ] })
           .touch();
           
 
+// Keep track of change in mouse coords
+prev_mouse_coords = [0, 0];
+
 // Turn off gravity, the game is top down.
 Q.gravityX = 0;
 Q.gravityY = 0;
@@ -67,7 +70,16 @@ Q.Sprite.extend("Player", {
   step: function(dt) {
     // Update player angle based on mouse position.
     if (!this.p.swinging_sword){
-      this.p.angle = -1 * TO_DEG * Math.atan2( (Q.inputs['mouseX'] - this.p.x), (Q.inputs['mouseY'] - this.p.y) );
+
+      // We keep track of the previous mouse coordinates each step.
+      // We then only update the angle when the mouse coords have changed.
+      if( prev_mouse_coords[0] != Q.inputs['mouseX'] || prev_mouse_coords[1] != Q.inputs['mouseY'] ){
+        var dmx = Q.inputs['mouseX'] - this.p.x;
+        var dmy = Q.inputs['mouseY'] - this.p.y;
+
+        prev_mouse_coords = [Q.inputs['mouseX'], Q.inputs['mouseY']];  
+        this.p.angle = -1 * TO_DEG * Math.atan2(dmx, dmy);
+      }
     }
 
     // When pressing the 'forward' key, the player follows mouse.
