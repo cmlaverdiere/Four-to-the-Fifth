@@ -98,6 +98,7 @@ Q.Sprite.extend("Enemy", {
       angle: 0,
       asset: "enemy.png", 
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_PLAYER | Q.SPRITE_ENEMY,
+      hp: 3,
       player: Q("Player").first(),
       speed: 1,
       type: Q.SPRITE_ENEMY
@@ -106,8 +107,11 @@ Q.Sprite.extend("Enemy", {
     this.add('2d');
     this.on("hit", function(collision){
       if(collision.obj.isA("Bullet")){
-        // enemy owned.
-        this.destroy();
+        if(--this.p.hp <= 0){
+          this.destroy();
+        } else {
+          // Enemy should bounce back / react to being shot.  
+        }
         collision.obj.destroy();
       } 
     });
