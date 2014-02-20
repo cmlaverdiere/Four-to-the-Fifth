@@ -116,7 +116,7 @@ Q.Sprite.extend("Enemy", {
     });
 
     this.add('2d');
-    this.on("bump.left,bump.right,bump.top,bump.bottom", function(collision){
+    this.on("hit", function(collision){
       if(collision.obj.isA("Bullet")){
         // enemy owned.
         this.destroy();
@@ -157,7 +157,7 @@ Q.Sprite.extend("Ammo", {
 
   this.add('2d');
 
-  this.on("bump.left,bump.right,bump.top,bump.bottom", function(collision){
+  this.on("hit", function(collision){
     if(collision.obj.isA("Player")){
       // ammo collected.
       Q.audio.play("gun_cock.wav");
