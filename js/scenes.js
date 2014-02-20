@@ -66,7 +66,7 @@ Q.scene("ui", function(stage){
 
   // Player Controls label
   var controls_label = stage.insert(new Q.UI.Text({
-    label: "WASD: Movement | SHIFT: Sprint | F: Swing Sword | SPACE: Shoot"
+    label: "WASD: Movement | SHIFT: Sprint | SPACE: Shoot | NUMKEYS: Weapons"
   }), bottom_cont);
 
   // Container for options menu
