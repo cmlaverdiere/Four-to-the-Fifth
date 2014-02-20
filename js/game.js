@@ -329,6 +329,21 @@ Q.scene("ui", function(stage){
     options_cont.p.hidden = !(options_cont.p.hidden); 
   })); 
 
+  // Change game zoom
+  var zoom_toggle = stage.insert(new Q.UI.Button({
+    y: -140,
+    label: "Toggle zoom level"
+  }, function(){
+    var zoom = Q.stage(0).viewport.scale;
+    if(zoom > 3) { 
+      zoom = .5; 
+    } else {
+      zoom *= 1.5;
+    }
+    Q.stage(0).viewport.scale = zoom;
+  }), options_cont);
+
+
   // Turn music on or off option
   var music_toggle = stage.insert(new Q.UI.Button({
     y: -100,
