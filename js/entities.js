@@ -4,10 +4,9 @@ Q.Sprite.extend("Player", {
     this._super(p, {
       angle: 0,
       asset: "player.png",
-      bullets: 50,
+      bullets: 0,
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY,
       damage: 2,
-      shooting: false,
       sprinting: false,
       stepDistance: 5,
       stepDelay: 0.01,
@@ -18,11 +17,27 @@ Q.Sprite.extend("Player", {
       y: 300
     });
 
-
     this.add('2d, stepControls');
 
-    Q.input.on("fire", this, "fire_gun");
+    Q.input.on("fire", this, "fire");
+    Q.input.on("wep1", this, "put_away_gun");
+    Q.input.on("wep2", this, "equip_gun");
     Q.input.on("sword", this, "swing_sword");
+  },
+
+  equip_gun: function() {
+    this.add("gun"); 
+  },
+
+  // Calls the gun component's fire method.
+  // Why it has to be this verbose, I don't know.
+  fire: function() {
+    this.fire(); 
+  },
+
+  put_away_gun: function() {
+    this.del("gun"); 
+    this.p.asset = "player.png";
   },
 
   step: function(dt) {
@@ -49,13 +64,11 @@ Q.Sprite.extend("Player", {
     // Sprint activation and deactivation.
     if(Q.inputs['sprint']){
       if(!this.p.sprinting){
-        console.log("Sprinting!");
         this.p.sprinting = true; 
         this.p.stepDistance *= 2;
       }
     } else {
       if(this.p.sprinting){
-        console.log("Walking!");
         this.p.sprinting = false; 
         this.p.stepDistance /= 2;
       } 
@@ -75,32 +88,7 @@ Q.Sprite.extend("Player", {
   swing_sword: function() {
     this.p.sword = Q.stage().insert(new Q.Sword({ x: 22, y: -25 }), this);
     this.p.swinging_sword = true;
-    console.log("Swung sword!");
   },
-
-  fire_gun: function() {
-    if(!this.p.shooting){
-      Q.audio.play("gun_cock.wav");
-      this.p.asset = "player_with_gun.png";
-      this.p.shooting = true;
-    }
-    else if (this.p.bullets > 0){
-      Q.audio.play("gun_shot.wav");
-      Q.stage().insert(new Q.Bullet(
-      { 
-        x: this.p.x,
-        y: this.p.y, 
-        vx: 1000 * Math.cos(TO_RAD * (this.p.angle+90)), 
-        vy: 1000 * Math.sin(TO_RAD * (this.p.angle+90)), 
-      }
-      ));
-
-      this.p.bullets -= 1;
-      console.log("Player fired gun. Bang! Bullets left: " + this.p.bullets);
-    } else{
-      console.log("You're out of bullets.");
-    }
-  }
 });
 
 

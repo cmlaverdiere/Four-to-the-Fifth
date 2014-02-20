@@ -21,6 +21,13 @@ Q.KEY_NAMES.S = 83;
 Q.KEY_NAMES.D = 68;
 Q.KEY_NAMES.F = 70;
 Q.KEY_NAMES.SHIFT = 16;
+Q.KEY_NAMES.ONE   = 49;
+Q.KEY_NAMES.TWO   = 50;
+Q.KEY_NAMES.THREE = 51;
+Q.KEY_NAMES.FOUR  = 52;
+Q.KEY_NAMES.FIVE  = 53;
+Q.KEY_NAMES.SIX   = 54;
+Q.KEY_NAMES.SEVEN = 55;
 
 // Some useful constants for speeding things up.
 var TO_RAD = Math.PI / 180
@@ -34,7 +41,14 @@ Q.input.keyboardControls({
   RIGHT:  'right',  D: 'right',
   SPACE:  'fire',
   SHIFT:  'sprint',
-  F:      'sword'
+  F:      'sword',
+  ONE:    'wep1',
+  TWO:    'wep2',
+  THREE:  'wep3',
+  FOUR:   'wep4',
+  FIVE:   'wep5',
+  SIX:    'wep6',
+  SEVEN:  'wep7',
 });
 
 Q.input.mouseControls({ cursor: "on" });
