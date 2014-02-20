@@ -2,8 +2,16 @@
 var Q = Quintus({ development: true, audioSupported: [ 'wav' ] })
           .include("Sprites, Scenes, Input, 2D, Audio, Anim, Touch, UI")
           .enableSound()
-          .setup({ maximize:true });
-          
+          .setup({ maximize:true })
+          .touch();
+
+// Keep track of change in mouse coords
+prev_mouse_coords = [0, 0];
+
+// Turn off gravity, the game is top down.
+Q.gravityX = 0;
+Q.gravityY = 0;
+
 // Define custom key mappings
 Q.KEY_NAMES.Q = 81;
 Q.KEY_NAMES.E = 69;
@@ -12,173 +20,59 @@ Q.KEY_NAMES.A = 65;
 Q.KEY_NAMES.S = 83;
 Q.KEY_NAMES.D = 68;
 Q.KEY_NAMES.F = 70;
+Q.KEY_NAMES.SHIFT = 16;
+Q.KEY_NAMES.ONE   = 49;
+Q.KEY_NAMES.TWO   = 50;
+Q.KEY_NAMES.THREE = 51;
+Q.KEY_NAMES.FOUR  = 52;
+Q.KEY_NAMES.FIVE  = 53;
+Q.KEY_NAMES.SIX   = 54;
+Q.KEY_NAMES.SEVEN = 55;
+
+// Some useful constants for speeding things up.
+var TO_RAD = Math.PI / 180
+var TO_DEG = 180 / Math.PI
 
 // Key actions
 Q.input.keyboardControls({
-  UP:    'up',    W: 'up',
-  LEFT:  'left',  A: 'left',
-  DOWN:  'down',  S: 'down',
-  RIGHT: 'right', D: 'right',
-  SPACE: 'fire',
-  Q:     'ror',
-  E:     'rol',
-  F:     'sword'
+  UP:     'forward', W: 'forward',
+  LEFT:   'left',   A: 'left',
+  DOWN:   'down',   S: 'down',
+  RIGHT:  'right',  D: 'right',
+  SPACE:  'fire',
+  SHIFT:  'sprint',
+  F:      'sword',
+  ONE:    'wep1',
+  TWO:    'wep2',
+  THREE:  'wep3',
+  FOUR:   'wep4',
+  FIVE:   'wep5',
+  SIX:    'wep6',
+  SEVEN:  'wep7',
 });
 
 Q.input.mouseControls({ cursor: "on" });
 
-// Collision masks
-Q.SPRITE_PLAYER = 2;
-Q.SPRITE_ACCESSORY = 4;
-Q.SPRITE_INTERACTIVE = 8;
-Q.SPRITE_ALL = 0xFFFF;
-
-
-// Create player class
-Q.Sprite.extend("Player", {
-  init: function(p) {
-    this._super(p, {
-      angle: 0,
-      asset: "player.png",
-      bullets: 10,
-      collisionMask: Q.SPRITE_INTERACTIVE,
-      damage: 2,
-      gravity: 0,
-      speed: 300,
-      stepDistance: 5,
-      stepDelay: 0.01,
-      swinging_sword: false,
-      sword: null,
-      type: Q.SPRITE_PLAYER,
-      x: 300,
-      y: 300
-    });
-
-    this.add('2d, stepControls');
-
-    Q.input.on("fire", this, "fireGun");
-    Q.input.on("sword", this, "swing_sword");
-    Q.input.on("ror", this, "ror");
-    Q.input.on("rol", this, "rol");
-  },
-
-  step: function(dt) {
-    // Update player angle based on mouse position.
-    if (!this.p.swinging_sword){
-      this.p.angle = -1 * (180 / Math.PI) * Math.atan2( (Q.inputs['mouseX'] - this.p.x), (Q.inputs['mouseY'] - this.p.y) );
-    }
-
-    console.log(this.p.angle);
-
-    // Sword swinging animation
-    if(this.p.swinging_sword){
-      this.p.angle += 10;
-      if(this.p.angle > 360){
-        Q("Sword").destroy();
-        this.p.swinging_sword = false;
-        this.p.angle = 0;
-      }
-    }
-  },
-
-  ror: function(dr) { this.p.angle += dr || 10; },
-  rol: function(dr) { this.p.angle -= dr || 10; },
-
-  swing_sword: function() {
-    this.p.sword = Q.stage().insert(new Q.Sword({ x: 22, y: -25 }), this);
-    this.p.swinging_sword = true;
-    console.log("Swung sword!");
-  },
-
-  fireGun: function() {
-    if (this.p.bullets > 0){
-      this.p.bullets -= 1;
-      console.log("Player fired gun. Bang! Bullets left: " + this.p.bullets);
-    } else{
-      console.log("You're out of bullets.");
-    }
-  }
-});
-
-
-Q.Sprite.extend("Wall", {
-  init: function(p) {
-    this._super(p, {
-      asset: "wall.png",
-      gravity: 0,
-      type: Q.SPRITE_INTERACTIVE
-    });
-  }
-});
-
-
-Q.Sprite.extend("Sword", {
-  init: function(p) {
-    this._super(p, {
-      asset: "sword.png",
-      atk_type: "melee",
-      collisionMask: Q.SPRITE_INTERACTIVE,
-      gravity: 0,
-      type: Q.SPRITE_ACCESSORY
-    });
-  }
-});
-
-
-// Create player scene
-Q.scene("level1", function(stage) {
-
-  // Draw the background
-  stage.insert(new Q.Repeater({ asset: "floor_tile.png" }));
-
-  // Generate some random wall groupings that hopefully don't collide too much.
-  // A map editor would be better for this.
-  var px = py = 0; // Current position of new wall
-  var rota;        // Current angle of wall
-  for(var i=0; i<100; i++){
-    var bx = Math.round(Math.random());
-    var by = Math.round(Math.random());
-    var rot = Math.round(Math.random());
-    px += 40 * bx;
-    py += 160 * by;
-
-    if(rot){
-      py = [px, px=py][0]; // swap px and py if image rotated.
-      rota = 90;
-    } else rota = 0;
-
-    // Special case for joining wall
-    if(rot && bx && by) rota = 135;
-
-    stage.insert(new Q.Wall( { x: px, y: py, angle: rota })); 
-    // console.log("New wall at x: " + px + ", y: " + py + ", angle: " + rota);
-  }
-
-  // Create our player
-  var player = stage.insert(new Q.Player());
-
-  Q.audio.play('test.wav', { loop: true });
-  stage.add("viewport").follow(player);
-});
-
-
-Q.scene("ui", function(stage){
-  // Print controls / instructions
-  var controls_label = stage.insert(new Q.UI.Text({
-    x: Q.width / 2, 
-    y: Q.height - 30,
-    label: "Controls: WASD for movement, F to swing sword, Q and E to rotate."
-  }));
-});
-
 // Load resources
-Q.load([ "player.png",
+Q.load([ 
+         "ammo_clip.png",
+         "bullet.png",
+         "enemy.png",
          "floor_tile.png", 
-         "wall.png", 
+         "floor_tile_pencil.png", 
+         "line_paper.png", 
+         "player.png",
+         "player_with_gun.png",
          "sword.png", 
-         "test.wav" ], function() {
+         "tough_guy.png",
+         "wall.png", 
+
+         "disp_heroes.wav", 
+         "gun_cock.wav", 
+         "gun_shot.wav", 
+         "test.wav", 
+         ], function() {
     console.log("Done loading assets.");
     Q.stageScene("level1", 0);
     Q.stageScene("ui", 1);
 });
-
