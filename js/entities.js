@@ -19,7 +19,7 @@ Q.Sprite.extend("Player", {
 
     this.add('2d, stepControls');
 
-    Q.input.on("fire", this, "fire");
+    Q.input.on("fire", this, function(){ this.fire() });
     Q.input.on("wep1", this, "put_away_gun");
     Q.input.on("wep2", this, "equip_gun");
     Q.input.on("sword", this, "swing_sword");
@@ -27,12 +27,6 @@ Q.Sprite.extend("Player", {
 
   equip_gun: function() {
     this.add("gun"); 
-  },
-
-  // Calls the gun component's fire method.
-  // Why it has to be this verbose, I don't know.
-  fire: function() {
-    this.fire(); 
   },
 
   put_away_gun: function() {
