@@ -49,9 +49,10 @@ Q.Sprite.extend("Player", {
       }
     }
 
-    // Send event to all enemies to look at the player.
+    // Send event to all enemies to look at and chase the player.
     var enemies = Q("Enemy");
     enemies.trigger("face_player", this);
+    enemies.trigger("chase_player", this);
 
     // When pressing the 'forward' key, the player follows mouse.
     if(Q.inputs['forward']){
@@ -104,6 +105,7 @@ Q.Sprite.extend("Enemy", {
 
     this.add('2d');
     this.on("face_player");
+    this.on("chase_player");
     this.on("hit", function(collision){
       if(collision.obj.isA("Bullet") || collision.obj.isA("Sword")){
         if(--this.p.hp <= 0){
@@ -119,11 +121,14 @@ Q.Sprite.extend("Enemy", {
   face_player: function(player){
     // Face player (I like this, it's creepy)
     this.p.angle = -1 * TO_DEG * Math.atan2( (this.p.player.p.x - this.p.x), (this.p.player.p.y - this.p.y) );
+  },
 
+  chase_player: function(player){
     // Chase the player!
     this.p.x += this.p.speed * Math.cos(TO_RAD * (this.p.angle+90));
     this.p.y += this.p.speed * Math.sin(TO_RAD * (this.p.angle+90));
-  }
+  },
+
 });
 
 Q.Sprite.extend("Wall", {
