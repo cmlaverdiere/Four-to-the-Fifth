@@ -99,17 +99,20 @@ Q.Sprite.extend("Enemy", {
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_PLAYER | Q.SPRITE_ENEMY,
       hp: 3,
       player: Q("Player").first(),
+      scale: 1,
       speed: 1,
       type: Q.SPRITE_ENEMY
     });
 
     this.add('2d');
-    this.on("face_player");
     this.on("chase_player");
+    this.on("face_player");
+    this.on("frenzy");
     this.on("hit", function(collision){
       if(collision.obj.isA("Bullet") || collision.obj.isA("Sword")){
         if(--this.p.hp <= 0){
           this.destroy();
+          Q.stage().trigger("enemy_killed");
         } else {
           // Enemy should bounce back / react to being shot.  
         }
@@ -118,15 +121,21 @@ Q.Sprite.extend("Enemy", {
     });
   },
   
+  chase_player: function(player){
+    // Chase the player!
+    this.p.x += this.p.speed * Math.cos(TO_RAD * (this.p.angle+90));
+    this.p.y += this.p.speed * Math.sin(TO_RAD * (this.p.angle+90));
+  },
+
   face_player: function(player){
     // Face player (I like this, it's creepy)
     this.p.angle = -1 * TO_DEG * Math.atan2( (this.p.player.p.x - this.p.x), (this.p.player.p.y - this.p.y) );
   },
 
-  chase_player: function(player){
-    // Chase the player!
-    this.p.x += this.p.speed * Math.cos(TO_RAD * (this.p.angle+90));
-    this.p.y += this.p.speed * Math.sin(TO_RAD * (this.p.angle+90));
+  frenzy: function(player){
+    // Let's just scale the enemy up when frenzied.
+    // (This is stupid, but it's a good way to display how events work)
+    this.p.scale *= 1.1;
   },
 
 });

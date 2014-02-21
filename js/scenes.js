@@ -1,5 +1,20 @@
 // Create player scene
 Q.scene("level1", function(stage) {
+  var fmod = 4;
+  var enemy_kill_count = 0;
+  var frenzied_enemies = false;
+
+  stage.on("enemy_killed", function(){ 
+    enemy_kill_count++;
+    frenzied_enemies = false;
+
+    // Every few enemies killed, let's trigger a frenzy.
+    if(!frenzied_enemies && enemy_kill_count % fmod === 0){
+      Q("Enemy").trigger("frenzy"); 
+      fmod *= 2;
+      frenzied_enemies = true;
+    }
+  });
 
   // Draw the background
   stage.insert(new Q.Repeater({ asset: "line_paper.png" }));

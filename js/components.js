@@ -7,7 +7,6 @@ Q.component("gun", {
 
   extend: {
     fire: function() {
-      console.log("firing!");
       if (this.p.bullets > 0){
         Q.audio.play("gun_shot.wav");
         Q.stage().insert(new Q.Bullet(
@@ -20,9 +19,8 @@ Q.component("gun", {
         ));
 
         this.p.bullets -= 1;
-        console.log("Player fired gun. Bang! Bullets left: " + this.p.bullets);
       } else{
-        console.log("You're out of bullets.");
+        // Play out of bullet sound, or something.
       }
     }
   },
