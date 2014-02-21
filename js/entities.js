@@ -20,7 +20,7 @@ Q.Sprite.extend("Player", {
     this.add('2d, stepControls');
 
     Q.input.on("fire", this, function(){ this.fire() });
-    Q.input.on("wep1", this, "put_away_gun");
+    Q.input.on("wep1", this, "put_away_wep");
     Q.input.on("wep2", this, "equip_gun");
     Q.input.on("sword", this, "swing_sword");
   },
@@ -29,7 +29,7 @@ Q.Sprite.extend("Player", {
     this.add("gun"); 
   },
 
-  put_away_gun: function() {
+  put_away_wep: function() {
     this.del("gun"); 
     this.p.asset = "player.png";
   },
@@ -48,6 +48,10 @@ Q.Sprite.extend("Player", {
         this.p.angle = -1 * TO_DEG * Math.atan2(dmx, dmy);
       }
     }
+
+    // Send event to all enemies to look at the player.
+    var enemies = Q("Enemy");
+    enemies.trigger("face_player", this);
 
     // When pressing the 'forward' key, the player follows mouse.
     if(Q.inputs['forward']){
@@ -99,8 +103,9 @@ Q.Sprite.extend("Enemy", {
     });
 
     this.add('2d');
+    this.on("face_player");
     this.on("hit", function(collision){
-      if(collision.obj.isA("Bullet")){
+      if(collision.obj.isA("Bullet") || collision.obj.isA("Sword")){
         if(--this.p.hp <= 0){
           this.destroy();
         } else {
@@ -111,11 +116,8 @@ Q.Sprite.extend("Enemy", {
     });
   },
   
-  // This is likely not the best way to do this.
-  // We should see if Quintus has a simpler way of 'focusing' an enemy to the player,
-  //   other than doing manual trig.
-  step: function(dt){
-    // look at player (I like this, it's creepy)
+  face_player: function(player){
+    // Face player (I like this, it's creepy)
     this.p.angle = -1 * TO_DEG * Math.atan2( (this.p.player.p.x - this.p.x), (this.p.player.p.y - this.p.y) );
 
     // Chase the player!
@@ -172,7 +174,7 @@ Q.Sprite.extend("Sword", {
     this._super(p, {
       asset: "sword.png",
       atk_type: "melee",
-      collisionMask: Q.SPRITE_ENEMY,
+      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
       type: Q.SPRITE_POWERUP
     });
   }
