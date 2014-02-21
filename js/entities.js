@@ -135,7 +135,7 @@ Q.Sprite.extend("Enemy", {
   frenzy: function(player){
     // Let's just scale the enemy up when frenzied.
     // (This is stupid, but it's a good way to display how events work)
-    this.p.scale *= 1.1;
+    this.p.speed *= 1.5;
   },
 
 });
