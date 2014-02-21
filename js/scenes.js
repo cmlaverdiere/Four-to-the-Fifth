@@ -40,7 +40,8 @@ Q.scene("level1", function(stage) {
     stage.insert(new Q.Ammo({x: Math.random() * 3000, y: Math.random() * 3000}));
   }
 
-  Q.audio.play('test.wav', { loop: true });
+  // I can't listen to this anymore. I need silence.
+  // Q.audio.play('test.wav', { loop: true });
   stage.add("viewport").follow(player);
 });
 
