@@ -56,7 +56,7 @@ Q.Sprite.extend("Player", {
 
     // When pressing the 'forward' key, the player follows mouse.
     if(Q.inputs['forward']){
-    	this.p.x += (this.p.stepDistance) * Math.cos(TO_RAD * (this.p.angle+90));
+      this.p.x += (this.p.stepDistance) * Math.cos(TO_RAD * (this.p.angle+90));
       this.p.y += (this.p.stepDistance) * Math.sin(TO_RAD * (this.p.angle+90));
     }
 
@@ -109,7 +109,7 @@ Q.Sprite.extend("Enemy", {
     this.on("face_player");
     this.on("frenzy");
     this.on("hit", function(collision){
-      if(collision.obj.isA("Bullet") || collision.obj.isA("Sword")){
+      if(collision.obj.isA("Bullet")){
         if(--this.p.hp <= 0){
           this.destroy();
           Q.stage().trigger("enemy_killed");
@@ -118,6 +118,10 @@ Q.Sprite.extend("Enemy", {
         }
         collision.obj.destroy();
       } 
+      else if(collision.obj.isA("Sword")){
+        this.destroy();
+        Q.stage().trigger("enemy_killed");
+      }
     });
   },
   
@@ -133,8 +137,6 @@ Q.Sprite.extend("Enemy", {
   },
 
   frenzy: function(player){
-    // Let's just scale the enemy up when frenzied.
-    // (This is stupid, but it's a good way to display how events work)
     this.p.speed *= 1.5;
   },
 
@@ -157,16 +159,16 @@ Q.Sprite.extend("Ammo", {
       capacity: 15,
     });
 
-  this.add('2d');
+    this.add('2d');
 
-  this.on("hit", function(collision){
-    if(collision.obj.isA("Player")){
-      // ammo collected.
-      Q.audio.play("gun_cock.wav");
-      this.destroy();
-      collision.obj.p.bullets += this.p.capacity;
-    } 
-  });
+    this.on("hit", function(collision){
+      if(collision.obj.isA("Player")){
+        // ammo collected.
+        Q.audio.play("gun_cock.wav");
+        this.destroy();
+        collision.obj.p.bullets += this.p.capacity;
+      } 
+    });
   }
 });
 
@@ -179,7 +181,7 @@ Q.Sprite.extend("Bullet", {
       type: Q.SPRITE_POWERUP,
     });
 
-  this.add('2d');
+    this.add('2d');
   }
 });
 
@@ -191,5 +193,7 @@ Q.Sprite.extend("Sword", {
       collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
       type: Q.SPRITE_POWERUP
     });
+
+    this.add('2d');
   }
 });
