@@ -7,6 +7,7 @@ Q.Sprite.extend("Player", {
       bullets: 0,
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY,
       damage: 2,
+      fire_block: false,
       sprinting: false,
       stepDistance: 5,
       stepDelay: 0.01,
@@ -54,10 +55,18 @@ Q.Sprite.extend("Player", {
     enemies.trigger("face_player", this);
     enemies.trigger("chase_player", this);
 
-    // When pressing the 'forward' key, the player follows mouse.
+    // When pressing the 'forward' key, the player follows the mouse.
     if(Q.inputs['forward']){
       this.p.x += (this.p.stepDistance) * Math.cos(TO_RAD * (this.p.angle+90));
       this.p.y += (this.p.stepDistance) * Math.sin(TO_RAD * (this.p.angle+90));
+    }
+
+    // Create a block on firing so we don't shoot repeatedly when button held down.
+    // Maybe make an exception for automatic guns, if ever added.
+    if(Q.inputs['fire']){
+      this.p.fire_block = true; 
+    } else {
+      this.p.fire_block = false; 
     }
 
     // Sprint activation and deactivation.
