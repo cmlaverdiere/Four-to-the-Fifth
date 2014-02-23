@@ -43,7 +43,7 @@ Q.scene("level1", function(stage) {
   }
 
   // Create our player
-  var player = stage.insert(new Q.Player());
+  var player = stage.insert(new Q.Player({ bullets: 10 }));
 
   // Create some enemies
   for(var i=0; i<50; i++){

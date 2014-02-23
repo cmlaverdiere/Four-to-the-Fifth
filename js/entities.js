@@ -6,7 +6,6 @@ Q.Sprite.extend("Player", {
       asset: "player.png",
       bullets: 0,
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY,
-      damage: 2,
       fire_block: false,
       sprinting: false,
       stepDistance: 5,

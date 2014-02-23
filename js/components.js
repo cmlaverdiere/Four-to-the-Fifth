@@ -1,6 +1,5 @@
 Q.component("gun", {
   added: function() {
-    this.entity.p.bullets = 40; 
     this.entity.p.asset = "player_with_gun.png";
     Q.audio.play("gun_cock.wav");
   },
