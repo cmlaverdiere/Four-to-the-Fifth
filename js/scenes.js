@@ -47,7 +47,11 @@ Q.scene("level1", function(stage) {
 
   // Create some enemies
   for(var i=0; i<50; i++){
-    stage.insert(new Q.Enemy({x: Math.random() * 3000, y: Math.random() * 3000, speed: 1 + Math.random()}));
+    var rx = Math.random() * 3000;
+    var ry = Math.random() * 3000;
+    var rsp = Math.random() + 1;
+    var rsc = Math.random() + .5;
+    stage.insert(new Q.Enemy({ x:rx, y:ry, speed:rsp, scale:rsc }));
   }
 
   // Create some ammo clips
@@ -57,6 +61,7 @@ Q.scene("level1", function(stage) {
 
   // I can't listen to this anymore. I need silence.
   // Q.audio.play('test.wav', { loop: true });
+
   stage.add("viewport").follow(player);
 });
 
