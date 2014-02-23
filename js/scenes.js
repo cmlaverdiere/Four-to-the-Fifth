@@ -156,18 +156,18 @@ Q.scene("ui", function(stage){
 
   // Pause Game
   var pause_toggle = stage.insert(new Q.UI.Button({
-  	y: -60,
-  	fill: "white",
-  	label: "Pause/Unpause Game",
+    y: -60,
+    fill: "white",
+    label: "Pause/Unpause Game",
   }, function(){
-  	if(!Q.state.get("paused")) {
+    if(!Q.state.get("paused")) {
       Q.state.set("paused", true);
-  		Q.pauseGame();
-  		Q.audio.stop();
-  	}
+      Q.pauseGame();
+      Q.audio.stop();
+    }
     else {
       Q.state.set("paused", false);
-    	Q.unpauseGame();
+      Q.unpauseGame();
       if(Q.state.get("track_playing")){
         Q.audio.play(tracks[Q.state.get("track_id")], { loop: true });
       }
