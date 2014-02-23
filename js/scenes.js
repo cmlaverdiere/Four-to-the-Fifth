@@ -1,6 +1,9 @@
 // Create player scene
 Q.scene("level1", function(stage) {
-  Q.state.set({ killed: 0 });
+  Q.state.set({ killed: 0, 
+                track_id: 0, 
+                track_playing: false, 
+  });
 
   var fmod = 4;
   var frenzied_enemies = false;
@@ -71,12 +74,6 @@ Q.scene("level1", function(stage) {
 
 Q.scene("ui", function(stage){
 
-  // Store music track state
-  // TODO Refactor to use Q.state instead.
-  var tracks = ["test.wav", "disp_heroes.wav"];
-  var track_no = 0;
-  var track_playing = true;
-
   // Store pause state
   var paused = false;
 
@@ -89,6 +86,7 @@ Q.scene("ui", function(stage){
     y: Q.height - 50,
   }));
 
+  // TODO Make a button to show this, instead of showing it all the time.
   // // Player Controls label
   // var controls_label = stage.insert(new Q.UI.Text({
   //   label: "WASD: Movement | SHIFT: Sprint | SPACE: Shoot | NUMKEYS: Weapons"
@@ -143,18 +141,18 @@ Q.scene("ui", function(stage){
   }), options_cont);
 
 
-  // Turn music on or off option
+  // Toggle music on or off option.
   var music_toggle = stage.insert(new Q.UI.Button({
     y: -100,
     label: "Music on/off"
   }, function(){
-    if(track_playing){
+    if(Q.state.get("track_playing")){
       Q.audio.stop();     
-      track_playing = false;
+      Q.state.set("track_playing", false);
     } else{
       Q.audio.stop();     
-      Q.audio.play(tracks[track_no], { loop: true });
-      track_playing = true;
+      Q.audio.play(tracks[Q.state.get("track_id")], { loop: true });
+      Q.state.set("track_playing", true);
     }
   }), options_cont);
 
@@ -172,7 +170,9 @@ Q.scene("ui", function(stage){
     else {
       paused = false;
     	Q.unpauseGame();
-    	Q.audio.play(tracks[track_no], { loop: true });
+      if(Q.state.get("track_playing")){
+        Q.audio.play(tracks[Q.state.get("track_id")], { loop: true });
+      }
     };
   }), options_cont);
 
@@ -182,10 +182,12 @@ Q.scene("ui", function(stage){
     label: "Next Music Track"
   }, function(){
     Q.audio.stop();     
-    if(++track_no >= tracks.length){
-      track_no = 0;
+    Q.state.inc("track_id", 1);
+    if(Q.state.get("track_id") >= tracks.length){
+      Q.state.set("track_id", 0);
     }
-    Q.audio.play(tracks[track_no], { loop: true });     
+    Q.state.set("track_playing", true);
+    Q.audio.play(tracks[Q.state.get("track_id")], { loop: true });
   }), options_cont);
 
   bottom_cont.fit(10, 10);

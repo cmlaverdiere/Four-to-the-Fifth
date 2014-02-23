@@ -5,8 +5,11 @@ var Q = Quintus({ development: true, audioSupported: [ 'wav' ] })
           .setup({ maximize:true })
           .touch();
 
-// Keep track of change in mouse coords
-prev_mouse_coords = [0, 0];
+// Keep track of change in mouse coords.
+var prev_mouse_coords = [0, 0];
+
+// All music tracks.
+var tracks = ["test.wav", "disp_heroes.wav"];
 
 // Turn off gravity, the game is top down.
 Q.gravityX = 0;
