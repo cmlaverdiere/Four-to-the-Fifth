@@ -2,7 +2,6 @@
 Q.Sprite.extend("Player", {
   init: function(p) {
     this._super(p, {
-      angle: 0,
       asset: "player.png",
       bullets: 0,
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY,

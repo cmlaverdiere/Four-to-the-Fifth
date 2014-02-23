@@ -1,15 +1,18 @@
 // Create player scene
 Q.scene("level1", function(stage) {
+  Q.state.set({ killed: 0 });
+
   var fmod = 4;
-  var enemy_kill_count = 0;
   var frenzied_enemies = false;
 
   stage.on("enemy_killed", function(){ 
-    enemy_kill_count++;
+    Q.state.inc("killed", 1);
     frenzied_enemies = false;
 
+    console.log(Q.state.get("killed"));
+
     // Every few enemies killed, let's trigger a frenzy.
-    if(!frenzied_enemies && enemy_kill_count % fmod === 0){
+    if(!frenzied_enemies && Q.state.get("killed") % fmod === 0){
       Q("Enemy").trigger("frenzy"); 
       fmod *= 2;
       frenzied_enemies = true;
@@ -69,6 +72,7 @@ Q.scene("level1", function(stage) {
 Q.scene("ui", function(stage){
 
   // Store music track state
+  // TODO Refactor to use Q.state instead.
   var tracks = ["test.wav", "disp_heroes.wav"];
   var track_no = 0;
   var track_playing = true;
@@ -85,10 +89,20 @@ Q.scene("ui", function(stage){
     y: Q.height - 50,
   }));
 
-  // Player Controls label
-  var controls_label = stage.insert(new Q.UI.Text({
-    label: "WASD: Movement | SHIFT: Sprint | SPACE: Shoot | NUMKEYS: Weapons"
+  // // Player Controls label
+  // var controls_label = stage.insert(new Q.UI.Text({
+  //   label: "WASD: Movement | SHIFT: Sprint | SPACE: Shoot | NUMKEYS: Weapons"
+  // }), bottom_cont);
+
+  // Total kills label
+  var kills_label = stage.insert(new Q.UI.Text({
+    label: "Kill Count: " + Q.state.get("killed"),
   }), bottom_cont);
+
+  // Update kills label. 
+  Q.state.on("change.killed", function(){ 
+    kills_label.p.label = "Kill Count: " + Q.state.get("killed") 
+  });
 
   // Container for options menu
   var options_cont = stage.insert(new Q.UI.Container({
