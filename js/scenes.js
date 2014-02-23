@@ -1,6 +1,7 @@
 // Create player scene
 Q.scene("level1", function(stage) {
   Q.state.set({ killed: 0, 
+                paused: false,
                 track_id: 0, 
                 track_playing: false, 
   });
@@ -73,9 +74,6 @@ Q.scene("level1", function(stage) {
 
 
 Q.scene("ui", function(stage){
-
-  // Store pause state
-  var paused = false;
 
   // Container for instructions, alerts, etc.
   var bottom_cont = stage.insert(new Q.UI.Container({
@@ -162,13 +160,13 @@ Q.scene("ui", function(stage){
   	fill: "white",
   	label: "Pause/Unpause Game",
   }, function(){
-  	if(!paused) {
-      paused = true;
+  	if(!Q.state.get("paused")) {
+      Q.state.set("paused", true);
   		Q.pauseGame();
   		Q.audio.stop();
   	}
     else {
-      paused = false;
+      Q.state.set("paused", false);
     	Q.unpauseGame();
       if(Q.state.get("track_playing")){
         Q.audio.play(tracks[Q.state.get("track_id")], { loop: true });
