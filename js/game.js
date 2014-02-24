@@ -56,6 +56,14 @@ Q.input.keyboardControls({
 
 Q.input.mouseControls({ cursor: "on" });
 
+// Set initial game state.
+Q.state.set({ killed: 0, 
+              level: 1,
+              paused: false,
+              track_id: 0, 
+              track_playing: false, 
+});
+
 // Load resources
 Q.load([ 
          "ammo_clip.png",

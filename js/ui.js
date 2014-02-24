@@ -17,12 +17,24 @@ Q.scene("ui", function(stage){
 
   // Total kills label
   var kills_label = stage.insert(new Q.UI.Text({
+    x: -100,
     label: "Kill Count: " + Q.state.get("killed"),
   }), bottom_cont);
 
   // Update kills label. 
   Q.state.on("change.killed", function(){ 
     kills_label.p.label = "Kill Count: " + Q.state.get("killed") 
+  });
+
+  // Level label
+  var level_label = stage.insert(new Q.UI.Text({
+    x: 100,
+    label: "Level: " + Q.state.get("level"),
+  }), bottom_cont);
+
+  // Update Level label. 
+  Q.state.on("change.level", function(){ 
+    level_label.p.label = "Level: " + Q.state.get("level") 
   });
 
   // Container for options menu
