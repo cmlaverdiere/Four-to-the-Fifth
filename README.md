@@ -7,7 +7,7 @@ This is a group project for UMBC's software engineering course, CMSC 345.
 | ------------------ | ---------------- |
 | Kevin Coxe         | Team Lead        |
 | Chiebuka Ezekwenna | Backup Team Lead |
-| Chris Laverdiere   | Undecided        |
+| Chris Laverdiere   | Technical Lead   |
 | Kasey White        | Undecided        |
 | Rhea Horton        | Undecided        |
 

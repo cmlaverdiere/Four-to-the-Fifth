@@ -2,11 +2,10 @@
 Q.Sprite.extend("Player", {
   init: function(p) {
     this._super(p, {
-      angle: 0,
       asset: "player.png",
       bullets: 0,
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY,
-      damage: 2,
+      fire_block: false,
       sprinting: false,
       stepDistance: 5,
       stepDelay: 0.01,
@@ -19,24 +18,25 @@ Q.Sprite.extend("Player", {
 
     this.add('2d, stepControls');
 
-    Q.input.on("fire", this, "fire");
-    Q.input.on("wep1", this, "put_away_gun");
+    Q.input.on("fire", this, function(){ this.fire() });
+    Q.input.on("wep1", this, "put_away_wep");
     Q.input.on("wep2", this, "equip_gun");
+    Q.input.on("wep3", this, "equip_shotgun");
     Q.input.on("sword", this, "swing_sword");
   },
 
   equip_gun: function() {
+    this.unequip_guns();
     this.add("gun"); 
   },
 
-  // Calls the gun component's fire method.
-  // Why it has to be this verbose, I don't know.
-  fire: function() {
-    this.fire(); 
+  equip_shotgun: function() {
+    this.unequip_guns();
+    this.add("shotgun"); 
   },
 
-  put_away_gun: function() {
-    this.del("gun"); 
+  put_away_wep: function() {
+    this.unequip_guns();
     this.p.asset = "player.png";
   },
 
@@ -55,10 +55,23 @@ Q.Sprite.extend("Player", {
       }
     }
 
-    // When pressing the 'forward' key, the player follows mouse.
+    // Send event to all enemies to look at and chase the player.
+    var enemies = Q("Enemy");
+    enemies.trigger("face_player", this);
+    enemies.trigger("chase_player", this);
+
+    // When pressing the 'forward' key, the player follows the mouse.
     if(Q.inputs['forward']){
-    	this.p.x += (this.p.stepDistance) * Math.cos(TO_RAD * (this.p.angle+90));
+      this.p.x += (this.p.stepDistance) * Math.cos(TO_RAD * (this.p.angle+90));
       this.p.y += (this.p.stepDistance) * Math.sin(TO_RAD * (this.p.angle+90));
+    }
+
+    // Create a block on firing so we don't shoot repeatedly when button held down.
+    // Maybe make an exception for automatic guns, if ever added.
+    if(Q.inputs['fire']){
+      this.p.fire_block = true; 
+    } else {
+      this.p.fire_block = false; 
     }
 
     // Sprint activation and deactivation.
@@ -89,6 +102,11 @@ Q.Sprite.extend("Player", {
     this.p.sword = Q.stage().insert(new Q.Sword({ x: 22, y: -25 }), this);
     this.p.swinging_sword = true;
   },
+
+  unequip_guns: function() {
+    this.del("gun");
+    this.del("shotgun");
+  },
 });
 
 
@@ -100,34 +118,47 @@ Q.Sprite.extend("Enemy", {
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_PLAYER | Q.SPRITE_ENEMY,
       hp: 3,
       player: Q("Player").first(),
+      scale: 1,
       speed: 1,
       type: Q.SPRITE_ENEMY
     });
 
     this.add('2d');
+    this.on("chase_player");
+    this.on("face_player");
+    this.on("frenzy");
     this.on("hit", function(collision){
       if(collision.obj.isA("Bullet")){
         if(--this.p.hp <= 0){
           this.destroy();
+          Q.stage().trigger("enemy_killed");
         } else {
           // Enemy should bounce back / react to being shot.  
         }
         collision.obj.destroy();
       } 
+      else if(collision.obj.isA("Sword")){
+        this.destroy();
+        Q.stage().trigger("enemy_killed");
+      }
     });
   },
   
-  // This is likely not the best way to do this.
-  // We should see if Quintus has a simpler way of 'focusing' an enemy to the player,
-  //   other than doing manual trig.
-  step: function(dt){
-    // look at player (I like this, it's creepy)
-    this.p.angle = -1 * TO_DEG * Math.atan2( (this.p.player.p.x - this.p.x), (this.p.player.p.y - this.p.y) );
-
+  chase_player: function(player){
     // Chase the player!
     this.p.x += this.p.speed * Math.cos(TO_RAD * (this.p.angle+90));
     this.p.y += this.p.speed * Math.sin(TO_RAD * (this.p.angle+90));
-  }
+  },
+
+  face_player: function(player){
+    // Face player (I like this, it's creepy)
+    this.p.angle = -1 * TO_DEG * Math.atan2( (this.p.player.p.x - this.p.x), (this.p.player.p.y - this.p.y) );
+  },
+
+  frenzy: function(player){
+    this.p.speed *= 1.5;
+  },
+
 });
 
 Q.Sprite.extend("Wall", {
@@ -147,16 +178,16 @@ Q.Sprite.extend("Ammo", {
       capacity: 15,
     });
 
-  this.add('2d');
+    this.add('2d');
 
-  this.on("hit", function(collision){
-    if(collision.obj.isA("Player")){
-      // ammo collected.
-      Q.audio.play("gun_cock.wav");
-      this.destroy();
-      collision.obj.p.bullets += this.p.capacity;
-    } 
-  });
+    this.on("hit", function(collision){
+      if(collision.obj.isA("Player")){
+        // ammo collected.
+        Q.audio.play("gun_cock.wav");
+        this.destroy();
+        collision.obj.p.bullets += this.p.capacity;
+      } 
+    });
   }
 });
 
@@ -169,7 +200,7 @@ Q.Sprite.extend("Bullet", {
       type: Q.SPRITE_POWERUP,
     });
 
-  this.add('2d');
+    this.add('2d');
   }
 });
 
@@ -178,8 +209,10 @@ Q.Sprite.extend("Sword", {
     this._super(p, {
       asset: "sword.png",
       atk_type: "melee",
-      collisionMask: Q.SPRITE_ENEMY,
+      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
       type: Q.SPRITE_POWERUP
     });
+
+    this.add('2d');
   }
 });

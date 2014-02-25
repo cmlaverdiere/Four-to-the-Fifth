@@ -5,8 +5,11 @@ var Q = Quintus({ development: true, audioSupported: [ 'wav' ] })
           .setup({ maximize:true })
           .touch();
 
-// Keep track of change in mouse coords
-prev_mouse_coords = [0, 0];
+// Keep track of change in mouse coords.
+var prev_mouse_coords = [0, 0];
+
+// All music tracks.
+var tracks = ["test.wav", "disp_heroes.wav"];
 
 // Turn off gravity, the game is top down.
 Q.gravityX = 0;
@@ -53,6 +56,14 @@ Q.input.keyboardControls({
 
 Q.input.mouseControls({ cursor: "on" });
 
+// Set initial game state.
+Q.state.set({ killed: 0, 
+              level: 1,
+              paused: false,
+              track_id: 0, 
+              track_playing: false, 
+});
+
 // Load resources
 Q.load([ 
          "ammo_clip.png",
@@ -63,6 +74,7 @@ Q.load([
          "line_paper.png", 
          "player.png",
          "player_with_gun.png",
+         "player_with_shotgun.png",
          "sword.png", 
          "tough_guy.png",
          "wall.png", 
@@ -70,6 +82,7 @@ Q.load([
          "disp_heroes.wav", 
          "gun_cock.wav", 
          "gun_shot.wav", 
+         "shotgun_shot.wav", 
          "test.wav", 
          ], function() {
     console.log("Done loading assets.");
