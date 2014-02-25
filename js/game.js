@@ -57,7 +57,9 @@ Q.input.keyboardControls({
 Q.input.mouseControls({ cursor: "on" });
 
 // Set initial game state.
-Q.state.set({ killed: 0, 
+Q.state.set({ killed: 0,
+			  alive: 0,
+			  ammo: 30, 
               level: 1,
               paused: false,
               track_id: 0, 

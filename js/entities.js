@@ -175,7 +175,7 @@ Q.Sprite.extend("Ammo", {
   init: function(p) {
     this._super(p, {
       asset: "ammo_clip.png",
-      capacity: 15,
+      capacity: 25,
     });
 
     this.add('2d');
@@ -186,6 +186,7 @@ Q.Sprite.extend("Ammo", {
         Q.audio.play("gun_cock.wav");
         this.destroy();
         collision.obj.p.bullets += this.p.capacity;
+        Q.state.inc("ammo", this.p.capacity);
       } 
     });
   }
@@ -199,8 +200,15 @@ Q.Sprite.extend("Bullet", {
       collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
       type: Q.SPRITE_POWERUP,
     });
-
+    
     this.add('2d');
+
+    this.on("hit", function(collision){
+      if(collision.obj.isA("Wall")){
+        // Bullet hits wall
+        this.destroy();
+      } 
+    });
   }
 });
 
@@ -209,7 +217,7 @@ Q.Sprite.extend("Sword", {
     this._super(p, {
       asset: "sword.png",
       atk_type: "melee",
-      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
+      collisionMask: Q.SPRITE_ENEMY,		// took out Q.SPRITE_ACTIVE now sword doesnt hit wall
       type: Q.SPRITE_POWERUP
     });
 
