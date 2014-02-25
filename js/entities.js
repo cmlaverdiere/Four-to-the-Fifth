@@ -21,15 +21,22 @@ Q.Sprite.extend("Player", {
     Q.input.on("fire", this, function(){ this.fire() });
     Q.input.on("wep1", this, "put_away_wep");
     Q.input.on("wep2", this, "equip_gun");
+    Q.input.on("wep3", this, "equip_shotgun");
     Q.input.on("sword", this, "swing_sword");
   },
 
   equip_gun: function() {
+    this.unequip_guns();
     this.add("gun"); 
   },
 
+  equip_shotgun: function() {
+    this.unequip_guns();
+    this.add("shotgun"); 
+  },
+
   put_away_wep: function() {
-    this.del("gun"); 
+    this.unequip_guns();
     this.p.asset = "player.png";
   },
 
@@ -94,6 +101,11 @@ Q.Sprite.extend("Player", {
   swing_sword: function() {
     this.p.sword = Q.stage().insert(new Q.Sword({ x: 22, y: -25 }), this);
     this.p.swinging_sword = true;
+  },
+
+  unequip_guns: function() {
+    this.del("gun");
+    this.del("shotgun");
   },
 });
 

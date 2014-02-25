@@ -74,6 +74,7 @@ Q.load([
          "line_paper.png", 
          "player.png",
          "player_with_gun.png",
+         "player_with_shotgun.png",
          "sword.png", 
          "tough_guy.png",
          "wall.png", 
@@ -81,6 +82,7 @@ Q.load([
          "disp_heroes.wav", 
          "gun_cock.wav", 
          "gun_shot.wav", 
+         "shotgun_shot.wav", 
          "test.wav", 
          ], function() {
     console.log("Done loading assets.");
