@@ -24,12 +24,12 @@ Q.KEY_NAMES.S = 83;
 Q.KEY_NAMES.D = 68;
 Q.KEY_NAMES.F = 70;
 Q.KEY_NAMES.SHIFT = 16;
-Q.KEY_NAMES.ONE   = 49;
-Q.KEY_NAMES.TWO   = 50;
+Q.KEY_NAMES.ONE = 49;
+Q.KEY_NAMES.TWO = 50;
 Q.KEY_NAMES.THREE = 51;
-Q.KEY_NAMES.FOUR  = 52;
-Q.KEY_NAMES.FIVE  = 53;
-Q.KEY_NAMES.SIX   = 54;
+Q.KEY_NAMES.FOUR = 52;
+Q.KEY_NAMES.FIVE = 53;
+Q.KEY_NAMES.SIX = 54;
 Q.KEY_NAMES.SEVEN = 55;
 
 // Some useful constants for speeding things up.
@@ -38,52 +38,52 @@ var TO_DEG = 180 / Math.PI
 
 // Key actions
 Q.input.keyboardControls({
-  UP:     'forward', W: 'forward',
-  LEFT:   'left',   A: 'left',
-  DOWN:   'down',   S: 'down',
-  RIGHT:  'right',  D: 'right',
-  SPACE:  'fire',
-  SHIFT:  'sprint',
-  F:      'sword',
-  ONE:    'wep1',
-  TWO:    'wep2',
-  THREE:  'wep3',
-  FOUR:   'wep4',
-  FIVE:   'wep5',
-  SIX:    'wep6',
-  SEVEN:  'wep7',
+  UP: 'forward', W: 'forward',
+  LEFT: 'left', A: 'left',
+  DOWN: 'down', S: 'down',
+  RIGHT: 'right', D: 'right',
+  SPACE: 'fire',
+  SHIFT: 'sprint',
+  F: 'sword',
+  ONE: 'wep1',
+  TWO: 'wep2',
+  THREE: 'wep3',
+  FOUR: 'wep4',
+  FIVE: 'wep5',
+  SIX: 'wep6',
+  SEVEN: 'wep7',
 });
 
 Q.input.mouseControls({ cursor: "on" });
 
 // Set initial game state.
-Q.state.set({ killed: 0, 
+Q.state.set({ killed: 0,
               level: 1,
               paused: false,
-              track_id: 0, 
-              track_playing: false, 
+              track_id: 0,
+              track_playing: false,
 });
 
 // Load resources
-Q.load([ 
+Q.load([
          "ammo_clip.png",
          "bullet.png",
          "enemy.png",
-         "floor_tile.png", 
-         "floor_tile_pencil.png", 
-         "line_paper.png", 
+         "floor_tile.png",
+         "floor_tile_pencil.png",
+         "line_paper.png",
          "player.png",
          "player_with_gun.png",
          "player_with_shotgun.png",
-         "sword.png", 
+         "sword.png",
          "tough_guy.png",
-         "wall.png", 
+         "wall.png",
 
-         "disp_heroes.wav", 
-         "gun_cock.wav", 
-         "gun_shot.wav", 
-         "shotgun_shot.wav", 
-         "test.wav", 
+         "disp_heroes.wav",
+         "gun_cock.wav",
+         "gun_shot.wav",
+         "shotgun_shot.wav",
+         "test.wav",
          ], function() {
     console.log("Done loading assets.");
     Q.stageScene("level1", 0);
