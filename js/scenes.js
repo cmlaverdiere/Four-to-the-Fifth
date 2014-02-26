@@ -55,9 +55,9 @@ Q.scene("level1", function(stage) {
 
   // Create some enemies
   for(var i=0; i < Math.pow(Q.state.get("level")+1, 3) ; i++){
-  	
-  	// Shows how many enemies are left
-  	Q.state.set("alive", Math.pow(Q.state.get("level")+1, 3));
+    
+    // Shows how many enemies are left
+    Q.state.set("alive", Math.pow(Q.state.get("level")+1, 3));
     
     var rx = Math.random() * 3000;
     var ry = Math.random() * 3000;
