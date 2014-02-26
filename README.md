@@ -17,7 +17,7 @@ We propose a simple objective based video game. The game should have a well defi
 
 IRC
 -----------------
-Our IRC channel is _#fourtothefifth_ at irc.freenode.net.
+Our IRC channel is **#fourtothefifth** at irc.freenode.net.
 
 Playing the Game
 -----------------
