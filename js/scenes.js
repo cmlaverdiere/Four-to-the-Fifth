@@ -63,7 +63,7 @@ Q.scene("level1", function(stage) {
     var ry = Math.random() * 3000;
     var rsp = Math.random() + 1;
     var rsc = Math.random() + .5;
-    stage.insert(new Q.Enemy({ x:rx, y:ry, speed:rsp, scale:rsc }));
+    stage.insert(new Q.Enemy({ x:rx, y:ry, speed:rsp, scale:rsc, hp: (rsc * 4) }));
   }
 
   // Create some ammo clips
@@ -75,4 +75,5 @@ Q.scene("level1", function(stage) {
   // Q.audio.play('test.wav', { loop: true });
 
   stage.add("viewport").follow(player);
+  Q.stage(0).viewport.scale = .5
 });

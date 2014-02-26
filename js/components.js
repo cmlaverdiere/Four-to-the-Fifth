@@ -39,9 +39,9 @@ Q.component("shotgun", {
         for(var i=-6; i < 6; i++){
           var spread = i*2;
           var speed = Math.random() * 750 + 750; // Speed between 750 and 1500.
-          //Q.stage().insert(new Q.ShotBullet(
-          Q.stage().insert(new Q.Bullet(
-          { 
+          Q.stage().insert(new Q.ShotPellet(
+          //Q.stage().insert(new Q.Bullet(
+          {
             x: this.p.x,
             y: this.p.y, 
             vx: speed * Math.cos(TO_RAD * (this.p.angle+90+spread)), 

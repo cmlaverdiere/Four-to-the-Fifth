@@ -99,7 +99,7 @@ Q.Sprite.extend("Player", {
   },
 
   swing_sword: function() {
-    this.p.sword = Q.stage().insert(new Q.Sword({ x: 22, y: -25 }), this);
+    this.p.sword = Q.stage().insert(new Q.Sword({ x: -22, y: 25 }), this);
     this.p.swinging_sword = true;
   },
 
@@ -128,7 +128,7 @@ Q.Sprite.extend("Enemy", {
     this.on("face_player");
     this.on("frenzy");
     this.on("hit", function(collision){
-      if(collision.obj.isA("Bullet")){
+      if(collision.obj.isA("Bullet") || collision.obj.isA("ShotPellet")){
         if(--this.p.hp <= 0){
           this.destroy();
           Q.stage().trigger("enemy_killed");
@@ -187,7 +187,9 @@ Q.Sprite.extend("Ammo", {
         this.destroy();
         collision.obj.p.bullets += this.p.capacity;
         Q.state.inc("ammo", this.p.capacity);
-      } 
+      } else {
+
+      }
     });
   }
 });
@@ -196,6 +198,26 @@ Q.Sprite.extend("Bullet", {
   init: function(p) {
     this._super(p, {
       asset: "bullet.png",
+      atk_type: "projectile",
+      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
+      type: Q.SPRITE_POWERUP,
+    });
+    
+    this.add('2d');
+
+    this.on("hit", function(collision){
+      if(collision.obj.isA("Wall")){
+        // Bullet hits wall
+        this.destroy();
+      } 
+    });
+  }
+});
+
+Q.Sprite.extend("ShotPellet", {
+  init: function(p) {
+    this._super(p, {
+      asset: "ShotPellet.png",
       atk_type: "projectile",
       collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
       type: Q.SPRITE_POWERUP,

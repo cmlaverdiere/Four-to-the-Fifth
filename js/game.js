@@ -70,6 +70,7 @@ Q.state.set({ killed: 0,
 Q.load([ 
          "ammo_clip.png",
          "bullet.png",
+         "ShotPellet.png",
          "enemy.png",
          "floor_tile.png", 
          "floor_tile_pencil.png", 
