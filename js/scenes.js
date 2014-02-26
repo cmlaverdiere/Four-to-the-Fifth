@@ -1,5 +1,6 @@
 // Create player scene
 Q.scene("level1", function(stage) {
+  // Q.stageTMX("testmap.tmx", stage);
 
   var fmod = 4;
   var frenzied_enemies = false;
@@ -25,7 +26,7 @@ Q.scene("level1", function(stage) {
   });
 
   // Draw the background
-  stage.insert(new Q.Repeater({ asset: "line_paper.png" }));
+  // stage.insert(new Q.Repeater({ asset: "line_paper.png" }));
 
   // Generate some random wall groupings that hopefully don't collide too much.
   // A map editor would be better for this.
