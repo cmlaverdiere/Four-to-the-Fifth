@@ -79,7 +79,7 @@ Q.Sprite.extend("Player", {
     // Create a block on firing so we don't shoot repeatedly when button held down.
     // Maybe make an exception for automatic guns, if ever added.
     if(Q.inputs['fire']){
-    	if(this.p.has("machinegun") && this.p.fire_delay > 0){
+    	if(this.has("machinegun") && this.p.fire_delay > 0){
     		this.p.fire_delay -= 20;
     	}
       
