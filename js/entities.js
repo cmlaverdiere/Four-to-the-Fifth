@@ -21,15 +21,28 @@ Q.Sprite.extend("Player", {
     Q.input.on("fire", this, function(){ this.fire() });
     Q.input.on("wep1", this, "put_away_wep");
     Q.input.on("wep2", this, "equip_gun");
+    Q.input.on("wep3", this, "equip_shotgun");
+    Q.input.on("wep4", this, "equip_machinegun")
     Q.input.on("sword", this, "swing_sword");
   },
 
   equip_gun: function() {
+    this.unequip_guns();
     this.add("gun"); 
   },
 
+  equip_shotgun: function() {
+    this.unequip_guns();
+    this.add("shotgun"); 
+  },
+
+  equip_machinegun: function() {
+    this.unequip_guns();
+    this.add("machinegun"); 
+  },
+
   put_away_wep: function() {
-    this.del("gun"); 
+    this.unequip_guns();
     this.p.asset = "player.png";
   },
 
@@ -82,7 +95,7 @@ Q.Sprite.extend("Player", {
 
     // Sword swinging animation
     if(this.p.swinging_sword){
-      this.p.angle += 10;
+      this.p.angle += 20;
       if(this.p.angle > 360){
         Q("Sword").destroy();
         this.p.swinging_sword = false;
@@ -92,8 +105,14 @@ Q.Sprite.extend("Player", {
   },
 
   swing_sword: function() {
-    this.p.sword = Q.stage().insert(new Q.Sword({ x: 22, y: -25 }), this);
+    this.p.sword = Q.stage().insert(new Q.Sword({ x: -22, y: 25 }), this);
     this.p.swinging_sword = true;
+  },
+
+  unequip_guns: function() {
+    this.del("gun");
+    this.del("shotgun");
+    this.del("machinegun");
   },
 });
 
@@ -104,7 +123,7 @@ Q.Sprite.extend("Enemy", {
       angle: 0,
       asset: "enemy.png", 
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_PLAYER | Q.SPRITE_ENEMY,
-      hp: 3,
+      hp: 6,
       player: Q("Player").first(),
       scale: 1,
       speed: 1,
@@ -116,7 +135,7 @@ Q.Sprite.extend("Enemy", {
     this.on("face_player");
     this.on("frenzy");
     this.on("hit", function(collision){
-      if(collision.obj.isA("Bullet")){
+      if(collision.obj.isA("Bullet") || collision.obj.isA("ShotPellet")){
         if(--this.p.hp <= 0){
           this.destroy();
           Q.stage().trigger("enemy_killed");
@@ -124,7 +143,7 @@ Q.Sprite.extend("Enemy", {
           // Enemy should bounce back / react to being shot.  
         }
         collision.obj.destroy();
-      } 
+      }
       else if(collision.obj.isA("Sword")){
         this.destroy();
         Q.stage().trigger("enemy_killed");
@@ -163,7 +182,7 @@ Q.Sprite.extend("Ammo", {
   init: function(p) {
     this._super(p, {
       asset: "ammo_clip.png",
-      capacity: 15,
+      capacity: 25,
     });
 
     this.add('2d');
@@ -174,7 +193,8 @@ Q.Sprite.extend("Ammo", {
         Q.audio.play("gun_cock.wav");
         this.destroy();
         collision.obj.p.bullets += this.p.capacity;
-      } 
+        Q.state.inc("ammo", this.p.capacity);
+      }
     });
   }
 });
@@ -187,8 +207,33 @@ Q.Sprite.extend("Bullet", {
       collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
       type: Q.SPRITE_POWERUP,
     });
-
+    
     this.add('2d');
+
+    this.on("hit", function(collision){
+      if(collision.obj.isA("Wall")){
+        this.destroy();
+      } 
+    });
+  }
+});
+
+Q.Sprite.extend("ShotPellet", {
+  init: function(p) {
+    this._super(p, {
+      asset: "shot_pellet.png",
+      atk_type: "projectile",
+      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
+      type: Q.SPRITE_POWERUP,
+    });
+    
+    this.add('2d');
+
+    this.on("hit", function(collision){
+      if(collision.obj.isA("Wall")){
+        this.destroy();
+      } 
+    });
   }
 });
 
@@ -197,7 +242,7 @@ Q.Sprite.extend("Sword", {
     this._super(p, {
       asset: "sword.png",
       atk_type: "melee",
-      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
+      collisionMask: Q.SPRITE_ENEMY,    // took out Q.SPRITE_ACTIVE now sword doesnt hit wall
       type: Q.SPRITE_POWERUP
     });
 
