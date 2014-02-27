@@ -22,6 +22,7 @@ Q.Sprite.extend("Player", {
     Q.input.on("wep1", this, "put_away_wep");
     Q.input.on("wep2", this, "equip_gun");
     Q.input.on("wep3", this, "equip_shotgun");
+    Q.input.on("wep4", this, "equip_machinegun")
     Q.input.on("sword", this, "swing_sword");
   },
 
@@ -33,6 +34,11 @@ Q.Sprite.extend("Player", {
   equip_shotgun: function() {
     this.unequip_guns();
     this.add("shotgun"); 
+  },
+
+  equip_machinegun: function() {
+    this.unequip_guns();
+    this.add("machinegun"); 
   },
 
   put_away_wep: function() {
@@ -106,6 +112,7 @@ Q.Sprite.extend("Player", {
   unequip_guns: function() {
     this.del("gun");
     this.del("shotgun");
+    this.del("machinegun");
   },
 });
 
