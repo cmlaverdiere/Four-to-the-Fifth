@@ -89,7 +89,7 @@ Q.Sprite.extend("Player", {
 
     // Sword swinging animation
     if(this.p.swinging_sword){
-      this.p.angle += 10;
+      this.p.angle += 20;
       if(this.p.angle > 360){
         Q("Sword").destroy();
         this.p.swinging_sword = false;
@@ -116,7 +116,7 @@ Q.Sprite.extend("Enemy", {
       angle: 0,
       asset: "enemy.png", 
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_PLAYER | Q.SPRITE_ENEMY,
-      hp: 3,
+      hp: 6,
       player: Q("Player").first(),
       scale: 1,
       speed: 1,
@@ -128,7 +128,8 @@ Q.Sprite.extend("Enemy", {
     this.on("face_player");
     this.on("frenzy");
     this.on("hit", function(collision){
-      if(collision.obj.isA("Bullet") || collision.obj.isA("ShotPellet")){
+      if(collision.obj.isA("Bullet")){
+      	this.p.hp -= 3;
         if(--this.p.hp <= 0){
           this.destroy();
           Q.stage().trigger("enemy_killed");
@@ -136,7 +137,16 @@ Q.Sprite.extend("Enemy", {
           // Enemy should bounce back / react to being shot.  
         }
         collision.obj.destroy();
-      } 
+      }
+      else if(collision.obj.isA("ShotPellet")){
+        if(--this.p.hp <= 0){
+          this.destroy();
+          Q.stage().trigger("enemy_killed");
+        } else {
+          // Enemy should bounce back / react to being shot.  
+        }
+        collision.obj.destroy();
+      }
       else if(collision.obj.isA("Sword")){
         this.destroy();
         Q.stage().trigger("enemy_killed");

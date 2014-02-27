@@ -63,7 +63,7 @@ Q.scene("level1", function(stage) {
     var ry = Math.random() * 3000;
     var rsp = Math.random() + 1;
     var rsc = Math.random() + .5;
-    stage.insert(new Q.Enemy({ x:rx, y:ry, speed:rsp, scale:rsc, hp: (rsc * 4) }));
+    stage.insert(new Q.Enemy({ x:rx, y:ry, speed:rsp, scale:rsc, hp:(rsp * 6) }));
   }
 
   // Create some ammo clips

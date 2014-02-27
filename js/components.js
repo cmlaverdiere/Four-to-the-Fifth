@@ -50,8 +50,8 @@ Q.component("shotgun", {
           ));
         }
 
-        this.p.bullets -= 3;
-        Q.state.dec("ammo", 3);
+        this.p.bullets -= 2;
+        Q.state.dec("ammo", 2);
         //this.p.shells -= 1;
       }
     }
