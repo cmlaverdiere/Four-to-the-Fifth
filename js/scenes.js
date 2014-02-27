@@ -4,20 +4,20 @@ Q.scene("level1", function(stage) {
   var fmod = 4;
   var frenzied_enemies = false;
 
-  stage.on("enemy_killed", function(){ 
+  stage.on("enemy_killed", function(){
     Q.state.inc("killed", 1);
     frenzied_enemies = false;
 
     // Every few enemies killed, let's trigger a frenzy.
     if(!frenzied_enemies && Q.state.get("killed") % fmod === 0){
-      Q("Enemy").trigger("frenzy"); 
+      Q("Enemy").trigger("frenzy");
       fmod *= 2;
       frenzied_enemies = true;
     }
 
     // Check if game over.
     if(Q("Enemy").length <= 1){
-      console.log("Level beaten. Resetting."); 
+      console.log("Level beaten. Resetting.");
       Q.state.inc("level", 1);
       Q.stageScene("level1", 0);
     }
@@ -29,7 +29,7 @@ Q.scene("level1", function(stage) {
   // Generate some random wall groupings that hopefully don't collide too much.
   // A map editor would be better for this.
   var px = py = 0; // Current position of new wall
-  var rota;        // Current angle of wall
+  var rota; // Current angle of wall
   for(var i=0; i<100; i++){
     var bx = Math.round(Math.random());
     var by = Math.round(Math.random());
@@ -45,7 +45,7 @@ Q.scene("level1", function(stage) {
     // Special case for joining wall
     if(rot && bx && by) rota = 135;
 
-    stage.insert(new Q.Wall( { x: px, y: py, angle: rota })); 
+    stage.insert(new Q.Wall( { x: px, y: py, angle: rota }));
   }
 
   // Create our player
