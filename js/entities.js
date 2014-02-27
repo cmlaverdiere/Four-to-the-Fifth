@@ -128,17 +128,7 @@ Q.Sprite.extend("Enemy", {
     this.on("face_player");
     this.on("frenzy");
     this.on("hit", function(collision){
-      if(collision.obj.isA("Bullet")){
-      	this.p.hp -= 3;
-        if(--this.p.hp <= 0){
-          this.destroy();
-          Q.stage().trigger("enemy_killed");
-        } else {
-          // Enemy should bounce back / react to being shot.  
-        }
-        collision.obj.destroy();
-      }
-      else if(collision.obj.isA("ShotPellet")){
+      if(collision.obj.isA("Bullet") || collision.obj.isA("ShotPellet")){
         if(--this.p.hp <= 0){
           this.destroy();
           Q.stage().trigger("enemy_killed");
@@ -197,8 +187,6 @@ Q.Sprite.extend("Ammo", {
         this.destroy();
         collision.obj.p.bullets += this.p.capacity;
         Q.state.inc("ammo", this.p.capacity);
-      } else {
-
       }
     });
   }
@@ -217,7 +205,6 @@ Q.Sprite.extend("Bullet", {
 
     this.on("hit", function(collision){
       if(collision.obj.isA("Wall")){
-        // Bullet hits wall
         this.destroy();
       } 
     });
@@ -227,7 +214,7 @@ Q.Sprite.extend("Bullet", {
 Q.Sprite.extend("ShotPellet", {
   init: function(p) {
     this._super(p, {
-      asset: "ShotPellet.png",
+      asset: "shot_pellet.png",
       atk_type: "projectile",
       collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
       type: Q.SPRITE_POWERUP,
@@ -237,7 +224,6 @@ Q.Sprite.extend("ShotPellet", {
 
     this.on("hit", function(collision){
       if(collision.obj.isA("Wall")){
-        // Bullet hits wall
         this.destroy();
       } 
     });

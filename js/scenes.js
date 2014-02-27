@@ -75,5 +75,4 @@ Q.scene("level1", function(stage) {
   // Q.audio.play('test.wav', { loop: true });
 
   stage.add("viewport").follow(player);
-  Q.stage(0).viewport.scale = .5
 });
