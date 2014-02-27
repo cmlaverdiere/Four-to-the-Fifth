@@ -58,6 +58,7 @@ Q.input.mouseControls({ cursor: "on" });
 
 // Set initial game state.
 Q.state.set({ killed: 0,
+			  player_hp: 100,
 			  alive: 0,
 			  ammo: 30, 
               level: 1,
@@ -89,6 +90,5 @@ Q.load([
          "test.wav", 
          ], function() {
     console.log("Done loading assets.");
-    Q.stageScene("level1", 0);
-    Q.stageScene("ui", 1);
+    Q.stageScene("title", 0);
 });

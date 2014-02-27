@@ -23,6 +23,7 @@ Q.Sprite.extend("Player", {
     Q.input.on("wep2", this, "equip_gun");
     Q.input.on("wep3", this, "equip_shotgun");
     Q.input.on("sword", this, "swing_sword");
+
   },
 
   equip_gun: function() {

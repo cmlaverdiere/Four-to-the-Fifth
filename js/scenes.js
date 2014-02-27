@@ -1,3 +1,19 @@
+Q.scene("title", function(stage) {
+	
+  // Button to Start Game.
+  var start_btn = stage.insert(new Q.UI.Button({
+    border: 2,
+    fill: "white",
+    label: "Start Game",
+    radius: 3,
+    x: Q.width/2,
+    y: Q.height/2,
+  }, function() {
+    Q.stageScene("level1", 0);
+    Q.stageScene("ui", 1);
+  }));
+});
+
 // Create player scene
 Q.scene("level1", function(stage) {
 
@@ -50,7 +66,7 @@ Q.scene("level1", function(stage) {
   }
 
   // Create our player
-  var player = stage.insert(new Q.Player({ bullets: 30 }));
+  var player = stage.insert(new Q.Player({ bullets: 30, hp: 100 }));
   Q.state.set("ammo", 30);
 
   // Create some enemies
