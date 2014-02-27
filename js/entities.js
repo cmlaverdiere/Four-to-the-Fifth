@@ -7,6 +7,7 @@ Q.Sprite.extend("Player", {
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY,
       fire_block: false,
       sprinting: false,
+      fire_delay: 100,
       stepDistance: 5,
       stepDelay: 0.01,
       swinging_sword: false,
@@ -47,6 +48,9 @@ Q.Sprite.extend("Player", {
   },
 
   step: function(dt) {
+	  if(this.p.fire_delay < 100){
+		  this.p.fire_delay += 5
+	  }
     // Update player angle based on mouse position.
     if (!this.p.swinging_sword){
 
@@ -75,6 +79,10 @@ Q.Sprite.extend("Player", {
     // Create a block on firing so we don't shoot repeatedly when button held down.
     // Maybe make an exception for automatic guns, if ever added.
     if(Q.inputs['fire']){
+    	if(this.p.has("machinegun") && this.p.fire_delay > 0){
+    		this.p.fire_delay -= 20;
+    	}
+      
       this.p.fire_block = true; 
     } else {
       this.p.fire_block = false; 
