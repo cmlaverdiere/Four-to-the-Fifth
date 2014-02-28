@@ -91,4 +91,12 @@ Q.load([
     console.log("Done loading assets.");
     Q.stageScene("level1", 0);
     Q.stageScene("ui", 1);
+}, {
+  progressCallback: function(loaded, total) {
+    var ls = document.getElementById("loading_status");
+    ls.innerHTML = Math.floor(loaded / total);
+    if(loaded == total){
+      ls.remove(); 
+    }
+  }
 });
