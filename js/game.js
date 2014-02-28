@@ -67,7 +67,7 @@ Q.state.set({ killed: 0,
 });
 
 // Load resources
-Q.loadTMX("testmap.tmx");
+Q.loadTMX("level1.tmx");
 Q.load([ 
          "ammo_clip.png",
          "bullet.png",
