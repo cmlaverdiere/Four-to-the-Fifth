@@ -93,7 +93,7 @@ Q.load([
 }, {
   progressCallback: function(loaded, total) {
     var ls = document.getElementById("loading_status");
-    ls.innerHTML = Math.floor(loaded / total);
+    ls.innerHTML = Math.floor(loaded / total * 100);
     if(loaded == total){
       ls.remove(); 
     }
