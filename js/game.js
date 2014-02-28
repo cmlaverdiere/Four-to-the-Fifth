@@ -89,8 +89,7 @@ Q.load([
          "test.wav", 
          ], function() {
     console.log("Done loading assets.");
-    Q.stageScene("level1", 0);
-    Q.stageScene("ui", 1);
+    Q.stageScene("title", 0);
 }, {
   progressCallback: function(loaded, total) {
     var ls = document.getElementById("loading_status");
