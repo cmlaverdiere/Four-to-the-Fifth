@@ -168,14 +168,6 @@ Q.Sprite.extend("Enemy", {
 
 });
 
-Q.Sprite.extend("Wall", {
-  init: function(p) {
-    this._super(p, {
-      asset: "wall.png",
-      type: Q.SPRITE_ACTIVE
-    });
-  }
-});
 
 // Should make this more generic, extendable for more ammo types, obviously.
 Q.Sprite.extend("Ammo", {
