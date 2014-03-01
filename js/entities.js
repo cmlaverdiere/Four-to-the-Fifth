@@ -4,7 +4,7 @@ Q.Sprite.extend("Player", {
     this._super(p, {
       asset: "player.png",
       bullets: 0,
-      collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY,
+      collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT,
       fire_block: false,
       sprinting: false,
       stepDistance: 5,
@@ -122,7 +122,7 @@ Q.Sprite.extend("Enemy", {
     this._super(p, {
       angle: 0,
       asset: "enemy.png", 
-      collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_PLAYER | Q.SPRITE_ENEMY,
+      collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_PLAYER | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT,
       hp: 6,
       player: Q("Player").first(),
       scale: 1,
