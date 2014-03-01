@@ -20041,13 +20041,13 @@
     <property name="bullets" value="30"/>
    </properties>
   </object>
-  <object gid="343" x="301" y="502"/>
-  <object gid="343" x="462" y="426"/>
-  <object gid="343" x="535" y="487"/>
-  <object gid="343" x="610" y="602"/>
-  <object gid="343" x="523" y="611"/>
-  <object gid="343" x="407" y="711"/>
-  <object gid="343" x="304" y="823"/>
-  <object gid="343" x="250" y="650"/>
+  <object gid="343" x="543" y="564"/>
+  <object gid="343" x="1426" y="652"/>
+  <object gid="343" x="1421" y="811"/>
+  <object gid="343" x="392" y="766"/>
+  <object gid="343" x="1019" y="611"/>
+  <object gid="343" x="867" y="1543"/>
+  <object gid="343" x="204" y="1339"/>
+  <object gid="343" x="236" y="726"/>
  </objectgroup>
 </map>

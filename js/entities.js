@@ -126,7 +126,7 @@ Q.Sprite.extend("Enemy", {
       hp: 6,
       player: Q("Player").first(),
       scale: 1,
-      speed: 1,
+      speed: 3,
       type: Q.SPRITE_ENEMY
     });
 
