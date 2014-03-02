@@ -67,7 +67,7 @@ Q.state.set({ killed: 0,
 });
 
 // Load resources
-Q.loadTMX("level1.tmx, level2.tmx");
+Q.loadTMX("level1.tmx, level2.tmx, level3.tmx");
 Q.load([ 
          "ammo_clip.png",
          "bullet.png",
