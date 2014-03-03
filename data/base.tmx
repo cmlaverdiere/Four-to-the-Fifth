@@ -22,6 +22,12 @@
  <tileset firstgid="11" name="WallSet64" tilewidth="64" tileheight="64">
   <image source="../images/WallSet64.png" width="256" height="256"/>
  </tileset>
+ <tileset firstgid="27" name="cave64" tilewidth="64" tileheight="64">
+  <image source="../images/cave64.png" width="1024" height="1344"/>
+ </tileset>
+ <tileset firstgid="363" name="desert64" tilewidth="64" tileheight="64">
+  <image source="../images/desert64.png" width="832" height="1536"/>
+ </tileset>
  <layer name="background" width="25" height="25">
   <data>
    <tile gid="0"/>
