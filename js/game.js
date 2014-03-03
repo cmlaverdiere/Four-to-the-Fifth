@@ -5,6 +5,10 @@ var Q = Quintus({ development: true, audioSupported: [ 'wav' ] })
           .setup({ maximize:true })
           .touch();
 
+// For now, let's keep track of the current number of maps.
+// Increment this if you add a new one. 
+var NUM_MAPS = 3
+
 // Keep track of change in mouse coords.
 var prev_mouse_coords = [0, 0];
 
@@ -66,8 +70,12 @@ Q.state.set({ killed: 0,
               track_playing: false, 
 });
 
-// Load resources
-Q.loadTMX("level1.tmx, level2.tmx, level3.tmx");
+// Load map resources
+for(var i=1; i<=NUM_MAPS; i++){
+  Q.loadTMX("level" + i + ".tmx");
+}
+
+// Load other resources
 Q.load([ 
          "ammo_clip.png",
          "bullet.png",
