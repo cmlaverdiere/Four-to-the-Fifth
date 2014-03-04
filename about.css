@@ -1,0 +1,42 @@
+.pane {
+  background: #eeeeee;
+  padding: 15px;
+}
+
+#content {
+  display: inline-block;
+  margin-left: 5px;
+  width: 100%;
+}
+
+#footer {
+  background: #dddddd;
+  margin: 10px 3px 3px 3px;
+  padding: 2px;
+  text-align: center;
+  width: 100%; 
+}
+
+
+#left-pane {
+  float: left;
+  vertical-align: top;
+  width: 200px;
+}
+
+#right-pane {
+  margin-left: 240px;
+}
+
+#topbar {
+  background: #dddddd;
+  margin: 3px 3px 10px 3px;
+  padding: 2px;
+  text-align: center;
+  width: 100%; 
+}
+
+#wrapper {
+  margin: 0 auto;
+  width: 900px;
+}
