@@ -46,13 +46,33 @@ Q.scene("level", function(stage) {
 
   // Handle event for when player finishes a level.
   stage.on("beat_level", function() {
+      // If there's still a level after, proceed to the next level.
       if(Q.state.get("level") < NUM_MAPS){
         Q.state.inc("level", 1);
-      } else {
-        Q.state.set("level", 1);
+        Q.stageScene("level", 0);
+      } else { // Otherwise, we've beaten the game.
+        console.log("Game beaten.");
+        Q.stageScene("endgame", 0);
+        Q.stageScene("null", 1);
       }
-      Q.stageScene("level", 0);
   });
 
+});
+
+// The ending screen.
+Q.scene("endgame", function(stage) {
+  // Button to restart Game.
+  var restart_btn = stage.insert(new Q.UI.Button({
+    border: 2,
+    fill: "white",
+    label: "Replay?",
+    radius: 3,
+    x: Q.width/2,
+    y: Q.height/2,
+  }, function() {
+    Q.state.set("level", 1);
+    Q.stageScene("level", 0);
+    Q.stageScene("ui", 1);
+  }));
 });
 

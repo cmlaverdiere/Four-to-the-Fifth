@@ -34,7 +34,7 @@
    <properties>
     <property name="Class" value="Enemy"/>
     <property name="asset" value="boss.png"/>
-    <property name="hp" value="50"/>
+    <property name="hp" value="100"/>
    </properties>
   </tile>
  </tileset>
