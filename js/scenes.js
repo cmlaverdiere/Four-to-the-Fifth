@@ -1,3 +1,4 @@
+// The initial title screen.
 Q.scene("title", function(stage) {
   // Button to Start Game.
   var start_btn = stage.insert(new Q.UI.Button({
@@ -23,6 +24,7 @@ Q.scene("level", function(stage) {
 
   // Q.audio.play('test.wav', { loop: true });
 
+  // Handle event for when an enemy is killed.
   stage.on("enemy_killed", function(){ 
     Q.state.inc("killed", 1);
     Q.state.dec("alive", 1);
@@ -38,9 +40,19 @@ Q.scene("level", function(stage) {
     // Check if game over.
     if(Q("Enemy").length <= 1){
       console.log("Level beaten. Staging Next level."); 
-      Q.state.inc("level", 1);
-      Q.stageScene("level", 0);
+      stage.trigger("beat_level");
     }
   });
+
+  // Handle event for when player finishes a level.
+  stage.on("beat_level", function() {
+      if(Q.state.get("level") < NUM_MAPS){
+        Q.state.inc("level", 1);
+      } else {
+        Q.state.set("level", 1);
+      }
+      Q.stageScene("level", 0);
+  });
+
 });
 

@@ -84,12 +84,11 @@ Q.scene("ui", function(stage){
   })); 
 
   // Advance to the next level (Obviously for debug only).
-  var music_toggle = stage.insert(new Q.UI.Button({
+  var level_advance_btn = stage.insert(new Q.UI.Button({
     y: -180,
     label: "Advance level"
   }, function(){
-    Q.state.inc("level", 1);
-    Q.stageScene("level", 0);
+    Q.stage(0).trigger("beat_level");
   }), options_cont);
 
   // Change game zoom
