@@ -28,6 +28,16 @@
  <tileset firstgid="363" name="desert64" tilewidth="64" tileheight="64">
   <image source="../images/desert64.png" width="832" height="1536"/>
  </tileset>
+ <tileset firstgid="675" name="boss" tilewidth="256" tileheight="256">
+  <image source="../images/boss.png" width="256" height="256"/>
+  <tile id="0">
+   <properties>
+    <property name="Class" value="Enemy"/>
+    <property name="asset" value="boss.png"/>
+    <property name="hp" value="50"/>
+   </properties>
+  </tile>
+ </tileset>
  <layer name="background" width="25" height="25">
   <data>
    <tile gid="368"/>
@@ -1291,22 +1301,6 @@
  </layer>
  <objectgroup name="sprites" width="25" height="25">
   <object gid="1" x="132" y="1408"/>
-  <object gid="7" x="1504" y="726"/>
-  <object gid="7" x="1386" y="720"/>
-  <object gid="7" x="1271" y="720"/>
-  <object gid="7" x="1253" y="611"/>
-  <object gid="7" x="626" y="84"/>
-  <object gid="7" x="532" y="111"/>
-  <object gid="7" x="592" y="184"/>
-  <object gid="7" x="644" y="271"/>
-  <object gid="7" x="38" y="105"/>
-  <object gid="7" x="86" y="184"/>
-  <object gid="7" x="1344" y="1587"/>
-  <object gid="7" x="1253" y="1468"/>
-  <object gid="7" x="1165" y="1435"/>
-  <object gid="7" x="1201" y="1308"/>
-  <object gid="7" x="1501" y="1429"/>
-  <object gid="7" x="950" y="1577"/>
-  <object gid="7" x="316" y="1096"/>
+  <object gid="675" x="1311" y="973"/>
  </objectgroup>
 </map>

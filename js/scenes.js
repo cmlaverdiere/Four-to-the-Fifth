@@ -36,9 +36,8 @@ Q.scene("level", function(stage) {
     }
 
     // Check if game over.
-    console.log(Q("Enemy").length);
     if(Q("Enemy").length <= 1){
-      console.log("Level beaten. Resetting."); 
+      console.log("Level beaten. Staging Next level."); 
       Q.state.inc("level", 1);
       Q.stageScene("level", 0);
     }
