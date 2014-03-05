@@ -1,9 +1,13 @@
 // Setup Quintus instance
 var Q = Quintus({ development: true, audioSupported: [ 'wav' ] })
-          .include("Sprites, Scenes, Input, 2D, Audio, Anim, Touch, UI")
+          .include("Sprites, Scenes, Input, 2D, Audio, Anim, Touch, UI, TMX")
           .enableSound()
           .setup({ maximize:true })
           .touch();
+
+// For now, let's keep track of the current number of maps.
+// Increment this if you add a new one. 
+var NUM_MAPS = 4
 
 // Keep track of change in mouse coords.
 var prev_mouse_coords = [0, 0];
@@ -66,10 +70,16 @@ Q.state.set({ killed: 0,
               track_playing: false, 
 });
 
-// Load resources
+// Load map resources
+for(var i=1; i<=NUM_MAPS; i++){
+  Q.loadTMX("level" + i + ".tmx");
+}
+
+// Load other resources
 Q.load([ 
          "ammo_clip.png",
          "bullet.png",
+         "cave.png",
          "enemy.png",
          "floor_tile.png", 
          "floor_tile_pencil.png", 
@@ -89,6 +99,13 @@ Q.load([
          "test.wav", 
          ], function() {
     console.log("Done loading assets.");
-    Q.stageScene("level1", 0);
-    Q.stageScene("ui", 1);
+    Q.stageScene("title", 0);
+}, {
+  progressCallback: function(loaded, total) {
+    var ls = document.getElementById("loading_status");
+    ls.innerHTML = Math.floor(loaded / total * 100);
+    if(loaded == total){
+      ls.remove(); 
+    }
+  }
 });
