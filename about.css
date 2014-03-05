@@ -1,3 +1,7 @@
+body{
+  background: #bbbbbb;
+}
+
 .pane {
   background: #eeeeee;
   padding: 15px;
@@ -10,7 +14,7 @@
 }
 
 #footer {
-  background: #dddddd;
+  background: #eeeeee;
   margin: 10px 3px 3px 3px;
   padding: 2px;
   text-align: center;
@@ -29,7 +33,7 @@
 }
 
 #topbar {
-  background: #dddddd;
+  background: #eeeeee;
   margin: 3px 3px 10px 3px;
   padding: 2px;
   text-align: center;
