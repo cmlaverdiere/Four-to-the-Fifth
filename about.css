@@ -1,22 +1,16 @@
-body{
-  background: #bbbbbb;
-}
-
 .pane {
-  background: #eeeeee;
+  background: #fbfbfb;
+  border: 1px solid #eeeeee;
   padding: 15px;
 }
 
 #content {
-  display: inline-block;
-  margin-left: 5px;
+  margin-left: 3px;
   width: 100%;
 }
 
 #footer {
-  background: #eeeeee;
   margin: 10px 3px 3px 3px;
-  padding: 2px;
   text-align: center;
   width: 100%; 
 }
@@ -24,7 +18,6 @@ body{
 
 #left-pane {
   float: left;
-  vertical-align: top;
   width: 200px;
 }
 
@@ -33,9 +26,7 @@ body{
 }
 
 #topbar {
-  background: #eeeeee;
   margin: 3px 3px 10px 3px;
-  padding: 2px;
   text-align: center;
   width: 100%; 
 }
