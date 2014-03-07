@@ -6,6 +6,7 @@ Q.Sprite.extend("Player", {
       bullets: 0,
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT,
       fire_block: false,
+      fireDelay: 100,
       sprinting: false,
       stepDistance: 5,
       stepDelay: 0.01,
@@ -76,6 +77,7 @@ Q.Sprite.extend("Player", {
     // Create a block on firing so we don't shoot repeatedly when button held down.
     // Maybe make an exception for automatic guns, if ever added.
     if(Q.inputs['fire']){
+      this.p.fireDelay -= 20;
       this.p.fire_block = true; 
     } else {
       this.p.fire_block = false; 
