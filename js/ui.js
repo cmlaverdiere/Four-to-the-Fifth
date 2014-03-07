@@ -83,6 +83,14 @@ Q.scene("ui", function(stage){
     options_cont.p.hidden = !(options_cont.p.hidden); 
   })); 
 
+  // Advance to the next level (Obviously for debug only).
+  var level_advance_btn = stage.insert(new Q.UI.Button({
+    y: -180,
+    label: "Advance level"
+  }, function(){
+    Q.stage(0).trigger("beat_level");
+  }), options_cont);
+
   // Change game zoom
   var zoom_toggle = stage.insert(new Q.UI.Button({
     y: -140,

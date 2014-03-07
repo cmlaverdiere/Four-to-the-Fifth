@@ -9,15 +9,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="15"
-   height="15"
+   width="64"
+   height="64"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="bullet.svg"
-   inkscape:export-filename="/home/chris/Class/soft/project/Four-to-the-Fifth/images/bullet.png"
-   inkscape:export-xdpi="90"
-   inkscape:export-ydpi="90">
+   sodipodi:docname="testplayer2.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -27,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6568542"
-     inkscape:cx="-12.210044"
-     inkscape:cy="18.138006"
+     inkscape:zoom="5.6"
+     inkscape:cx="49.36955"
+     inkscape:cy="31.165146"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -54,16 +51,23 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-1037.3622)">
+     transform="translate(0,-988.36218)">
+    <rect
+       style="fill:#008000;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       id="rect2985"
+       width="60.714287"
+       height="17.142857"
+       x="1.9642856"
+       y="1012.0051" />
     <path
        sodipodi:type="arc"
-       style="fill:#333333;fill-opacity:1;stroke:#000000;stroke-opacity:1"
-       id="path2985"
-       sodipodi:cx="7.2321429"
-       sodipodi:cy="7.4107141"
-       sodipodi:rx="6.5625"
-       sodipodi:ry="6.3392859"
-       d="m 13.794643,7.4107141 a 6.5625,6.3392859 0 1 1 -13.12500007,0 6.5625,6.3392859 0 1 1 13.12500007,0 z"
-       transform="translate(0.44463374,1037.4515)" />
+       style="fill:#803300;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       id="path2987"
+       sodipodi:cx="30.714285"
+       sodipodi:cy="32.392857"
+       sodipodi:rx="15.178572"
+       sodipodi:ry="14.464286"
+       d="m 45.892857,32.392857 a 15.178572,14.464286 0 1 1 -30.357144,0 15.178572,14.464286 0 1 1 30.357144,0 z"
+       transform="translate(6.6071429,987.46932)" />
   </g>
 </svg>

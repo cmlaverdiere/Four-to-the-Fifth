@@ -1,9 +1,35 @@
+<<<<<<< HEAD
 // Create player scene
 Q.scene("level1", function(stage) {
+=======
+// The initial title screen.
+Q.scene("title", function(stage) {
+  // Button to Start Game.
+  var start_btn = stage.insert(new Q.UI.Button({
+    border: 2,
+    fill: "white",
+    label: "Start Game",
+    radius: 3,
+    x: Q.width/2,
+    y: Q.height/2,
+  }, function() {
+    Q.stageScene("level", 0);
+    Q.stageScene("ui", 1);
+  }));
+});
+>>>>>>> 1783a7e57d4319c288f542f8c8cff15309628951
 
+// Create player scene
+Q.scene("level", function(stage) {
   var fmod = 4;
   var frenzied_enemies = false;
 
+  Q.stageTMX("level" + Q.state.get("level") + ".tmx", stage);
+  stage.add("viewport").follow(Q("Player").first());
+
+  // Q.audio.play('test.wav', { loop: true });
+
+  // Handle event for when an enemy is killed.
   stage.on("enemy_killed", function(){ 
     Q.state.inc("killed", 1);
     Q.state.dec("alive", 1);
@@ -18,6 +44,7 @@ Q.scene("level1", function(stage) {
 
     // Check if game over.
     if(Q("Enemy").length <= 1){
+<<<<<<< HEAD
       console.log("Level beaten. Resetting."); 
       Q.state.inc("level", 1);
       Q.stageScene("level1", 0);
@@ -70,9 +97,42 @@ Q.scene("level1", function(stage) {
   for(var i=0; i<(10 * Q.state.get("level")/ 2) ; i++){
     stage.insert(new Q.Ammo({x: Math.random() * 3000, y: Math.random() * 3000}));
   }
+=======
+      console.log("Level beaten. Staging Next level."); 
+      stage.trigger("beat_level");
+    }
+  });
 
-  // I can't listen to this anymore. I need silence.
-  // Q.audio.play('test.wav', { loop: true });
+  // Handle event for when player finishes a level.
+  stage.on("beat_level", function() {
+      // If there's still a level after, proceed to the next level.
+      if(Q.state.get("level") < NUM_MAPS){
+        Q.state.inc("level", 1);
+        Q.stageScene("level", 0);
+      } else { // Otherwise, we've beaten the game.
+        console.log("Game beaten.");
+        Q.stageScene("endgame", 0);
+        Q.stageScene("null", 1);
+      }
+  });
+>>>>>>> 1783a7e57d4319c288f542f8c8cff15309628951
 
-  stage.add("viewport").follow(player);
 });
+
+// The ending screen.
+Q.scene("endgame", function(stage) {
+  // Button to restart Game.
+  var restart_btn = stage.insert(new Q.UI.Button({
+    border: 2,
+    fill: "white",
+    label: "Replay?",
+    radius: 3,
+    x: Q.width/2,
+    y: Q.height/2,
+  }, function() {
+    Q.state.set("level", 1);
+    Q.stageScene("level", 0);
+    Q.stageScene("ui", 1);
+  }));
+});
+

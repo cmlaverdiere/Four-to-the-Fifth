@@ -4,9 +4,10 @@ Q.Sprite.extend("Player", {
     this._super(p, {
       asset: "player.png",
       bullets: 0,
-      collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY,
+      collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT,
       fire_block: false,
       sprinting: false,
+      fire_delay: 100,
       stepDistance: 5,
       stepDelay: 0.01,
       swinging_sword: false,
@@ -24,6 +25,7 @@ Q.Sprite.extend("Player", {
     Q.input.on("wep3", this, "equip_shotgun");
     Q.input.on("wep4", this, "equip_machinegun")
     Q.input.on("sword", this, "swing_sword");
+
   },
 
   equip_gun: function() {
@@ -122,11 +124,15 @@ Q.Sprite.extend("Enemy", {
     this._super(p, {
       angle: 0,
       asset: "enemy.png", 
+<<<<<<< HEAD
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_PLAYER | Q.SPRITE_ENEMY,
+=======
+      collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_PLAYER | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT,
+>>>>>>> 1783a7e57d4319c288f542f8c8cff15309628951
       hp: 6,
       player: Q("Player").first(),
       scale: 1,
-      speed: 1,
+      speed: 3,
       type: Q.SPRITE_ENEMY
     });
 
@@ -168,14 +174,6 @@ Q.Sprite.extend("Enemy", {
 
 });
 
-Q.Sprite.extend("Wall", {
-  init: function(p) {
-    this._super(p, {
-      asset: "wall.png",
-      type: Q.SPRITE_ACTIVE
-    });
-  }
-});
 
 // Should make this more generic, extendable for more ammo types, obviously.
 Q.Sprite.extend("Ammo", {
