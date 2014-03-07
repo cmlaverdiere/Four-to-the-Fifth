@@ -49,6 +49,10 @@ Q.Sprite.extend("Player", {
   },
 
   step: function(dt) {
+    if(this.p.fireDelay < 100){
+    	this.p.fireDelay += 5;
+    }
+	  
     // Update player angle based on mouse position.
     if (!this.p.swinging_sword){
 
