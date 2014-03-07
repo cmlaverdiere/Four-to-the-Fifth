@@ -63,7 +63,7 @@ Q.component("machinegun", {
 
   extend: {
     fire: function() {
-      if (this.p.bullets > 0){
+      if (this.p.bullets > 0 && this.p.fireDelay <= 0){ //adds wind up to machine gun
         Q.audio.play("gun_shot.wav");
         Q.stage().insert(new Q.Bullet(
         { 
