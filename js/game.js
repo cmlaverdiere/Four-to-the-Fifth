@@ -70,16 +70,12 @@ Q.state.set({ killed: 0,
               track_playing: false, 
 });
 
-<<<<<<< HEAD
-// Load resources
-=======
 // Load map resources
 for(var i=1; i<=NUM_MAPS; i++){
   Q.loadTMX("level" + i + ".tmx");
 }
 
 // Load other resources
->>>>>>> 1783a7e57d4319c288f542f8c8cff15309628951
 Q.load([ 
          "ammo_clip.png",
          "bullet.png",
