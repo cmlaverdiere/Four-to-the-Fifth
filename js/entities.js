@@ -67,7 +67,6 @@ Q.Sprite.extend("Player", {
     if(this.p.fire_delay < 100){
       this.p.fire_delay += 5; 
     }
-    console.log(this.p.fire_delay);
 
     // Send event to all enemies to look at and chase the player.
     var enemies = Q("Enemy");
