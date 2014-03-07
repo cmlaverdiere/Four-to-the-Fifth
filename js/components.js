@@ -63,7 +63,7 @@ Q.component("machinegun", {
 
   extend: {
     fire: function() {
-      if (this.p.bullets > 0){
+      if (this.p.bullets > 0 && this.p.fire_delay <= 0){
         Q.audio.play("gun_shot.wav");
         Q.stage().insert(new Q.Bullet(
         { 
