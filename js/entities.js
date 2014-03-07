@@ -7,7 +7,6 @@ Q.Sprite.extend("Player", {
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT,
       fire_block: false,
       sprinting: false,
-      fire_delay: 100,
       stepDistance: 5,
       stepDelay: 0.01,
       swinging_sword: false,
@@ -124,11 +123,7 @@ Q.Sprite.extend("Enemy", {
     this._super(p, {
       angle: 0,
       asset: "enemy.png", 
-<<<<<<< HEAD
-      collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_PLAYER | Q.SPRITE_ENEMY,
-=======
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_PLAYER | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT,
->>>>>>> 1783a7e57d4319c288f542f8c8cff15309628951
       hp: 6,
       player: Q("Player").first(),
       scale: 1,
