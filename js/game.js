@@ -56,6 +56,16 @@ Q.input.keyboardControls({
 
 Q.input.mouseControls({ cursor: "on" });
 
+// Set initial game state.
+Q.state.set({ killed: 0,
+              alive: 0,
+              ammo: 30, 
+              level: 1,
+              paused: false,
+              track_id: 0, 
+              track_playing: false, 
+});
+
 // Load resources
 Q.load([ 
          "ammo_clip.png",
@@ -66,6 +76,8 @@ Q.load([
          "line_paper.png", 
          "player.png",
          "player_with_gun.png",
+         "player_with_shotgun.png",
+         "shot_pellet.png",
          "sword.png", 
          "tough_guy.png",
          "wall.png", 
@@ -73,6 +85,7 @@ Q.load([
          "disp_heroes.wav", 
          "gun_cock.wav", 
          "gun_shot.wav", 
+         "shotgun_shot.wav", 
          "test.wav", 
          ], function() {
     console.log("Done loading assets.");

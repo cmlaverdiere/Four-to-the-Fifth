@@ -17,12 +17,46 @@ Q.scene("ui", function(stage){
 
   // Total kills label
   var kills_label = stage.insert(new Q.UI.Text({
+    x: -300,
     label: "Kill Count: " + Q.state.get("killed"),
   }), bottom_cont);
 
   // Update kills label. 
   Q.state.on("change.killed", function(){ 
     kills_label.p.label = "Kill Count: " + Q.state.get("killed") 
+  });
+
+  // Total alive label
+  var alive_label = stage.insert(new Q.UI.Text({
+    x: -100,
+    label: "Enemies Left: " + Q.state.get("alive"),
+  }), bottom_cont);
+
+  // Update number alive label. 
+  Q.state.on("change.alive", function(){ 
+    alive_label.p.label = "Enemies Left: " + Q.state.get("alive") 
+  });
+
+  // Total ammo label
+  var ammo_label = stage.insert(new Q.UI.Text({
+    x: 100,
+    label: "Ammo: " + Q.state.get("ammo"),
+  }), bottom_cont);
+
+  // Update ammo label. 
+  Q.state.on("change.ammo", function(){ 
+    ammo_label.p.label = "Ammo: " + Q.state.get("ammo") 
+  });
+
+  // Level label
+  var level_label = stage.insert(new Q.UI.Text({
+    x: 250,
+    label: "Level: " + Q.state.get("level"),
+  }), bottom_cont);
+
+  // Update Level label. 
+  Q.state.on("change.level", function(){ 
+    level_label.p.label = "Level: " + Q.state.get("level") 
   });
 
   // Container for options menu
