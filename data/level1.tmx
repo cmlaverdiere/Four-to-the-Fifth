@@ -5,6 +5,7 @@
   <tile id="0">
    <properties>
     <property name="Class" value="Player"/>
+    <property name="asset" value="soldier1.png"/>
     <property name="bullets" value="20"/>
    </properties>
   </tile>
@@ -1311,14 +1312,6 @@
   </data>
  </layer>
  <objectgroup name="sprites" width="25" height="25">
-  <object gid="5" x="516" y="1302"/>
-  <object gid="11" x="453" y="720"/>
-  <object gid="11" x="201" y="890"/>
-  <object gid="11" x="910" y="853"/>
-  <object gid="11" x="1407" y="1308"/>
-  <object gid="11" x="1335" y="1005"/>
-  <object gid="11" x="192" y="1450"/>
-  <object gid="11" x="159" y="1153"/>
-  <object gid="11" x="947" y="553"/>
+  <object gid="1" x="568" y="1061"/>
  </objectgroup>
 </map>

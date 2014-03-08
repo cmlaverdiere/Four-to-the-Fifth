@@ -45,7 +45,7 @@ Q.Sprite.extend("Player", {
 
   put_away_wep: function() {
     this.unequip_guns();
-    this.p.asset = "player.png";
+    this.p.asset = "soldier1.png";
   },
 
   step: function(dt) {

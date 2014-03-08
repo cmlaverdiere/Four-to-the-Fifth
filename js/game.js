@@ -88,6 +88,8 @@ Q.load([
          "player_with_gun.png",
          "player_with_shotgun.png",
          "shot_pellet.png",
+         "soldier1.png",
+         "soldier1_pistol.png",
          "sword.png", 
          "tough_guy.png",
          "wall.png", 

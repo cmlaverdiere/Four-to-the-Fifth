@@ -15,9 +15,9 @@
    version="1.1"
    inkscape:version="0.48.4 r9939"
    sodipodi:docname="soldier1.svg"
-   inkscape:export-filename="/home/chris/Class/soft/project/Four-to-the-Fifth/images/soldier1_pistol.png"
-   inkscape:export-xdpi="26.580524"
-   inkscape:export-ydpi="26.580524">
+   inkscape:export-filename="/home/chris/Class/soft/project/Four-to-the-Fifth/images/soldier1.png"
+   inkscape:export-xdpi="27.810566"
+   inkscape:export-ydpi="27.810566">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -57,7 +57,7 @@
      id="layer1">
     <g
        id="g4015"
-       transform="translate(4.5754878,16.014207)">
+       transform="matrix(1,0,0,-1,4.5754878,894.9781)">
       <g
          transform="translate(311.13317,-388.91646)"
          id="g3989" />
