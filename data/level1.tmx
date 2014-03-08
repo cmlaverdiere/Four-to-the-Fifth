@@ -5,8 +5,11 @@
   <tile id="0">
    <properties>
     <property name="Class" value="Player"/>
-    <property name="asset" value="soldier1.png"/>
+    <property name="base_sprite" value="soldier1.png"/>
     <property name="bullets" value="20"/>
+    <property name="mg_sprite" value="soldier1_pistol.png"/>
+    <property name="pistol_sprite" value="soldier1_pistol.png"/>
+    <property name="shotgun_sprite" value="soldier1_pistol.png"/>
    </properties>
   </tile>
  </tileset>

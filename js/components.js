@@ -1,6 +1,6 @@
 Q.component("gun", {
   added: function() {
-    this.entity.p.asset = "soldier1_pistol.png";
+    this.entity.p.asset = this.entity.p.pistol_sprite;
     Q.audio.play("gun_cock.wav");
   },
 
@@ -28,7 +28,7 @@ Q.component("gun", {
 // Just a quick hack.
 Q.component("shotgun", {
   added: function() {
-    this.entity.p.asset = "soldier1_pistol.png";
+    this.entity.p.asset = this.entity.p.shotgun_sprite;
     Q.audio.play("gun_cock.wav"); // Should have unique shotgun load sound.
   },
 
@@ -57,7 +57,7 @@ Q.component("shotgun", {
 
 Q.component("machinegun", {
   added: function() {
-    this.entity.p.asset = "soldier1_pistol.png";
+    this.entity.p.asset = this.entity.p.mg_sprite;
     Q.audio.play("gun_cock.wav");
   },
 

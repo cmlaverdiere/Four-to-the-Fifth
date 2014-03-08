@@ -2,7 +2,7 @@
 Q.Sprite.extend("Player", {
   init: function(p) {
     this._super(p, {
-      asset: "player.png",
+      asset: p.base_sprite,
       bullets: 0,
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT,
       fire_block: false,
@@ -45,7 +45,7 @@ Q.Sprite.extend("Player", {
 
   put_away_wep: function() {
     this.unequip_guns();
-    this.p.asset = "soldier1.png";
+    this.p.asset = this.p.base_sprite;
   },
 
   step: function(dt) {
