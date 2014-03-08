@@ -245,6 +245,7 @@ Q.Sprite.extend("Sword", {
       asset: "sword.png",
       atk_type: "melee",
       collisionMask: Q.SPRITE_ENEMY,    // took out Q.SPRITE_ACTIVE now sword doesnt hit wall
+      scale: 2,
       type: Q.SPRITE_POWERUP
     });
 
