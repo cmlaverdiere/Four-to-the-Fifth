@@ -1316,5 +1316,15 @@
  </layer>
  <objectgroup name="sprites" width="25" height="25">
   <object gid="1" x="568" y="1061"/>
+  <object gid="11" x="168" y="1423"/>
+  <object gid="11" x="165" y="1326"/>
+  <object gid="11" x="192" y="1096"/>
+  <object gid="11" x="283" y="811"/>
+  <object gid="11" x="947" y="814"/>
+  <object gid="11" x="616" y="650"/>
+  <object gid="11" x="1332" y="847"/>
+  <object gid="11" x="1380" y="1090"/>
+  <object gid="11" x="1383" y="1284"/>
+  <object gid="11" x="592" y="1468"/>
  </objectgroup>
 </map>
