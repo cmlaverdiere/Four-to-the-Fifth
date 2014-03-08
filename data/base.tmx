@@ -5,7 +5,11 @@
   <tile id="0">
    <properties>
     <property name="Class" value="Player"/>
+    <property name="base_sprite" value="soldier1.png"/>
     <property name="bullets" value="20"/>
+    <property name="mg_sprite" value="soldier1_pistol.png"/>
+    <property name="pistol_sprite" value="soldier1_pistol.png"/>
+    <property name="shotgun_sprite" value="soldier1_pistol.png"/>
    </properties>
   </tile>
  </tileset>
@@ -46,6 +50,9 @@
  <tileset firstgid="367" name="desert64" tilewidth="64" tileheight="64">
   <image source="../images/desert64.png" width="832" height="1536"/>
  </tileset>
+ <imagelayer name="background-image" width="25" height="25" visible="0">
+  <image source="../images/cave-floor.png"/>
+ </imagelayer>
  <layer name="background" width="25" height="25">
   <data>
    <tile gid="0"/>
@@ -1307,5 +1314,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <objectgroup name="sprites" width="25" height="25"/>
+ <objectgroup name="sprites" width="25" height="25">
+  <object gid="1" x="568" y="1061"/>
+ </objectgroup>
 </map>
