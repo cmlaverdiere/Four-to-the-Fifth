@@ -115,7 +115,8 @@ Q.Sprite.extend("Player", {
   },
 
   swing_sword: function() {
-    this.p.sword = Q.stage().insert(new Q.Sword({ x: -22, y: 25 }), this);
+    this.p.asset = this.p.base_sprite;
+    this.p.sword = Q.stage().insert(new Q.Sword({ x: -32, y: 25 }), this);
     this.p.swinging_sword = true;
   },
 
