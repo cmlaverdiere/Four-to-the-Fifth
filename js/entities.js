@@ -2,15 +2,10 @@
 Q.Sprite.extend("Player", {
   init: function(p) {
     this._super(p, {
-      asset: p.base_sprite,
+      asset: "player.png",
       bullets: 0,
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT,
       fire_block: false,
-<<<<<<< HEAD
-      fireDelay: 100,
-=======
-      fire_delay: 100,
->>>>>>> upstream/master
       sprinting: false,
       stepDistance: 5,
       stepDelay: 0.01,
@@ -49,14 +44,10 @@ Q.Sprite.extend("Player", {
 
   put_away_wep: function() {
     this.unequip_guns();
-    this.p.asset = this.p.base_sprite;
+    this.p.asset = "player.png";
   },
 
   step: function(dt) {
-    if(this.p.fireDelay < 100){ // add delay back for machine gun
-    	this.p.fireDelay += 5;
-    }
-	  
     // Update player angle based on mouse position.
     if (!this.p.swinging_sword){
 
@@ -69,11 +60,6 @@ Q.Sprite.extend("Player", {
         prev_mouse_coords = [Q.inputs['mouseX'], Q.inputs['mouseY']];  
         this.p.angle = -1 * TO_DEG * Math.atan2(dmx, dmy);
       }
-    }
-
-    // Machine gun delay.
-    if(this.p.fire_delay < 100){
-      this.p.fire_delay += 5; 
     }
 
     // Send event to all enemies to look at and chase the player.
@@ -90,13 +76,7 @@ Q.Sprite.extend("Player", {
     // Create a block on firing so we don't shoot repeatedly when button held down.
     // Maybe make an exception for automatic guns, if ever added.
     if(Q.inputs['fire']){
-      if(this.p.fireDelay > 0){ //dec delay
-    	  this.p.fireDelay -= 20;
-      }
       this.p.fire_block = true; 
-      if(this.p.fire_delay > 0){
-        this.p.fire_delay -= 20; 
-      }
     } else {
       this.p.fire_block = false; 
     }
@@ -126,8 +106,7 @@ Q.Sprite.extend("Player", {
   },
 
   swing_sword: function() {
-    this.p.asset = this.p.base_sprite;
-    this.p.sword = Q.stage().insert(new Q.Sword({ x: -32, y: 25 }), this);
+    this.p.sword = Q.stage().insert(new Q.Sword({ x: -22, y: 25 }), this);
     this.p.swinging_sword = true;
   },
 
@@ -257,7 +236,6 @@ Q.Sprite.extend("Sword", {
       asset: "sword.png",
       atk_type: "melee",
       collisionMask: Q.SPRITE_ENEMY,    // took out Q.SPRITE_ACTIVE now sword doesnt hit wall
-      scale: 2,
       type: Q.SPRITE_POWERUP
     });
 
