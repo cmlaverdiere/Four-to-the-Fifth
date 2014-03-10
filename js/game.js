@@ -7,7 +7,7 @@ var Q = Quintus({ development: true, audioSupported: [ 'wav' ] })
 
 // For now, let's keep track of the current number of maps.
 // Increment this if you add a new one. 
-var NUM_MAPS = 4
+var NUM_MAPS = 1
 
 // Keep track of change in mouse coords.
 var prev_mouse_coords = [0, 0];
@@ -26,6 +26,7 @@ Q.KEY_NAMES.W = 87;
 Q.KEY_NAMES.A = 65;
 Q.KEY_NAMES.S = 83;
 Q.KEY_NAMES.D = 68;
+Q.KEY_NAMES.E = 69;
 Q.KEY_NAMES.F = 70;
 Q.KEY_NAMES.SHIFT = 16;
 Q.KEY_NAMES.ONE   = 49;
@@ -42,12 +43,13 @@ var TO_DEG = 180 / Math.PI
 
 // Key actions
 Q.input.keyboardControls({
-  UP:     'forward', W: 'forward',
+  UP:     'up',     W: 'up',
   LEFT:   'left',   A: 'left',
   DOWN:   'down',   S: 'down',
   RIGHT:  'right',  D: 'right',
   SPACE:  'fire',
   SHIFT:  'sprint',
+  E:      'forward',
   F:      'sword',
   ONE:    'wep1',
   TWO:    'wep2',
@@ -88,6 +90,10 @@ Q.load([
          "player_with_gun.png",
          "player_with_shotgun.png",
          "shot_pellet.png",
+         "soldier_base.png",
+         "soldier_pistol.png",
+         "soldier_gatling.png",
+         "soldier_rocket.png",
          "sword.png", 
          "tough_guy.png",
          "wall.png", 
