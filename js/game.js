@@ -26,6 +26,7 @@ Q.KEY_NAMES.W = 87;
 Q.KEY_NAMES.A = 65;
 Q.KEY_NAMES.S = 83;
 Q.KEY_NAMES.D = 68;
+Q.KEY_NAMES.E = 69;
 Q.KEY_NAMES.F = 70;
 Q.KEY_NAMES.SHIFT = 16;
 Q.KEY_NAMES.ONE   = 49;
@@ -42,12 +43,13 @@ var TO_DEG = 180 / Math.PI
 
 // Key actions
 Q.input.keyboardControls({
-  UP:     'forward', W: 'forward',
+  UP:     'up',     W: 'up',
   LEFT:   'left',   A: 'left',
   DOWN:   'down',   S: 'down',
   RIGHT:  'right',  D: 'right',
   SPACE:  'fire',
   SHIFT:  'sprint',
+  E:      'forward',
   F:      'sword',
   ONE:    'wep1',
   TWO:    'wep2',
