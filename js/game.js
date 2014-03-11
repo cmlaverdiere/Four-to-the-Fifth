@@ -69,7 +69,7 @@ Q.input.mouseControls({ cursor: "on" });
 // Set initial game state.
 Q.state.set({ killed: 0,
               alive: 0,
-              ammo: 30, 
+              ammo: 50, 
               level: 1,
               paused: false,
               track_id: 0, 
@@ -100,8 +100,7 @@ Q.load([
          "soldier_rocket.png",
          "sword.png", 
          "tough_guy.png",
-         "wall.png", 
-
+         "wall.png",
          "disp_heroes.wav", 
          "gun_cock.wav", 
          "gun_shot.wav", 

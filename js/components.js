@@ -12,8 +12,8 @@ Q.component("gun", {
         { 
           x: this.p.x,
           y: this.p.y, 
-          vx: 1000 * Math.cos(TO_RAD * (this.p.angle+90)), 
-          vy: 1000 * Math.sin(TO_RAD * (this.p.angle+90)), 
+          vx: 2000 * Math.cos(TO_RAD * (this.p.angle+90)), 
+          vy: 2000 * Math.sin(TO_RAD * (this.p.angle+90)), 
         }
         ));
 
@@ -48,6 +48,7 @@ Q.component("shotgun", {
           }
           ));
         }
+
         this.p.bullets -= 2;
         Q.state.dec("ammo", 2);
       }
@@ -69,8 +70,8 @@ Q.component("machinegun", {
         { 
           x: this.p.x,
           y: this.p.y, 
-          vx: 1000 * Math.cos(TO_RAD * (this.p.angle+90)), 
-          vy: 1000 * Math.sin(TO_RAD * (this.p.angle+90)), 
+          vx: 2000 * Math.cos(TO_RAD * (this.p.angle+90)), 
+          vy: 2000 * Math.sin(TO_RAD * (this.p.angle+90)), 
         }
         ));
 
