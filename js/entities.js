@@ -152,6 +152,8 @@ Q.Sprite.extend("Enemy", {
           Q.stage().trigger("enemy_killed");
         } else {
           // Enemy should bounce back / react to being shot.  
+          this.p.x -= 15 * Math.cos(TO_RAD * (this.p.angle+90));
+          this.p.y -= 15 * Math.sin(TO_RAD * (this.p.angle+90));
         }
         collision.obj.destroy();
       }
