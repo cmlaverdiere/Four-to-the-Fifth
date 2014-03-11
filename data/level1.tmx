@@ -52,6 +52,12 @@
   <tile id="0">
    <properties>
     <property name="Class" value="Enemy"/>
+    <property name="base_sprite" value="enemy.png"/>
+    <property name="bullets" value="255"/>
+    <property name="mg_sprite" value="enemy.png"/>
+    <property name="pistol_sprite" value="enemy.png"/>
+    <property name="rocket_sprite" value="enemy.png"/>
+    <property name="shotgun_sprite" value="enemy.png"/>
    </properties>
   </tile>
  </tileset>
@@ -1329,16 +1335,6 @@
   </data>
  </layer>
  <objectgroup name="sprites" width="25" height="25">
-  <object gid="1" x="550" y="1153"/>
-  <object gid="15" x="204" y="1416"/>
-  <object gid="15" x="200" y="1256"/>
-  <object gid="15" x="204" y="1032"/>
-  <object gid="15" x="252" y="800"/>
-  <object gid="15" x="428" y="672"/>
-  <object gid="15" x="968" y="736"/>
-  <object gid="15" x="744" y="604"/>
-  <object gid="15" x="1324" y="872"/>
-  <object gid="15" x="1396" y="776"/>
-  <object gid="15" x="1428" y="1080"/>
+  <object gid="1" x="535" y="1186"/>
  </objectgroup>
 </map>
