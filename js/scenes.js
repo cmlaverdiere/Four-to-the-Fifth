@@ -53,7 +53,7 @@ Q.scene("title", function(stage) {
 
   // controls label
   var controls_label = stage.insert(new Q.UI.Text({
-    label: "Movement = WASD \nWeapons = NUMBERS \nFire weapons = 'SPACE'",
+    label: "Movement = WASD \nWeapons = NUMBERS \nFire weapons = 'SPACE' \nPause game = 'backspace'",
   }), start_options_cont);
 
   // Button to go back to start menu.
@@ -82,6 +82,24 @@ Q.scene("level", function(stage) {
   stage.add("viewport").follow(Q("Player").first());
 
   // Q.audio.play('test.wav', { loop: true });
+
+  // pause game
+  stage.on("pause_game", function(){
+    if(!Q.state.get("paused")) {
+
+      Q.state.set("paused", true);
+      Q.pauseGame();
+      Q.audio.stop();
+    }
+    else {
+      Q.state.set("paused", false);
+      Q.unpauseGame();
+
+      if(Q.state.get("track_playing")){
+        Q.audio.play(tracks[Q.state.get("track_id")], { loop: true });
+      }
+    };
+  });
 
   // Handle event for when an enemy is killed.
   stage.on("enemy_killed", function(){ 

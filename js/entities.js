@@ -25,6 +25,7 @@ Q.Sprite.extend("Player", {
     Q.input.on("wep3", this, "equip_shotgun");
     Q.input.on("wep4", this, "equip_machinegun")
     Q.input.on("sword", this, "swing_sword");
+    Q.input.on("pause", this, function(){ Q.stage().trigger("pause_game"); });
 
   },
 

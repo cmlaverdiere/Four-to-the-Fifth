@@ -36,6 +36,7 @@ Q.KEY_NAMES.FOUR  = 52;
 Q.KEY_NAMES.FIVE  = 53;
 Q.KEY_NAMES.SIX   = 54;
 Q.KEY_NAMES.SEVEN = 55;
+Q.KEY_NAMES.BACKSPACE = 8;
 
 // Some useful constants for speeding things up.
 var TO_RAD = Math.PI / 180
@@ -58,9 +59,12 @@ Q.input.keyboardControls({
   FIVE:   'wep5',
   SIX:    'wep6',
   SEVEN:  'wep7',
+  BACKSPACE:  'pause',
 });
 
 Q.input.mouseControls({ cursor: "on" });
+
+
 
 // Set initial game state.
 Q.state.set({ killed: 0,
