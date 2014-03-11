@@ -2,10 +2,11 @@
 Q.Sprite.extend("Player", {
   init: function(p) {
     this._super(p, {
-      asset: "player.png",
+      asset: p.base_sprite,
       bullets: 0,
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT,
       fire_block: false,
+      fire_delay: 100,
       sprinting: false,
       stepDistance: 5,
       stepDelay: 0.01,
@@ -44,7 +45,7 @@ Q.Sprite.extend("Player", {
 
   put_away_wep: function() {
     this.unequip_guns();
-    this.p.asset = "player.png";
+    this.p.asset = this.p.base_sprite;
   },
 
   step: function(dt) {
@@ -62,6 +63,11 @@ Q.Sprite.extend("Player", {
       }
     }
 
+    // Machine gun delay.
+    if(this.p.fire_delay < 100){
+      this.p.fire_delay += 5; 
+    }
+
     // Send event to all enemies to look at and chase the player.
     var enemies = Q("Enemy");
     enemies.trigger("face_player", this);
@@ -77,6 +83,9 @@ Q.Sprite.extend("Player", {
     // Maybe make an exception for automatic guns, if ever added.
     if(Q.inputs['fire']){
       this.p.fire_block = true; 
+      if(this.p.fire_delay > 0){
+        this.p.fire_delay -= 20; 
+      }
     } else {
       this.p.fire_block = false; 
     }
@@ -106,7 +115,8 @@ Q.Sprite.extend("Player", {
   },
 
   swing_sword: function() {
-    this.p.sword = Q.stage().insert(new Q.Sword({ x: -22, y: 25 }), this);
+    this.p.asset = this.p.base_sprite;
+    this.p.sword = Q.stage().insert(new Q.Sword({ x: -32, y: 25 }), this);
     this.p.swinging_sword = true;
   },
 
@@ -236,6 +246,7 @@ Q.Sprite.extend("Sword", {
       asset: "sword.png",
       atk_type: "melee",
       collisionMask: Q.SPRITE_ENEMY,    // took out Q.SPRITE_ACTIVE now sword doesnt hit wall
+      scale: 2,
       type: Q.SPRITE_POWERUP
     });
 

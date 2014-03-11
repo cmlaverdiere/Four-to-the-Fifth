@@ -1,6 +1,5 @@
 Q.scene("ui", function(stage){
 
-
   // Container for instructions, alerts, etc.
   var bottom_cont = stage.insert(new Q.UI.Container({
     border: 2,
