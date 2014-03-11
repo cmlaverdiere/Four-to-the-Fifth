@@ -97,7 +97,6 @@ Q.load([
          "sword.png", 
          "tough_guy.png",
          "wall.png", 
-
          "disp_heroes.wav", 
          "gun_cock.wav", 
          "gun_shot.wav", 
