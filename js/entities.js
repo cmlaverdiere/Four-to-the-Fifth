@@ -164,7 +164,6 @@ Q.Human.extend("Player", {
 
     // Send event to all enemies to look at and chase the player.
     var enemies = Q("Enemy");
-    enemies.trigger("face_player", this);
     enemies.trigger("chase_player", this);
   }
 });
@@ -177,18 +176,30 @@ Q.Human.extend("Enemy", {
       type: Q.SPRITE_ENEMY
     });
 
+    this.add("gun");
     this.on("chase_player");
     this.on("face_player");
     this.on("frenzy");
   },
   
   chase_player: function(player){
+    this.face_player(player);
     this.p.x += this.p.speed * Math.cos(TO_RAD * (this.p.angle+90));
     this.p.y += this.p.speed * Math.sin(TO_RAD * (this.p.angle+90));
+
+    // Shoot at player if they get close.
+    if(Math.abs(this.p.x - player.p.x) < 300 && Math.abs(this.p.y - player.p.y) < 300){
+      this.fire();
+    }
   },
 
   face_player: function(player){
     this.p.angle = -1 * TO_DEG * Math.atan2( (player.p.x - this.p.x), (player.p.y - this.p.y) );
+  },
+
+  shoot_player: function(player){
+    this.face_player(jlayer);
+    this.fire(); 
   },
 
   frenzy: function(player){
