@@ -8,7 +8,7 @@ Q.Sprite.extend("Player", {
       fire_block: false,
       fire_delay: 100,
       sprinting: false,
-      stepDistance: 5,
+      stepDistance: 10,
       stepDelay: 0.01,
       swinging_sword: false,
       sword: null,
@@ -25,6 +25,7 @@ Q.Sprite.extend("Player", {
     Q.input.on("wep3", this, "equip_shotgun");
     Q.input.on("wep4", this, "equip_machinegun")
     Q.input.on("sword", this, "swing_sword");
+    Q.input.on("pause", this, function(){ Q.stage().trigger("pause_game"); });
 
   },
 
@@ -187,7 +188,7 @@ Q.Sprite.extend("Ammo", {
   init: function(p) {
     this._super(p, {
       asset: "ammo_clip.png",
-      capacity: 25,
+      capacity: 50,
     });
 
     this.add('2d');
@@ -216,9 +217,10 @@ Q.Sprite.extend("Bullet", {
     this.add('2d');
 
     this.on("hit", function(collision){
-      if(collision.obj.isA("Wall")){
+      /*if(collision.obj.isA("Wall")){
         this.destroy();
-      } 
+      } */
+      this.destroy();
     });
   }
 });
@@ -235,9 +237,10 @@ Q.Sprite.extend("ShotPellet", {
     this.add('2d');
 
     this.on("hit", function(collision){
-      if(collision.obj.isA("Wall")){
+      /*if(collision.obj.isA("Wall")){
         this.destroy();
-      } 
+      } */
+      this.destroy();
     });
   }
 });

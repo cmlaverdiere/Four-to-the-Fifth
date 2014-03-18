@@ -1,17 +1,76 @@
 // The initial title screen.
 Q.scene("title", function(stage) {
+
+  // Container for start up
+  var start_cont = stage.insert(new Q.UI.Container({
+    border: 2,
+    fill: "white",
+    radius: 3,
+    x: Q.width/2,
+    y: Q.height/2,
+  }));
+
   // Button to Start Game.
   var start_btn = stage.insert(new Q.UI.Button({
     border: 2,
     fill: "white",
     label: "Start Game",
     radius: 3,
-    x: Q.width/2,
-    y: Q.height/2,
+    y: 0,
   }, function() {
     Q.stageScene("level", 0);
     Q.stageScene("ui", 1);
+  }), start_cont);
+
+  // Button to show options.
+  var start_options_btn = stage.insert(new Q.UI.Button({
+    border: 2,
+    fill: "white",
+    label: "Options",
+    radius: 3,
+    y: 50,
+  }, function() {
+    start_options_cont.p.hidden = !(start_options_cont.p.hidden);
+    start_cont.p.hidden = !(start_cont.p.hidden);
+  }), start_cont);
+
+  // Container for start options
+  var start_options_cont = stage.insert(new Q.UI.Container({
+    border: 2,
+    hidden: true,
+    fill: "white",
+    radius: 3,
+    x: Q.width/2,
+    y: Q.height/2,
   }));
+
+  // controls label
+  var start_controls_label = stage.insert(new Q.UI.Text({
+    label: "Controls",
+    color: "red",
+    y: -80,
+  }), start_options_cont);
+
+  // controls label
+  var controls_label = stage.insert(new Q.UI.Text({
+    label: "Movement = WASD \nWeapons = NUMBERS \nFire weapons = 'SPACE' \nPause game = 'backspace'",
+  }), start_options_cont);
+
+  // Button to go back to start menu.
+  var return_to_start_btn = stage.insert(new Q.UI.Button({
+    border: 2,
+    fill: "white",
+    label: "Back",
+    radius: 3,
+    y: 100,
+  }, function() {
+    start_options_cont.p.hidden = !(start_options_cont.p.hidden);
+    start_cont.p.hidden = !(start_cont.p.hidden);
+  }), start_options_cont);
+
+  start_cont.fit(10, 10);
+  start_options_cont.fit(10, 10);
+
 });
 
 // Create player scene
@@ -23,6 +82,24 @@ Q.scene("level", function(stage) {
   stage.add("viewport").follow(Q("Player").first());
 
   // Q.audio.play('test.wav', { loop: true });
+
+  // pause game
+  stage.on("pause_game", function(){
+    if(!Q.state.get("paused")) {
+
+      Q.state.set("paused", true);
+      Q.pauseGame();
+      Q.audio.stop();
+    }
+    else {
+      Q.state.set("paused", false);
+      Q.unpauseGame();
+
+      if(Q.state.get("track_playing")){
+        Q.audio.play(tracks[Q.state.get("track_id")], { loop: true });
+      }
+    };
+  });
 
   // Handle event for when an enemy is killed.
   stage.on("enemy_killed", function(){ 
