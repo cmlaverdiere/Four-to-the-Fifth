@@ -60,6 +60,11 @@ Q.Sprite.extend("Human", {
     this.unequip_guns();
     this.add("machinegun"); 
   },
+  
+  equip_rocketlauncher: function() {
+	    this.unequip_guns();
+	    this.add("rocketlauncher"); 
+	  },
 
   // Event to put away weapons and return to base sprite.
   put_away_wep: function() {
@@ -96,6 +101,7 @@ Q.Sprite.extend("Human", {
     this.del("gun");
     this.del("shotgun");
     this.del("machinegun");
+    this.del("rocketlauncher");
   },
 });
 
@@ -114,7 +120,8 @@ Q.Human.extend("Player", {
     Q.input.on("wep1", this, "put_away_wep");
     Q.input.on("wep2", this, "equip_gun");
     Q.input.on("wep3", this, "equip_shotgun");
-    Q.input.on("wep4", this, "equip_machinegun")
+    Q.input.on("wep4", this, "equip_machinegun");
+    Q.input.on("wep5", this, "equip_rocketlauncher");
     Q.input.on("sword", this, "swing_sword");
   },
 
@@ -258,6 +265,52 @@ Q.Sprite.extend("Bullet", {
     });
   }
 });
+
+Q.Sprite.extend("Rocket", {
+	  init: function(p) {
+	    this._super(p, {
+	      asset: "bullet.png",
+	      atk_type: "projectile",
+	      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
+	      type: Q.SPRITE_POWERUP,
+	    });
+	    
+	    this.add('2d');
+
+	    this.on("hit", function(collision){
+	      /*if(collision.obj.isA("Wall")){
+	        this.destroy();
+	      } */
+	      Q.stage().insert(new Q.Explosion(
+          { 
+          
+	       }
+	       ));
+          
+	       this.destroy();
+	    });
+	  }
+	});
+
+Q.Sprite.extend("Explosion", {
+	  init: function(p) {
+	    this._super(p, {
+	      asset: "ammo_clip.png",
+	      atk_type: "projectile",
+	      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
+	      type: Q.SPRITE_POWERUP,
+	    });
+	    
+	    this.add('2d');
+
+	    this.on("hit", function(collision){
+	      /*if(collision.obj.isA("Wall")){
+	        this.destroy();
+	      } */
+	      this.destroy();
+	    });
+	  }
+	});
 
 Q.Sprite.extend("ShotPellet", {
   init: function(p) {
