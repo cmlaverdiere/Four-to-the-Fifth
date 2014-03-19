@@ -9,6 +9,21 @@ Q.scene("ui", function(stage){
     y: Q.height - 50,
   }));
 
+  // Container for pause instruction
+  var tips_cont = stage.insert(new Q.UI.Container({
+    border: 2,
+    fill: "white",
+    radius: 3,
+    x: 125,
+    y: 25,
+  }));
+
+  // tips label
+  var tips_label = stage.insert(new Q.UI.Text({
+    color: "red",
+    label: "pause = 'backspace'",
+  }), tips_cont);
+
   // TODO Make a button to show this, instead of showing it all the time.
   // // Player Controls label
   // var controls_label = stage.insert(new Q.UI.Text({
