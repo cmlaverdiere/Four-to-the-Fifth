@@ -8,6 +8,7 @@ Q.Sprite.extend("Human", {
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT | Q.SPRITE_PLAYER,
       fire_block: false,
       fire_delay: 100,
+      shotDelay: 100,
       sprinting: false,
       stepDistance: 5,
       stepDelay: 0.01,
@@ -180,6 +181,7 @@ Q.Human.extend("Enemy", {
     this.on("chase_player");
     this.on("face_player");
     this.on("frenzy");
+    this.on("step", this, "step_enemy");
   },
   
   chase_player: function(player){
@@ -188,23 +190,30 @@ Q.Human.extend("Enemy", {
     this.p.y += this.p.speed * Math.sin(TO_RAD * (this.p.angle+90));
 
     // Shoot at player if they get close.
+    // We use a shotDelay to make sure the enemies only
+    //   shoot every so often. Yes, slightly redundant as we already
+    //   have fire_delay as well. Should refactor.
     if(Math.abs(this.p.x - player.p.x) < 300 && Math.abs(this.p.y - player.p.y) < 300){
-      this.fire();
+      if(this.p.shotDelay-- <= 1){
+        this.fire();
+        this.p.shotDelay += 50;
+      }
     }
+    console.log(this.p.shotDelay);
   },
 
   face_player: function(player){
     this.p.angle = -1 * TO_DEG * Math.atan2( (player.p.x - this.p.x), (player.p.y - this.p.y) );
   },
 
-  shoot_player: function(player){
-    this.face_player(jlayer);
-    this.fire(); 
-  },
-
   frenzy: function(player){
     this.p.speed *= 1.5;
   },
+
+  step_enemy: function(){
+    // Nothing at the moment
+  },
+
 });
 
 
