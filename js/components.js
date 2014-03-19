@@ -10,10 +10,10 @@ Q.component("gun", {
         Q.audio.play("gun_shot.wav");
         Q.stage().insert(new Q.Bullet(
         { 
-          x: this.p.x,
-          y: this.p.y, 
-          vx: 2000 * Math.cos(TO_RAD * (this.p.angle+90)), 
-          vy: 2000 * Math.sin(TO_RAD * (this.p.angle+90)), 
+          x: this.p.x + 100 * Math.cos(TO_RAD * (this.p.angle+90)),
+          y: this.p.y + 100 * Math.sin(TO_RAD * (this.p.angle+90)), 
+          vx: 1000 * Math.cos(TO_RAD * (this.p.angle+90)), 
+          vy: 1000 * Math.sin(TO_RAD * (this.p.angle+90)), 
         }
         ));
 
@@ -23,7 +23,6 @@ Q.component("gun", {
     }
   },
 });
-
 
 // Just a quick hack.
 Q.component("shotgun", {
@@ -41,8 +40,8 @@ Q.component("shotgun", {
           var speed = Math.random() * 750 + 750; // Speed between 750 and 1500.
           Q.stage().insert(new Q.ShotPellet(
           {
-            x: this.p.x,
-            y: this.p.y, 
+            x: this.p.x + 100 * Math.cos(TO_RAD * (this.p.angle+90)),
+            y: this.p.y + 100 * Math.sin(TO_RAD * (this.p.angle+90)), 
             vx: speed * Math.cos(TO_RAD * (this.p.angle+90+spread)), 
             vy: speed * Math.sin(TO_RAD * (this.p.angle+90+spread)), 
           }
@@ -68,10 +67,10 @@ Q.component("machinegun", {
         Q.audio.play("gun_shot.wav");
         Q.stage().insert(new Q.Bullet(
         { 
-          x: this.p.x,
-          y: this.p.y, 
-          vx: 2000 * Math.cos(TO_RAD * (this.p.angle+90)), 
-          vy: 2000 * Math.sin(TO_RAD * (this.p.angle+90)), 
+          x: this.p.x + 100 * Math.cos(TO_RAD * (this.p.angle+90)),
+          y: this.p.y + 100 * Math.sin(TO_RAD * (this.p.angle+90)), 
+          vx: 1000 * Math.cos(TO_RAD * (this.p.angle+90)), 
+          vy: 1000 * Math.sin(TO_RAD * (this.p.angle+90)), 
         }
         ));
 
