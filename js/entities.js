@@ -185,10 +185,8 @@ Q.Human.extend("Enemy", {
   
   chase_player: function(player){
     this.face_player(player);
-    this.p.x += this.p.speed * Math.cos(TO_RAD * (this.p.angle+90));
-    this.p.y += this.p.speed * Math.sin(TO_RAD * (this.p.angle+90));
 
-    // Shoot at player if they get close.
+    // Stop, and shoot at player if they get close.
     // We use a shotDelay to make sure the enemies only
     //   shoot every so often. Yes, slightly redundant as we already
     //   have fire_delay as well. Should refactor.
@@ -197,6 +195,10 @@ Q.Human.extend("Enemy", {
         this.fire();
         this.p.shotDelay += 50;
       }
+    } else {
+      // Chase player if out of range.
+      this.p.x += this.p.speed * Math.cos(TO_RAD * (this.p.angle+90));
+      this.p.y += this.p.speed * Math.sin(TO_RAD * (this.p.angle+90));
     }
   },
 
