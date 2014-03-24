@@ -153,12 +153,12 @@ Q.Human.extend("Player", {
     if(Q.inputs['sprint']){
       if(!this.p.sprinting){
         this.p.sprinting = true; 
-        this.p.stepDistance *= 2;
+        this.p.stepDistance *= 1.5;
       }
     } else {
       if(this.p.sprinting){
         this.p.sprinting = false; 
-        this.p.stepDistance /= 2;
+        this.p.stepDistance /= 1.5;
       } 
     }
 
