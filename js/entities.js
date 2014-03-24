@@ -39,8 +39,7 @@ Q.Sprite.extend("Human", {
         collision.obj.destroy();
       }
       else if(collision.obj.isA("Sword")){
-        this.destroy();
-        Q.stage().trigger("enemy_killed");
+        this.p.hp -= 20;
       }
     });
   },
@@ -242,7 +241,6 @@ Q.Sprite.extend("Bullet", {
   init: function(p) {
     this._super(p, {
       asset: "bullet.png",
-      atk_type: "projectile",
       collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
       type: Q.SPRITE_POWERUP,
     });
@@ -250,9 +248,6 @@ Q.Sprite.extend("Bullet", {
     this.add('2d');
 
     this.on("hit", function(collision){
-      /*if(collision.obj.isA("Wall")){
-        this.destroy();
-      } */
       this.destroy();
     });
   }
@@ -262,7 +257,6 @@ Q.Sprite.extend("ShotPellet", {
   init: function(p) {
     this._super(p, {
       asset: "shot_pellet.png",
-      atk_type: "projectile",
       collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
       type: Q.SPRITE_POWERUP,
     });
@@ -270,9 +264,6 @@ Q.Sprite.extend("ShotPellet", {
     this.add('2d');
 
     this.on("hit", function(collision){
-      /*if(collision.obj.isA("Wall")){
-        this.destroy();
-      } */
       this.destroy();
     });
   }
@@ -282,7 +273,6 @@ Q.Sprite.extend("Sword", {
   init: function(p) {
     this._super(p, {
       asset: "sword.png",
-      atk_type: "melee",
       collisionMask: Q.SPRITE_ENEMY,
       scale: 2,
       type: Q.SPRITE_POWERUP
