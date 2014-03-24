@@ -24,12 +24,6 @@ Q.scene("ui", function(stage){
     label: "pause = 'backspace'",
   }), tips_cont);
 
-  // TODO Make a button to show this, instead of showing it all the time.
-  // // Player Controls label
-  // var controls_label = stage.insert(new Q.UI.Text({
-  //   label: "WASD: Movement | SHIFT: Sprint | SPACE: Shoot | NUMKEYS: Weapons"
-  // }), bottom_cont);
-
   // Total kills label
   var kills_label = stage.insert(new Q.UI.Text({
     x: -300,

@@ -8,6 +8,7 @@ Q.Sprite.extend("Human", {
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT | Q.SPRITE_PLAYER,
       fire_block: false,
       fire_delay: 100,
+      hp: 10,
       shotDelay: 100,
       sprinting: false,
       stepDistance: 10,
@@ -23,7 +24,13 @@ Q.Sprite.extend("Human", {
       if(collision.obj.isA("Bullet") || collision.obj.isA("ShotPellet")){
         if(--this.p.hp <= 0){
           this.destroy();
-          // Q.stage().trigger("enemy_killed");
+          // Reset to title if player dies.
+          if(this.isA("Player")){
+            Q.stageScene("title", 0);
+            Q.stageScene(null, 1);
+          } else {
+            Q.stage().trigger("enemy_killed");
+          }
         } else {
           // Human bounces back from being shot.  
           this.p.x -= 15 * Math.cos(TO_RAD * (this.p.angle+90));
@@ -32,8 +39,7 @@ Q.Sprite.extend("Human", {
         collision.obj.destroy();
       }
       else if(collision.obj.isA("Sword")){
-        this.destroy();
-        // Q.stage().trigger("enemy_killed");
+        this.p.hp -= 20;
       }
       else if(collision.obj.isA("Explosion")){
     	  this.destroy();
@@ -41,14 +47,6 @@ Q.Sprite.extend("Human", {
 
       
     });
-
-    // this.on("fire", this, function(){ this.fire() });
-    // this.on("wep1", this, "put_away_wep");
-    // this.on("wep2", this, "equip_gun");
-    // this.on("wep3", this, "equip_shotgun");
-    // this.on("wep4", this, "equip_machinegun")
-    // this.on("step", this, "step_player");
-    // this.on("sword", this, "swing_sword");
   },
 
   equip_gun: function() {
@@ -131,6 +129,7 @@ Q.Human.extend("Player", {
   },
 
   step_player: function(dt) {
+
     // Update player angle based on mouse position.
     if (!this.p.swinging_sword){
 
@@ -166,12 +165,12 @@ Q.Human.extend("Player", {
     if(Q.inputs['sprint']){
       if(!this.p.sprinting){
         this.p.sprinting = true; 
-        this.p.stepDistance *= 2;
+        this.p.stepDistance *= 1.5;
       }
     } else {
       if(this.p.sprinting){
         this.p.sprinting = false; 
-        this.p.stepDistance /= 2;
+        this.p.stepDistance /= 1.5;
       } 
     }
 
@@ -198,10 +197,8 @@ Q.Human.extend("Enemy", {
   
   chase_player: function(player){
     this.face_player(player);
-    this.p.x += this.p.speed * Math.cos(TO_RAD * (this.p.angle+90));
-    this.p.y += this.p.speed * Math.sin(TO_RAD * (this.p.angle+90));
 
-    // Shoot at player if they get close.
+    // Stop, and shoot at player if they get close.
     // We use a shotDelay to make sure the enemies only
     //   shoot every so often. Yes, slightly redundant as we already
     //   have fire_delay as well. Should refactor.
@@ -210,8 +207,11 @@ Q.Human.extend("Enemy", {
         this.fire();
         this.p.shotDelay += 50;
       }
+    } else {
+      // Chase player if out of range.
+      this.p.x += this.p.speed * Math.cos(TO_RAD * (this.p.angle+90));
+      this.p.y += this.p.speed * Math.sin(TO_RAD * (this.p.angle+90));
     }
-    console.log(this.p.shotDelay);
   },
 
   face_player: function(player){
@@ -255,7 +255,6 @@ Q.Sprite.extend("Bullet", {
   init: function(p) {
     this._super(p, {
       asset: "bullet.png",
-      atk_type: "projectile",
       collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
       type: Q.SPRITE_POWERUP,
     });
@@ -263,9 +262,6 @@ Q.Sprite.extend("Bullet", {
     this.add('2d');
 
     this.on("hit", function(collision){
-      /*if(collision.obj.isA("Wall")){
-        this.destroy();
-      } */
       this.destroy();
     });
   }
@@ -275,7 +271,6 @@ Q.Sprite.extend("ShotPellet", {
   init: function(p) {
     this._super(p, {
       asset: "shot_pellet.png",
-      atk_type: "projectile",
       collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
       type: Q.SPRITE_POWERUP,
     });
@@ -283,9 +278,6 @@ Q.Sprite.extend("ShotPellet", {
     this.add('2d');
 
     this.on("hit", function(collision){
-      /*if(collision.obj.isA("Wall")){
-        this.destroy();
-      } */
       this.destroy();
     });
   }
@@ -351,7 +343,6 @@ Q.Sprite.extend("Sword", {
   init: function(p) {
     this._super(p, {
       asset: "sword.png",
-      atk_type: "melee",
       collisionMask: Q.SPRITE_ENEMY,
       scale: 2,
       type: Q.SPRITE_POWERUP

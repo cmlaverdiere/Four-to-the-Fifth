@@ -64,8 +64,6 @@ Q.input.keyboardControls({
 
 Q.input.mouseControls({ cursor: "on" });
 
-
-
 // Set initial game state.
 Q.state.set({ killed: 0,
               alive: 0,
