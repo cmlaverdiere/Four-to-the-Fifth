@@ -35,6 +35,9 @@ Q.Sprite.extend("Human", {
         this.destroy();
         // Q.stage().trigger("enemy_killed");
       }
+      else if(collision.obj.isA("Explosion")){
+    	  this.destroy();
+      }
     });
 
     // this.on("fire", this, function(){ this.fire() });
@@ -283,7 +286,8 @@ Q.Sprite.extend("Rocket", {
 	      } */
 	      Q.stage().insert(new Q.Explosion(
           { 
-          
+        	  x: this.p.x,
+              y: this.p.y, 
 	       }
 	       ));
           
@@ -296,7 +300,8 @@ Q.Sprite.extend("Explosion", {
 	  init: function(p) {
 	    this._super(p, {
 	      asset: "ammo_clip.png",
-	      atk_type: "projectile",
+	      life: 10,
+	      atk_type: "melee",
 	      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
 	      type: Q.SPRITE_POWERUP,
 	    });
@@ -307,9 +312,15 @@ Q.Sprite.extend("Explosion", {
 	      /*if(collision.obj.isA("Wall")){
 	        this.destroy();
 	      } */
-	      this.destroy();
+	      
 	    });
-	  }
+	  },
+	  step: function(dt) {
+		    // Machine gun delay.
+		    if(--this.p.life <= 0){
+		      this.destroy(); 
+		    }
+		  },
 	});
 
 Q.Sprite.extend("ShotPellet", {
