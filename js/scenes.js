@@ -81,12 +81,14 @@ Q.scene("level", function(stage) {
   Q.stageTMX("level" + Q.state.get("level") + ".tmx", stage);
   stage.add("viewport").follow(Q("Player").first());
 
+  // Initialize enemy amount
+  Q.state.set("alive", Q("Enemy").length);
+
   // Q.audio.play('test.wav', { loop: true });
 
   // pause game
   stage.on("pause_game", function(){
     if(!Q.state.get("paused")) {
-
       Q.state.set("paused", true);
       Q.pauseGame();
       Q.audio.stop();

@@ -8,6 +8,7 @@ Q.Sprite.extend("Human", {
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT | Q.SPRITE_PLAYER,
       fire_block: false,
       fire_delay: 100,
+      hp: 10,
       shotDelay: 100,
       sprinting: false,
       stepDistance: 10,
@@ -23,7 +24,13 @@ Q.Sprite.extend("Human", {
       if(collision.obj.isA("Bullet") || collision.obj.isA("ShotPellet")){
         if(--this.p.hp <= 0){
           this.destroy();
-          // Q.stage().trigger("enemy_killed");
+          // Reset to title if player dies.
+          if(this.isA("Player")){
+            Q.stageScene("title", 0);
+            Q.stageScene(null, 1);
+          } else {
+            Q.stage().trigger("enemy_killed");
+          }
         } else {
           // Human bounces back from being shot.  
           this.p.x -= 15 * Math.cos(TO_RAD * (this.p.angle+90));
@@ -33,17 +40,9 @@ Q.Sprite.extend("Human", {
       }
       else if(collision.obj.isA("Sword")){
         this.destroy();
-        // Q.stage().trigger("enemy_killed");
+        Q.stage().trigger("enemy_killed");
       }
     });
-
-    // this.on("fire", this, function(){ this.fire() });
-    // this.on("wep1", this, "put_away_wep");
-    // this.on("wep2", this, "equip_gun");
-    // this.on("wep3", this, "equip_shotgun");
-    // this.on("wep4", this, "equip_machinegun")
-    // this.on("step", this, "step_player");
-    // this.on("sword", this, "swing_sword");
   },
 
   equip_gun: function() {
@@ -119,6 +118,7 @@ Q.Human.extend("Player", {
   },
 
   step_player: function(dt) {
+
     // Update player angle based on mouse position.
     if (!this.p.swinging_sword){
 
@@ -199,7 +199,6 @@ Q.Human.extend("Enemy", {
         this.p.shotDelay += 50;
       }
     }
-    console.log(this.p.shotDelay);
   },
 
   face_player: function(player){
