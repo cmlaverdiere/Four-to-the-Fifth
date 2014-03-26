@@ -42,10 +42,8 @@ Q.Sprite.extend("Human", {
         this.p.hp -= 20;
       }
       else if(collision.obj.isA("Explosion")){
-    	  this.destroy();
+        this.destroy();
       }
-
-      
     });
   },
 
@@ -65,8 +63,8 @@ Q.Sprite.extend("Human", {
   },
     
   equip_rocketlauncher: function() {
-  	 this.unequip_guns();
-  	 this.add("rocketlauncher"); 
+    this.unequip_guns();
+    this.add("rocketlauncher"); 
   },
 
   // Event to put away weapons and return to base sprite.
@@ -284,60 +282,48 @@ Q.Sprite.extend("ShotPellet", {
 });
 
 Q.Sprite.extend("Rocket", {
-	init: function(p) {
-		this._super(p, {
-		      asset: "bullet.png",
-		      atk_type: "projectile",
-		      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
-		      type: Q.SPRITE_POWERUP,
-		    });
-		    
-		    this.add('2d');
-	
-		    this.on("hit", function(collision){
-		      /*if(collision.obj.isA("Wall")){
-		        this.destroy();
-		      } */
-		      Q.stage().insert(new Q.Explosion(
-	          { 
-	        	  x: this.p.x,
-	              y: this.p.y, 
-		       }
-		       ));
-	          
-		       this.destroy();
-		    });
-		  }
-		});
-	
-	Q.Sprite.extend("Explosion", {
-		  init: function(p) {
-		    this._super(p, {
-		      asset: "ammo_clip.png",
-		      life: 10,
-		      atk_type: "melee",
-		      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
-		      type: Q.SPRITE_POWERUP,
-		    });
-		    
-		    this.add('2d');
-	
-		    this.on("hit", function(collision){
-		      /*if(collision.obj.isA("Wall")){
-		        this.destroy();
-		      } */
-		      
-		    });
-		  },
-		  step: function(dt) {
-			    // Machine gun delay.
-			    if(--this.p.life <= 0){
-			      this.destroy(); 
-			    }
-			  },
-		});
-	
+  init: function(p) {
+    this._super(p, {
+      asset: "bullet.png",
+      atk_type: "projectile",
+      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
+      type: Q.SPRITE_POWERUP,
+    });
+        
+    this.add('2d');
 
+    this.on("hit", function(collision){
+      Q.stage().insert(new Q.Explosion(
+      { 
+        x: this.p.x,
+        y: this.p.y, 
+      }
+      ));
+        
+      this.destroy();
+    });
+  }
+});
+  
+Q.Sprite.extend("Explosion", {
+  init: function(p) {
+    this._super(p, {
+      asset: "ammo_clip.png",
+      life: 10,
+      atk_type: "melee",
+      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
+      type: Q.SPRITE_POWERUP,
+    });
+    
+    this.add('2d');
+  },
+
+  step: function(dt) {
+    if(--this.p.life <= 0){
+      this.destroy(); 
+    }
+  },
+});
 
 Q.Sprite.extend("Sword", {
   init: function(p) {
