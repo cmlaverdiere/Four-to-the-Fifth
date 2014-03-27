@@ -39,7 +39,8 @@ Q.Sprite.extend("Human", {
         collision.obj.destroy();
       }
       else if(collision.obj.isA("Sword")){
-        this.p.hp -= 20;
+        this.destroy();
+        console.log("Here");
       }
       else if(collision.obj.isA("Explosion")){
     	  this.destroy();
@@ -287,6 +288,7 @@ Q.Sprite.extend("Rocket", {
 	init: function(p) {
 		this._super(p, {
 		      asset: "bullet.png",
+		      collided: false,
 		      atk_type: "projectile",
 		      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
 		      type: Q.SPRITE_POWERUP,
@@ -298,12 +300,15 @@ Q.Sprite.extend("Rocket", {
 		      /*if(collision.obj.isA("Wall")){
 		        this.destroy();
 		      } */
-		      Q.stage().insert(new Q.Explosion(
-	          { 
-	        	  x: this.p.x,
-	              y: this.p.y, 
-		       }
-		       ));
+		      if(this.collided != true){
+		    	  this.collided = true;
+		    	  Q.stage().insert(new Q.Explosion(
+		    	          { 
+		    	        	  x: this.p.x,
+		    	              y: this.p.y, 
+		    		       }
+		           ));
+		      }
 	          
 		       this.destroy();
 		    });
@@ -313,8 +318,8 @@ Q.Sprite.extend("Rocket", {
 	Q.Sprite.extend("Explosion", {
 		  init: function(p) {
 		    this._super(p, {
-		      asset: "ammo_clip.png",
-		      life: 10,
+		      asset: "player.png",
+		      life: 30,
 		      atk_type: "melee",
 		      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
 		      type: Q.SPRITE_POWERUP,
