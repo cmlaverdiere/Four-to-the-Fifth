@@ -318,7 +318,7 @@ Q.Sprite.extend("Rocket", {
 	Q.Sprite.extend("Explosion", {
 		  init: function(p) {
 		    this._super(p, {
-		      asset: "player.png",
+		      asset: "explosion.png",
 		      life: 30,
 		      atk_type: "melee",
 		      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
