@@ -67,6 +67,7 @@ Q.input.mouseControls({ cursor: "on" });
 // Set initial game state.
 Q.state.set({ killed: 0,
               alive: 0,
+              player_health: 100,
               ammo: 50, 
               level: 1,
               paused: false,
@@ -75,6 +76,7 @@ Q.state.set({ killed: 0,
 });
 
 // Load map resources
+Q.loadTMX("start_level.tmx");
 for(var i=1; i<=NUM_MAPS; i++){
   Q.loadTMX("level" + i + ".tmx");
 }
@@ -106,7 +108,9 @@ Q.load([
          "test.wav", 
          ], function() {
     console.log("Done loading assets.");
-    Q.stageScene("title", 0);
+    Q.stageScene("start_level", 0);
+    //Q.stageScene("level", 0);
+    Q.stageScene("title", 1);
 }, {
   progressCallback: function(loaded, total) {
     var ls = document.getElementById("loading_status");

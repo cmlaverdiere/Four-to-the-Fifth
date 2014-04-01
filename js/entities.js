@@ -8,7 +8,7 @@ Q.Sprite.extend("Human", {
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT | Q.SPRITE_PLAYER,
       fire_block: false,
       fire_delay: 100,
-      hp: 10,
+      hp: 100,
       shotDelay: 100,
       sprinting: false,
       stepDistance: 10,
@@ -22,11 +22,18 @@ Q.Sprite.extend("Human", {
     this.add('2d');
     this.on("hit", function(collision){
       if(collision.obj.isA("Bullet") || collision.obj.isA("ShotPellet")){
-        if(--this.p.hp <= 0){
+      	this.p.hp -= 7;
+      	if(this.isA("Player")){
+      	  Q.state.dec("player_health", 7);
+      	}
+        if(this.p.hp <= 0){
           this.destroy();
           // Reset to title if player dies.
           if(this.isA("Player")){
-            Q.stageScene("title", 0);
+          	Q.stageScene("start_level", 0);
+            Q.stageScene("title", 1);
+            Q.state.set("ammo", 50);
+    		Q.state.set("player_health", 100);
             Q.stageScene(null, 1);
           } else {
             Q.stage().trigger("enemy_killed");
