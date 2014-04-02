@@ -7,7 +7,7 @@ var Q = Quintus({ development: true, audioSupported: [ 'wav' ] })
 
 // For now, let's keep track of the current number of maps.
 // Increment this if you add a new one. 
-var NUM_MAPS = 1
+var NUM_MAPS = 2
 
 // Keep track of change in mouse coords.
 var prev_mouse_coords = [0, 0];
