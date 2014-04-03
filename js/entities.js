@@ -46,6 +46,7 @@ Q.Sprite.extend("Human", {
     	  this.destroy();
       }
 
+
       
     });
   },
@@ -304,8 +305,8 @@ Q.Sprite.extend("Rocket", {
 		    	  this.collided = true;
 		    	  Q.stage().insert(new Q.Explosion(
 		    	          { 
-		    	        	  x: this.p.x,
-		    	              y: this.p.y, 
+		    	        	  x: collision.obj.p.x,
+		    	              y: collision.obj.p.y, 
 		    		       }
 		           ));
 		      }
