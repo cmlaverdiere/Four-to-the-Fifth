@@ -15,12 +15,15 @@ Q.scene("ui", function(stage){
   var ammo_label = stage.insert(new Q.UI.Text({
   	size: 40,
     x: 0,
-    label: "Ammo: " + Q.state.get("ammo"),
+    //label: "Ammo: " + Q.state.get("ammo"),
+    label: "Ammo: " + stage.options.bullets,
+
   }), weapon_cont);
 
   // Update ammo label. 
   Q.state.on("change.ammo", function(){ 
-    ammo_label.p.label = "Ammo: " + Q.state.get("ammo") 
+    //ammo_label.p.label = "Ammo: " + Q.state.get("ammo")
+    ammo_label.p.label = "Ammo: " + stage.options.bullets
   });
 
   // info container
@@ -45,12 +48,14 @@ Q.scene("ui", function(stage){
   	color: "#f00",
   	size: 40,
     x: 0,
-    label: "Health: " + Q.state.get("player_health"),
+    //label: "Health: " + Q.state.get("player_health"),
+    label: "Health: " + stage.options.hp,
   }), info_cont);
 
   // Update player_health label. 
   Q.state.on("change.player_health", function(){ 
-    health_label.p.label = "Health: " + Q.state.get("player_health") 
+    //health_label.p.label = "Health: " + Q.state.get("player_health")
+    health_label.p.label = "Health: " + stage.options.hp 
   });
 
 
