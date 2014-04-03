@@ -75,14 +75,10 @@ Q.state.set({ killed: 0,
               track_playing: false, 
 });
 
-// Load map resources
-Q.loadTMX("start_level.tmx");
-for(var i=1; i<=NUM_MAPS; i++){
-  Q.loadTMX("level" + i + ".tmx");
-}
 
 // Load other resources
-Q.load([ 
+Q.loadTMX([
+         "start_level.tmx", 
          "ammo_clip.png",
          "bullet.png",
          "cave.png",
@@ -113,6 +109,11 @@ Q.load([
     Q.stageScene("title", 1);
 }, {
   progressCallback: function(loaded, total) {
+    // Load map resources
+    for(var i=1; i<=NUM_MAPS; i++){
+      Q.loadTMX("level" + i + ".tmx");
+    }
+    
     var ls = document.getElementById("loading_status");
     ls.innerHTML = Math.floor(loaded / total * 100);
     if(loaded == total){
