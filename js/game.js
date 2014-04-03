@@ -109,7 +109,6 @@ Q.load([
          ], function() {
     console.log("Done loading assets.");
     Q.stageScene("start_level", 0);
-    //Q.stageScene("level", 0);
     Q.stageScene("title", 1);
 }, {
   progressCallback: function(loaded, total) {

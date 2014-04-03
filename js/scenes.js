@@ -43,7 +43,7 @@ Q.scene("title", function(stage) {
     y: 0,
   }, function() {
     Q.stageScene("level", 0);
-    Q.stageScene("ui", 1);
+    Q.stageScene("ui", 1, Q('Player').first().p);
   }), start_cont);
 
   // Button to show options.
@@ -94,7 +94,7 @@ Q.scene("title", function(stage) {
   }), start_options_cont);
 
   //title_cont.fit(Q.width/8, Q.width);
-  title_cont.fit(100, 100);
+  title_cont.fit(100, 400);
   //start_cont.fit(10, 10);
   start_cont.fit(50, 75);
   start_options_cont.fit(10, 10);

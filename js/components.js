@@ -52,6 +52,7 @@ Q.component("shotgun", {
 
         this.p.bullets -= 2;
         if(this.isA("Player")){
+          Q.stageScene("ui", 1, this.p);
           Q.state.dec("ammo", 2);
         }
       }
@@ -80,6 +81,7 @@ Q.component("machinegun", {
 
         this.p.bullets -= 1;
         if(this.isA("Player")){
+          Q.stageScene("ui", 1, this.p);
           Q.state.dec("ammo", 1);
         }
       }

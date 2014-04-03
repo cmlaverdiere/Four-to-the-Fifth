@@ -24,14 +24,14 @@ Q.Sprite.extend("Human", {
       if(collision.obj.isA("Bullet") || collision.obj.isA("ShotPellet")){
       	this.p.hp -= 7;
       	if(this.isA("Player")){
+          Q.stageScene("ui", 1, this.p);
       	  Q.state.dec("player_health", 7);
       	}
         if(this.p.hp <= 0){
           this.destroy();
           // Reset to title if player dies.
           if(this.isA("Player")){
-          	Q.stageScene("start_level", 0);
-            Q.stageScene("title", 1);
+            Q.stageScene("title", 0);
             Q.state.set("ammo", 50);
     		Q.state.set("player_health", 100);
             Q.stageScene(null, 1);
@@ -229,6 +229,7 @@ Q.Sprite.extend("Ammo", {
   init: function(p) {
     this._super(p, {
       asset: "ammo_clip.png",
+      collisionMask: Q.SPRITE_PLAYER,
       capacity: 50,
     });
 
@@ -241,6 +242,7 @@ Q.Sprite.extend("Ammo", {
         this.destroy();
         collision.obj.p.bullets += this.p.capacity;
         Q.state.inc("ammo", this.p.capacity);
+        Q.stageScene("ui", 1, collision.obj.p);
       }
     });
   }
