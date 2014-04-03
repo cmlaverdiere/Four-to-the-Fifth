@@ -206,7 +206,7 @@ Q.Human.extend("Enemy", {
         this.fire();
         this.p.shotDelay += 50;
       }
-    } else if(Math.abs(this.p.x - player.p.x) > 500 && Math.abs(this.p.y - player.p.y) > 500){
+    } else if(Math.abs(this.p.x - player.p.x) > 450 && Math.abs(this.p.y - player.p.y) > 450){
     	
     }    
     else {

@@ -84,6 +84,7 @@ Q.load([
          "ammo_clip.png",
          "bullet.png",
          "cave.png",
+         "explosion.png",
          "enemy.png",
          "floor_tile.png", 
          "floor_tile_pencil.png", 
