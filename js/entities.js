@@ -23,32 +23,39 @@ Q.Sprite.extend("Human", {
     this.on("hit", function(collision){
       if(collision.obj.isA("Bullet") || collision.obj.isA("ShotPellet")){
       	this.p.hp -= 7;
+
       	if(this.isA("Player")){
           Q.stageScene("ui", 1, this.p);
       	  Q.state.dec("player_health", 7);
       	}
+
         if(this.p.hp <= 0){
           this.destroy();
+
           // Reset to title if player dies.
           if(this.isA("Player")){
             Q.stageScene("title", 0);
             Q.state.set("ammo", 50);
-    		Q.state.set("player_health", 100);
+            Q.state.set("player_health", 100);
             Q.stageScene(null, 1);
           } else {
             Q.stage().trigger("enemy_killed");
           }
+
         } else {
           // Human bounces back from being shot.  
           this.p.x -= 15 * Math.cos(TO_RAD * (this.p.angle+90));
           this.p.y -= 15 * Math.sin(TO_RAD * (this.p.angle+90));
         }
+
         collision.obj.destroy();
       }
+
       else if(collision.obj.isA("Sword")){
     	  this.destroy();
     	  console.log("Here");
       }
+
       else if(collision.obj.isA("Explosion")){
         this.destroy();
       }
