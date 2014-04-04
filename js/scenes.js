@@ -1,10 +1,33 @@
 // The initial title screen.
 Q.scene("title", function(stage) {
 
+  var title = document.getElementById("start_title");
+  
+  // title container
+  var title_cont = stage.insert(new Q.UI.Container({
+    border: 0,
+    opacity: .5,
+    fill: "#888",
+    font: "",
+    radius: 0,
+    x: Q.width/2,
+    y: 100,
+  }));
+
+  // title label
+  var start_title_label = stage.insert(new Q.UI.Text({
+    label: "Four-To-The-Fifth",
+    size: 100,
+    family: "",
+    color: "#0099ff",
+    y: 0,
+  }), title_cont);
+  
   // Container for start up
   var start_cont = stage.insert(new Q.UI.Container({
     border: 2,
-    fill: "white",
+    opacity: .7,
+    fill: "#888",		// make this %80
     radius: 3,
     x: Q.width/2,
     y: Q.height/2,
@@ -13,20 +36,22 @@ Q.scene("title", function(stage) {
   // Button to Start Game.
   var start_btn = stage.insert(new Q.UI.Button({
     border: 2,
-    fill: "white",
+    fill: "#0099ff",
+    color: "#0099ff",
     label: "Start Game",
     radius: 3,
     y: 0,
   }, function() {
     Q.stageScene("level", 0);
-    Q.stageScene("ui", 1);
+    Q.stageScene("ui", 1, Q('Player').first().p);
   }), start_cont);
 
   // Button to show options.
   var start_options_btn = stage.insert(new Q.UI.Button({
     border: 2,
-    fill: "white",
+    fill: "#0099ff",
     label: "Options",
+    color: "#0099ff",
     radius: 3,
     y: 50,
   }, function() {
@@ -38,7 +63,7 @@ Q.scene("title", function(stage) {
   var start_options_cont = stage.insert(new Q.UI.Container({
     border: 2,
     hidden: true,
-    fill: "white",
+    fill: "888",
     radius: 3,
     x: Q.width/2,
     y: Q.height/2,
@@ -47,7 +72,7 @@ Q.scene("title", function(stage) {
   // controls label
   var start_controls_label = stage.insert(new Q.UI.Text({
     label: "Controls",
-    color: "red",
+    color: "#fff",
     y: -80,
   }), start_options_cont);
 
@@ -68,7 +93,10 @@ Q.scene("title", function(stage) {
     start_cont.p.hidden = !(start_cont.p.hidden);
   }), start_options_cont);
 
-  start_cont.fit(10, 10);
+  //title_cont.fit(Q.width/8, Q.width);
+  title_cont.fit(100, 400);
+  //start_cont.fit(10, 10);
+  start_cont.fit(50, 75);
   start_options_cont.fit(10, 10);
 
 });
@@ -150,8 +178,25 @@ Q.scene("endgame", function(stage) {
     y: Q.height/2,
   }, function() {
     Q.state.set("level", 1);
+    Q.state.set("ammo", 50);
+    Q.state.set("player_health", 100);
     Q.stageScene("level", 0);
     Q.stageScene("ui", 1);
   }));
+});
+
+// Create player scene
+Q.scene("start_level", function(stage) {
+  var fmod = 4;
+  var frenzied_enemies = false;
+
+  Q.stageTMX("start_level.tmx", stage);
+  stage.add("viewport").follow(Q("Enemy").first());
+
+  // Initialize enemy amount
+  Q.state.set("alive", Q("Enemy").length);
+
+  // Q.audio.play('test.wav', { loop: true });
+
 });
 

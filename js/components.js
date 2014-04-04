@@ -16,9 +16,11 @@ Q.component("gun", {
           vy: 1000 * Math.sin(TO_RAD * (this.p.angle+90)), 
         }
         ));
-
+        
         this.p.bullets -= 1;
-        Q.state.dec("ammo", 1);
+        if(this.isA("Player")){
+          Q.state.dec("ammo", 1);
+        }
       }
     }
   },
@@ -49,7 +51,10 @@ Q.component("shotgun", {
         }
 
         this.p.bullets -= 2;
-        Q.state.dec("ammo", 2);
+        if(this.isA("Player")){
+          Q.stageScene("ui", 1, this.p);
+          Q.state.dec("ammo", 2);
+        }
       }
     }
   },
@@ -75,7 +80,10 @@ Q.component("machinegun", {
         ));
 
         this.p.bullets -= 1;
-        Q.state.dec("ammo", 1);
+        if(this.isA("Player")){
+          Q.stageScene("ui", 1, this.p);
+          Q.state.dec("ammo", 1);
+        }
       }
     }
   },
