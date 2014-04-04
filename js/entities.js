@@ -39,7 +39,8 @@ Q.Sprite.extend("Human", {
         collision.obj.destroy();
       }
       else if(collision.obj.isA("Sword")){
-        this.p.hp -= 20;
+    	  this.destroy();
+    	  console.log("Here");
       }
       else if(collision.obj.isA("Explosion")){
         this.destroy();
@@ -205,7 +206,10 @@ Q.Human.extend("Enemy", {
         this.fire();
         this.p.shotDelay += 50;
       }
-    } else {
+    } else if(Math.abs(this.p.x - player.p.x) > 450 && Math.abs(this.p.y - player.p.y) > 450){
+    	
+    }    
+    else {
       // Chase player if out of range.
       this.p.x += this.p.speed * Math.cos(TO_RAD * (this.p.angle+90));
       this.p.y += this.p.speed * Math.sin(TO_RAD * (this.p.angle+90));
@@ -282,34 +286,42 @@ Q.Sprite.extend("ShotPellet", {
 });
 
 Q.Sprite.extend("Rocket", {
-  init: function(p) {
-    this._super(p, {
-      asset: "bullet.png",
-      atk_type: "projectile",
-      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
-      type: Q.SPRITE_POWERUP,
-    });
-        
-    this.add('2d');
+	init: function(p) {
+	this._super(p, {
+		asset: "bullet.png",
+		collided: false,
+		atk_type: "projectile",
+		collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
+		      type: Q.SPRITE_POWERUP,
+		    });
+		    
+		    this.add('2d');
+	
+		    this.on("hit", function(collision){
+		      /*if(collision.obj.isA("Wall")){
+		        this.destroy();
+		      } */
+		      if(this.collided != true){
+		    	  this.collided = true;
+		    	  Q.stage().insert(new Q.Explosion(
+		    	          { 
+		    	        	  x: collision.obj.p.x,
+		    	              y: collision.obj.p.y, 
+		    		       }
+		           ));
+		      }
+	          
+		       this.destroy();
+		    });
+		  }
+		});
 
-    this.on("hit", function(collision){
-      Q.stage().insert(new Q.Explosion(
-      { 
-        x: this.p.x,
-        y: this.p.y, 
-      }
-      ));
-        
-      this.destroy();
-    });
-  }
-});
   
 Q.Sprite.extend("Explosion", {
   init: function(p) {
     this._super(p, {
-      asset: "ammo_clip.png",
-      life: 10,
+      asset: "explosion.png",
+      life: 30,
       atk_type: "melee",
       collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
       type: Q.SPRITE_POWERUP,
