@@ -295,35 +295,32 @@ Q.Sprite.extend("ShotPellet", {
 });
 
 Q.Sprite.extend("Rocket", {
-	init: function(p) {
-	this._super(p, {
-		asset: "bullet.png",
-		collided: false,
-		atk_type: "projectile",
-		collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
-		      type: Q.SPRITE_POWERUP,
-		    });
-		    
-		    this.add('2d');
-	
-		    this.on("hit", function(collision){
-		      /*if(collision.obj.isA("Wall")){
-		        this.destroy();
-		      } */
-		      if(this.collided != true){
-		    	  this.collided = true;
-		    	  Q.stage().insert(new Q.Explosion(
-		    	          { 
-		    	        	  x: collision.obj.p.x,
-		    	              y: collision.obj.p.y, 
-		    		       }
-		           ));
-		      }
-	          
-		       this.destroy();
-		    });
-		  }
-		});
+  init: function(p) {
+    this._super(p, {
+      asset: "bullet.png",
+      collided: false,
+      atk_type: "projectile",
+      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
+      type: Q.SPRITE_POWERUP,
+    });
+
+    this.add('2d');
+
+    this.on("hit", function(collision){
+      if(this.collided != true){
+        this.collided = true;
+        Q.stage().insert(new Q.Explosion(
+          { 
+            x: collision.obj.p.x,
+            y: collision.obj.p.y, 
+          }
+        ));
+      }
+
+      this.destroy();
+    });
+  }
+});
 
   
 Q.Sprite.extend("Explosion", {
