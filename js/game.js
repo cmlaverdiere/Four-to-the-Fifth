@@ -67,6 +67,7 @@ Q.input.mouseControls({ cursor: "on" });
 // Set initial game state.
 Q.state.set({ killed: 0,
               alive: 0,
+              player_health: 100,
               ammo: 50, 
               level: 1,
               paused: false,
@@ -74,13 +75,10 @@ Q.state.set({ killed: 0,
               track_playing: false, 
 });
 
-// Load map resources
-for(var i=1; i<=NUM_MAPS; i++){
-  Q.loadTMX("level" + i + ".tmx");
-}
 
 // Load other resources
-Q.load([ 
+Q.loadTMX([
+         "start_level.tmx", 
          "ammo_clip.png",
          "bullet.png",
          "cave.png",
@@ -107,9 +105,15 @@ Q.load([
          "test.wav", 
          ], function() {
     console.log("Done loading assets.");
-    Q.stageScene("title", 0);
+    Q.stageScene("start_level", 0);
+    Q.stageScene("title", 1);
 }, {
   progressCallback: function(loaded, total) {
+    // Load map resources
+    for(var i=1; i<=NUM_MAPS; i++){
+      Q.loadTMX("level" + i + ".tmx");
+    }
+    
     var ls = document.getElementById("loading_status");
     ls.innerHTML = Math.floor(loaded / total * 100);
     if(loaded == total){
