@@ -19,6 +19,7 @@ Q.component("gun", {
         
         this.p.bullets -= 1;
         if(this.isA("Player")){
+          Q.stageScene("ui", 1, this.p);
           Q.state.dec("ammo", 1);
         }
       }
@@ -49,12 +50,12 @@ Q.component("shotgun", {
           }
           ));
         }
+      }
 
-        this.p.bullets -= 2;
-        if(this.isA("Player")){
-          Q.stageScene("ui", 1, this.p);
-          Q.state.dec("ammo", 2);
-        }
+      this.p.bullets -= 4;
+      if(this.isA("Player")){
+        Q.stageScene("ui", 1, this.p);
+        Q.state.dec("ammo", 4);
       }
     }
   },
@@ -108,8 +109,11 @@ Q.component("rocketlauncher", {
         }
         ));
 
-        this.p.bullets -= 1;
-        Q.state.dec("ammo", 1);
+        this.p.bullets -= 5;
+        if(this.isA("Player")){
+          Q.stageScene("ui", 1, this.p);
+          Q.state.dec("ammo", 5);
+        }
       }
     }
   },
