@@ -305,7 +305,6 @@ Q.Sprite.extend("Rocket", {
   init: function(p) {
     this._super(p, {
       asset: "bullet.png",
-      collided: false,
       atk_type: "projectile",
       collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
       type: Q.SPRITE_POWERUP,
@@ -314,16 +313,13 @@ Q.Sprite.extend("Rocket", {
     this.add('2d');
 
     this.on("hit", function(collision){
-      if(this.collided != true){
-        this.collided = true;
-        Q.audio.play("rocket_explode.wav");
-        Q.stage().insert(new Q.Explosion(
-          { 
-            x: collision.obj.p.x,
-            y: collision.obj.p.y, 
-          }
-        ));
-      }
+      Q.audio.play("rocket_explode.wav");
+      Q.stage().insert(new Q.Explosion(
+        { 
+          x: collision.obj.p.x,
+          y: collision.obj.p.y, 
+        }
+      ));
 
       this.destroy();
     });
