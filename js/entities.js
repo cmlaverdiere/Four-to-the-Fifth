@@ -316,6 +316,7 @@ Q.Sprite.extend("Rocket", {
     this.on("hit", function(collision){
       if(this.collided != true){
         this.collided = true;
+        Q.audio.play("rocket_explode.wav");
         Q.stage().insert(new Q.Explosion(
           { 
             x: collision.obj.p.x,
@@ -334,9 +335,11 @@ Q.Sprite.extend("Explosion", {
   init: function(p) {
     this._super(p, {
       asset: "explosion.png",
-      life: 30,
+      angle: 0,
+      duration: 30,
       atk_type: "melee",
       collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
+      scale: .1,
       type: Q.SPRITE_POWERUP,
     });
     
@@ -344,7 +347,13 @@ Q.Sprite.extend("Explosion", {
   },
 
   step: function(dt) {
-    if(--this.p.life <= 0){
+    // Add logarithmic growth function to explosion.
+    this.p.scale = Math.log(30 - this.p.duration) / 2;
+
+    // Spin explosion as it goes off.
+    this.p.angle += 25
+
+    if(--this.p.duration <= 0){
       this.destroy(); 
     }
   },
