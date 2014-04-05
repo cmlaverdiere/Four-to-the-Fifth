@@ -3,13 +3,13 @@ Four-to-the-Fifth
 
 This is a group project for UMBC's software engineering course, CMSC 345.
 
-| Team members       | Role             |
-| ------------------ | ---------------- |
-| Kevin Coxe         | Team Lead        |
-| Chiebuka Ezekwenna | Backup Team Lead |
-| Chris Laverdiere   | Technical Lead   |
-| Kasey White        | Undecided        |
-| Rhea Horton        | Undecided        |
+| Team members       | Role               |
+| ------------------ | ----------------   |
+| Kevin Coxe         | Team Lead / UI     |
+| Chiebuka Ezekwenna | Backup Lead / Maps |
+| Chris Laverdiere   | Technical Lead     |
+| Kasey White        | AI / Gameplay      |
+| Rhea Horton        | Graphics / Art     |
 
 Proposal
 -----------------
@@ -24,3 +24,7 @@ Playing the Game
 A current deployment of our game can be found at:
 
 http://userpages.umbc.edu/~chlaver1/Four-to-the-Fifth/game.html
+
+Along with more information at:
+
+http://userpages.umbc.edu/~chlaver1/Four-to-the-Fifth/about.html
