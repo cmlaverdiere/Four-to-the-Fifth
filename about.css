@@ -1,5 +1,10 @@
+body {
+  background: #222;
+  color: white;
+}
+
 .pane {
-  background: #fbfbfb;
+  background: #333;
   border: 1px solid #eeeeee;
   padding: 15px;
 }
@@ -10,11 +15,10 @@
 }
 
 #footer {
-  margin: 10px 3px 3px 3px;
+  margin: 20px 3px 15px 3px;
   text-align: center;
   width: 100%; 
 }
-
 
 #left-pane {
   float: left;
@@ -26,7 +30,7 @@
 }
 
 #topbar {
-  margin: 3px 3px 10px 3px;
+  margin: 15px 3px 20px 3px;
   text-align: center;
   width: 100%; 
 }
