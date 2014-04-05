@@ -91,14 +91,14 @@ Q.component("machinegun", {
 
 Q.component("rocketlauncher", {
   added: function() {
-    this.entity.p.asset = this.entity.p.pistol_sprite;
+    this.entity.p.asset = this.entity.p.rocket_sprite;
     Q.audio.play("gun_cock.wav");
   },
 
   extend: {
     fire: function() {
       if (this.p.bullets > 0 && !this.p.fire_block){
-        Q.audio.play("gun_shot.wav");
+        Q.audio.play("rocket_fire.wav");
         Q.stage().insert(new Q.Rocket(
         { 
           x: this.p.x + 100 * Math.cos(TO_RAD * (this.p.angle+90)),

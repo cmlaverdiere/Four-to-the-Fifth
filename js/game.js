@@ -79,30 +79,27 @@ Q.state.set({ killed: 0,
 // Load other resources
 Q.loadTMX([
          "start_level.tmx", 
+
          "ammo_clip.png",
          "bullet.png",
          "cave.png",
          "explosion.png",
          "enemy.png",
-         "floor_tile.png", 
-         "floor_tile_pencil.png", 
-         "line_paper.png", 
-         "player.png",
-         "player_with_gun.png",
-         "player_with_shotgun.png",
          "shot_pellet.png",
          "soldier_base.png",
          "soldier_pistol.png",
          "soldier_gatling.png",
          "soldier_rocket.png",
          "sword.png", 
-         "tough_guy.png",
-         "wall.png",
+
          "disp_heroes.wav", 
+         "test.wav", 
+
          "gun_cock.wav", 
          "gun_shot.wav", 
+         "rocket_fire.wav",
+         "rocket_explode.wav",
          "shotgun_shot.wav", 
-         "test.wav", 
          ], function() {
     console.log("Done loading assets.");
     Q.stageScene("start_level", 0);
