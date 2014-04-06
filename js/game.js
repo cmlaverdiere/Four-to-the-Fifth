@@ -94,6 +94,7 @@ Q.loadTMX([
          "sword.png", 
 
          "disp_heroes.wav", 
+         "game_over.wav", 
          "test.wav", 
 
          "gun_cock.wav", 
