@@ -27,9 +27,10 @@ Q.UI.FttFContainer = Q.UI.Container.extend("UI.FttFContainer", {
 });
 
 // Base theme class for buttons.
+// I cannot get this to work... 
 Q.UI.FttFButton = Q.UI.Button.extend("UI.FttFButton", {
-  init: function(p) {
-    this._super(p, {
+  init: function(p, callback) {
+    this._super(p, callback, {
       border: 2,
       fill: FG_COL,
       label: "Insert Text",
@@ -39,7 +40,7 @@ Q.UI.FttFButton = Q.UI.Button.extend("UI.FttFButton", {
 });
 
 Q.scene("ui", function(stage){
-  // weapon container
+  // Weapon container
   var weapon_cont = stage.insert(new Q.UI.FttFContainer({
     w: 200,
     h: 60,
@@ -58,7 +59,7 @@ Q.scene("ui", function(stage){
     ammo_label.p.label = "Ammo: " + stage.options.bullets
   });
 
-  // info container
+  // Info container
   var info_cont = stage.insert(new Q.UI.FttFContainer({
     w: 200,
     h: 60,
@@ -66,19 +67,19 @@ Q.scene("ui", function(stage){
     y: Q.height - 40,
   }));
 
-  // health container
+  // Health container
   var health_cont = stage.insert(new Q.UI.FttFContainer({
     // ...
   }), info_cont);
 
-  // health label
+  // Health label
   var health_label = stage.insert(new Q.UI.FttFText({
   	color: "#f00",
   	size: 40,
     label: "Health: " + stage.options.hp,
   }), info_cont);
 
-  // Update player_health label. 
+  // Update player_health label event. 
   Q.state.on("change.player_health", function(){ 
     health_label.p.label = "Health: " + stage.options.hp 
   });
@@ -93,13 +94,13 @@ Q.scene("ui", function(stage){
 Q.scene("title", function(stage) {
   var title = document.getElementById("start_title");
   
-  // title container
+  // Title container
   var title_cont = stage.insert(new Q.UI.FttFContainer({
     x: Q.width/2,
     y: Q.height/8,
   }));
 
-  // title label
+  // Title label
   var start_title_label = stage.insert(new Q.UI.FttFText({
     label: "Four-To-The-Fifth",
     size: 80,
@@ -113,11 +114,10 @@ Q.scene("title", function(stage) {
   }));
 
   // Button to Start Game.
-  var start_btn = stage.insert(new Q.UI.Button({
+  var start_btn = stage.insert(new Q.UI.FttFButton({
     border: 2,
     fill: FG_COL,
     label: "Start Game",
-    y: 0,
   }, function() {
     Q.stageScene("level", 0);
     Q.stageScene("ui", 1, Q('Player').first().p);
@@ -143,13 +143,13 @@ Q.scene("title", function(stage) {
     y: Q.height/2,
   }));
 
-  // controls label
+  // Controls Header label
   var start_controls_label = stage.insert(new Q.UI.FttFText({
     label: "Controls",
     y: -80,
   }), start_options_cont);
 
-  // controls label
+  // Controls label
   var controls_label = stage.insert(new Q.UI.FttFText({
     label: "Movement: WASD \nSwitch Weapon: NUMKEYS \nFire weapon: SPACE \nPause: BACKSPACE",
     size: 16
