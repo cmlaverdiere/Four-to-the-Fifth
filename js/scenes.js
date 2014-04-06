@@ -10,7 +10,9 @@ Q.scene("level", function(stage) {
   Q.state.set("alive", Q("Enemy").length);
 
   if(MUSIC_ENABLED){
-    Q.audio.play('test.wav', { loop: true });
+    Q.state.inc("track_id", 1);
+    if(Q.state.get("track_id") >= tracks.length) Q.state.set("track_id", 0);
+    Q.audio.play(tracks[Q.state.get("track_id")], { loop: true });
   }
 
   // pause game
@@ -66,6 +68,7 @@ Q.scene("level", function(stage) {
   });
 
   stage.on("player_death", function() {
+    Q.audio.stop();
     Q.audio.play("game_over.wav", { loop: true });
     Q.stageScene("title", 1);
   });
@@ -103,7 +106,8 @@ Q.scene("start_level", function(stage) {
   Q.state.set("alive", Q("Enemy").length);
 
   if(MUSIC_ENABLED){
-    Q.audio.play('test.wav', { loop: true });
+    Q.audio.stop();
+    Q.audio.play(tracks[Q.state.get("track_id")], { loop: true });
   }
 
 });
