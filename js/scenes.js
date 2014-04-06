@@ -52,6 +52,8 @@ Q.scene("level", function(stage) {
 
   // Handle event for when player finishes a level.
   stage.on("beat_level", function() {
+      Q.audio.stop();
+
       // If there's still a level after, proceed to the next level.
       if(Q.state.get("level") < NUM_MAPS){
         Q.state.inc("level", 1);
@@ -64,6 +66,7 @@ Q.scene("level", function(stage) {
   });
 
   stage.on("player_death", function() {
+    Q.audio.play("game_over.wav", { loop: true });
     Q.stageScene("title", 1);
   });
 

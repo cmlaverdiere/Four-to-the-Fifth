@@ -119,6 +119,7 @@ Q.scene("title", function(stage) {
     fill: FG_COL,
     label: "Start Game",
   }, function() {
+    Q.audio.stop();
     Q.stageScene("level", 0);
     Q.stageScene("ui", 1, Q('Player').first().p);
   }), start_cont);
