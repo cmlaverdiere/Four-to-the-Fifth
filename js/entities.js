@@ -34,10 +34,7 @@ Q.Sprite.extend("Human", {
 
           // Reset to title if player dies.
           if(this.isA("Player")){
-            Q.stageScene("title", 0);
-            Q.state.set("ammo", 50);
-            Q.state.set("player_health", 100);
-            Q.stageScene(null, 1);
+            Q.stage().trigger("player_death");
           } else {
             Q.stage().trigger("enemy_killed");
           }
