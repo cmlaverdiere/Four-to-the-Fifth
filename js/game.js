@@ -14,6 +14,7 @@ var prev_mouse_coords = [0, 0];
 
 // All music tracks.
 var tracks = ["test.wav", "disp_heroes.wav"];
+var MUSIC_ENABLED = false;
 
 // Turn off gravity, the game is top down.
 Q.gravityX = 0;

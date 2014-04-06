@@ -112,7 +112,9 @@ Q.scene("level", function(stage) {
   // Initialize enemy amount
   Q.state.set("alive", Q("Enemy").length);
 
-  // Q.audio.play('test.wav', { loop: true });
+  if(MUSIC_ENABLED){
+    Q.audio.play('test.wav', { loop: true });
+  }
 
   // pause game
   stage.on("pause_game", function(){
@@ -164,6 +166,10 @@ Q.scene("level", function(stage) {
       }
   });
 
+  stage.on("player_death", function() {
+    Q.stageScene("title", 1);
+  });
+
 });
 
 // The ending screen.
@@ -196,7 +202,8 @@ Q.scene("start_level", function(stage) {
   // Initialize enemy amount
   Q.state.set("alive", Q("Enemy").length);
 
-  // Q.audio.play('test.wav', { loop: true });
+  if(MUSIC_ENABLED){
+    Q.audio.play('test.wav', { loop: true });
+  }
 
 });
-
