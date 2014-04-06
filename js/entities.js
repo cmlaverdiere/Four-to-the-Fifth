@@ -21,7 +21,7 @@ Q.Sprite.extend("Human", {
 
     this.add('2d');
     this.on("hit", function(collision){
-      if(collision.obj.isA("Bullet") || collision.obj.isA("ShotPellet")){
+      if(collision.obj.isA("Bullet") || collision.obj.isA("ShotPellet") || collision.obj.isA("Explosion")){
       	this.p.hp -= 7;
 
       	if(this.isA("Player")){
@@ -45,16 +45,13 @@ Q.Sprite.extend("Human", {
           this.p.y -= 15 * Math.sin(TO_RAD * (this.p.angle+90));
         }
 
-        collision.obj.destroy();
+        if(!collision.obj.isA("Explosion")){
+          collision.obj.destroy();
+        }
       }
 
       else if(collision.obj.isA("Sword")){
     	  this.destroy();
-    	  console.log("Here");
-      }
-
-      else if(collision.obj.isA("Explosion")){
-        this.destroy();
       }
     });
   },
