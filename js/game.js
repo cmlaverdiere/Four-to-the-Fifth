@@ -112,7 +112,7 @@ Q.loadTMX([
     }
     
     var ls = document.getElementById("loading_status");
-    ls.innerHTML = Math.floor(loaded / total * 100);
+    ls.innerHTML = "Now Loading... " + Math.floor(loaded / total * 100) + "%";
     if(loaded == total){
       ls.remove(); 
     }
