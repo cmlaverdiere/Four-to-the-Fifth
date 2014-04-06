@@ -5,16 +5,19 @@ var Q = Quintus({ development: true, audioSupported: [ 'wav' ] })
           .setup({ maximize:true })
           .touch();
 
-// For now, let's keep track of the current number of maps.
-// Increment this if you add a new one. 
+// GAME SETTINGS
+var MUSIC_ENABLED = true;
+
+// Increment this if you add a new map in pattern 
+// ie: (level1.tmx, level2.tmx, ..., levelN.tmx). 
 var NUM_MAPS = 2
 
+// USEFUL GLOBALS 
 // Keep track of change in mouse coords.
 var prev_mouse_coords = [0, 0];
 
 // All music tracks.
 var tracks = ["test.wav", "disp_heroes.wav"];
-var MUSIC_ENABLED = false;
 
 // Turn off gravity, the game is top down.
 Q.gravityX = 0;
