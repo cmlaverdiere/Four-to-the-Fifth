@@ -88,3 +88,30 @@ Q.component("machinegun", {
     }
   },
 });
+
+Q.component("rocketlauncher", {
+  added: function() {
+    this.entity.p.asset = this.entity.p.pistol_sprite;
+    Q.audio.play("gun_cock.wav");
+  },
+
+  extend: {
+    fire: function() {
+      if (this.p.bullets > 0 && !this.p.fire_block){
+        Q.audio.play("gun_shot.wav");
+        Q.stage().insert(new Q.Rocket(
+        { 
+          x: this.p.x + 100 * Math.cos(TO_RAD * (this.p.angle+90)),
+          y: this.p.y + 100 * Math.sin(TO_RAD * (this.p.angle+90)), 
+          vx: 1000 * Math.cos(TO_RAD * (this.p.angle+90)), 
+          vy: 1000 * Math.sin(TO_RAD * (this.p.angle+90)), 
+        }
+        ));
+
+        this.p.bullets -= 1;
+        Q.state.dec("ammo", 1);
+      }
+    }
+  },
+});
+
