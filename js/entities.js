@@ -33,7 +33,7 @@ Q.Sprite.extend("Human", {
           if(this.isA("Player")){
             Q.stageScene("title", 0);
             Q.state.set("ammo", 50);
-    		Q.state.set("player_health", 100);
+    		    Q.state.set("player_health", 100);
             Q.stageScene(null, 1);
           } else {
             Q.stage().trigger("enemy_killed");
