@@ -60,77 +60,15 @@ Q.scene("ui", function(stage){
 
 
   // -------------------------------------------------------
-/*
-  // Container for instructions, alerts, etc.
-  var bottom_cont = stage.insert(new Q.UI.Container({
-    border: 2,
-    fill: "white",
-    radius: 3,
-    x: Q.width/2,
-    y: Q.height - 50,
-  }));
 
-  // Container for pause instruction
-  var tips_cont = stage.insert(new Q.UI.Container({
-    border: 2,
-    fill: "white",
-    radius: 3,
-    x: 125,
-    y: 25,
-  }));
-
-  // Total kills label
-  var kills_label = stage.insert(new Q.UI.Text({
-    x: -300,
-    label: "Kill Count: " + Q.state.get("killed"),
-  }), bottom_cont);
-
-  // Update kills label. 
-  Q.state.on("change.killed", function(){ 
-    kills_label.p.label = "Kill Count: " + Q.state.get("killed") 
-  });
-
-  // Total alive label
-  var alive_label = stage.insert(new Q.UI.Text({
-    x: -100,
-    label: "Enemies Left: " + Q.state.get("alive"),
-  }), bottom_cont);
-
-  // Update number alive label. 
-  Q.state.on("change.alive", function(){ 
-    alive_label.p.label = "Enemies Left: " + Q.state.get("alive") 
-  });
-
-  // Total ammo label
-  var ammo_label = stage.insert(new Q.UI.Text({
-    x: 100,
-    label: "Ammo: " + Q.state.get("ammo"),
-  }), bottom_cont);
-
-  // Update ammo label. 
-  Q.state.on("change.ammo", function(){ 
-    ammo_label.p.label = "Ammo: " + Q.state.get("ammo") 
-  });
-
-  // Level label
-  var level_label = stage.insert(new Q.UI.Text({
-    x: 250,
-    label: "Level: " + Q.state.get("level"),
-  }), bottom_cont);
-
-  // Update Level label. 
-  Q.state.on("change.level", function(){ 
-    level_label.p.label = "Level: " + Q.state.get("level") 
-  });
-
-  // Container for options menu
+// Container for options menu
   var options_cont = stage.insert(new Q.UI.Container({
     border: 2,
     hidden: true,
     fill: "white",
     radius: 3,
-    x: 160,
-    y: Q.height - 100,
+    x: Q.width - 200,
+    y: 100,
   }));
 
   // Button to display the options menu.
@@ -139,8 +77,8 @@ Q.scene("ui", function(stage){
     fill: "white",
     label: "Options",
     radius: 3,
-    x: 100,
-    y: Q.height - 50,
+    x: Q.width - 200,
+    y: 50,
   }, function() {
     if(this.p.fill == "white") this.p.fill = "red";
     else this.p.fill = "white";
@@ -149,7 +87,7 @@ Q.scene("ui", function(stage){
 
   // Advance to the next level (Obviously for debug only).
   var level_advance_btn = stage.insert(new Q.UI.Button({
-    y: -180,
+    y: 180,
     label: "Advance level"
   }, function(){
     Q.stage(0).trigger("beat_level");
@@ -157,7 +95,7 @@ Q.scene("ui", function(stage){
 
   // Change game zoom
   var zoom_toggle = stage.insert(new Q.UI.Button({
-    y: -140,
+    y: 140,
     label: "Toggle zoom level"
   }, function(){
     var zoom = Q.stage(0).viewport.scale;
@@ -172,7 +110,7 @@ Q.scene("ui", function(stage){
 
   // Toggle music on or off option.
   var music_toggle = stage.insert(new Q.UI.Button({
-    y: -100,
+    y: 100,
     label: "Music on/off"
   }, function(){
     if(Q.state.get("track_playing")){
@@ -187,7 +125,7 @@ Q.scene("ui", function(stage){
 
   // Pause Game
   var pause_toggle = stage.insert(new Q.UI.Button({
-    y: -60,
+    y: 60,
     fill: "white",
     label: "Pause/Unpause Game",
   }, function(){
@@ -207,7 +145,7 @@ Q.scene("ui", function(stage){
 
   // Switch music track
   var music_track = stage.insert(new Q.UI.Button({
-    y: -20,
+    y: 20,
     label: "Next Music Track"
   }, function(){
     Q.audio.stop();     
@@ -221,7 +159,8 @@ Q.scene("ui", function(stage){
 
   bottom_cont.fit(10, 10);
   options_cont.fit(10, 10);
-*/
+
+  // -------------------------------------------------------
 
   weapon_cont.fit(20,50);
   info_cont.fit(20,50);
