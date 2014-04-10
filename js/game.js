@@ -77,6 +77,7 @@ Q.state.set({ killed: 0,
               paused: false,
               track_id: 0, 
               track_playing: false, 
+              pause: 0,
 });
 
 

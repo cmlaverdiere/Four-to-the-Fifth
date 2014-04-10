@@ -133,6 +133,9 @@ Q.Human.extend("Player", {
     Q.input.on("wep4", this, "equip_machinegun");
     Q.input.on("wep5", this, "equip_rocketlauncher");
     Q.input.on("sword", this, "swing_sword");
+    Q.input.on("pause", this, function(){
+    	Q.state.inc("pause", this, 1);
+    });
   },
 
   step_player: function(dt) {

@@ -40,6 +40,68 @@ Q.UI.FttFButton = Q.UI.Button.extend("UI.FttFButton", {
 });
 
 Q.scene("ui", function(stage){
+
+  // options container
+  var options_cont = stage.insert(new Q.UI.FttFContainer({
+  	w: 200,
+  	h: 60,
+  	x: Q.width - 150,
+  	y: 10,
+  	hidden: true,
+  }));
+
+  //
+  Q.state.on("change.pause", function(){
+  	options_cont.p.hidden = !(options_cont.p.hidden);
+  });
+
+  // next leve button
+  var next_lvl_btn = stage.insert(new Q.UI.Button({
+  	border: 1,
+  	w: 200,
+  	h: 30,
+  	x: 0,
+  	y: 80,
+  	label: "Next Level",
+  }, function() {
+    options_cont.p.hidden = !(options_cont.p.hidden);
+    Q.stage(0).trigger("beat_level");
+    //start_cont.p.hidden = !(start_cont.p.hidden);
+  }),options_cont);
+
+  // Change game zoom
+  var zoom_toggle = stage.insert(new Q.UI.Button({
+  	border: 1,
+  	w: 200,
+  	h: 30,
+  	x: 0,
+    y: 120,
+    label: "Toggle zoom level"
+  }, function(){
+    var zoom = Q.stage(0).viewport.scale;
+    if(zoom > 3) { 
+      zoom = .5; 
+    } else {
+      zoom *= 1.5;
+    }
+    Q.stage(0).viewport.scale = zoom;
+  }), options_cont);
+
+  // options button
+  var options_btn = stage.insert(new Q.UI.Button({
+    border: 2,
+    fill: FG_COL,
+    label: "Options",
+    color: FG_COL,
+    radius: 3,
+    w: 140,
+  	h: 30,
+    x: Q.width - 150,
+    y: 40,
+  }, function() {
+    options_cont.p.hidden = !(options_cont.p.hidden);
+  }));
+
   // Weapon container
   var weapon_cont = stage.insert(new Q.UI.FttFContainer({
     w: 200,
@@ -84,6 +146,7 @@ Q.scene("ui", function(stage){
     health_label.p.label = "Health: " + stage.options.hp 
   });
 
+  options_cont.fit(30,20);
   weapon_cont.fit(20,50);
   info_cont.fit(20,50);
   health_cont.fit(5,5);
