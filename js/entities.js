@@ -134,7 +134,7 @@ Q.Human.extend("Player", {
     Q.input.on("wep5", this, "equip_rocketlauncher");
     Q.input.on("sword", this, "swing_sword");
     Q.input.on("pause", this, function(){
-    	Q.state.inc("pause", this, 1);
+    	Q.state.inc("pause", this, !Q.state.get("pause"));
     });
   },
 

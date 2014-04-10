@@ -60,10 +60,12 @@ Q.scene("level", function(stage) {
       if(Q.state.get("level") < NUM_MAPS){
         Q.state.inc("level", 1);
         Q.stageScene("level", 0);
+        Q.stageScene("menu", 2);
       } else { // Otherwise, we've beaten the game.
         console.log("Game beaten.");
         Q.stageScene("endgame", 0);
         Q.stageScene("null", 1);
+        Q.stageScene("null", 2);
       }
   });
 
@@ -91,6 +93,7 @@ Q.scene("endgame", function(stage) {
     Q.state.set("player_health", 100);
     Q.stageScene("level", 0);
     Q.stageScene("ui", 1);
+    Q.stageScene("menu", 2);
   }));
 });
 

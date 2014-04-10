@@ -39,7 +39,7 @@ Q.UI.FttFButton = Q.UI.Button.extend("UI.FttFButton", {
   }
 });
 
-Q.scene("ui", function(stage){
+Q.scene("menu", function(stage){
 
   // options container
   var options_cont = stage.insert(new Q.UI.FttFContainer({
@@ -102,6 +102,12 @@ Q.scene("ui", function(stage){
     options_cont.p.hidden = !(options_cont.p.hidden);
   }));
 
+  options_cont.fit(30,20);
+
+});
+
+Q.scene("ui", function(stage){
+
   // Weapon container
   var weapon_cont = stage.insert(new Q.UI.FttFContainer({
     w: 200,
@@ -146,7 +152,26 @@ Q.scene("ui", function(stage){
     health_label.p.label = "Health: " + stage.options.hp 
   });
 
-  options_cont.fit(30,20);
+  //level container
+  var level_cont = stage.insert(new Q.UI.FttFContainer({
+  	w: 200,
+    h: 60,
+    x: Q.width/2,
+    y: Q.height - 40,
+  }));
+
+  //level label
+  var level_label = stage.insert(new Q.UI.FttFText({
+  	color: "#fff",
+  	size: 40,
+  	label: "Level: " + Q.state.get("level"),
+  }), level_cont);
+
+  // Update level label event. 
+  Q.state.on("change.level", function(){ 
+    level_label.p.label = "Level: " + Q.state.get("level") 
+  });
+
   weapon_cont.fit(20,50);
   info_cont.fit(20,50);
   health_cont.fit(5,5);
@@ -155,20 +180,7 @@ Q.scene("ui", function(stage){
 
 // The initial title screen.
 Q.scene("title", function(stage) {
-  var title = document.getElementById("start_title");
-  
-  // Title container
-  var title_cont = stage.insert(new Q.UI.FttFContainer({
-    x: Q.width/2,
-    y: Q.height/8,
-  }));
-
-  // Title label
-  var start_title_label = stage.insert(new Q.UI.FttFText({
-    label: "Four-To-The-Fifth",
-    size: 80,
-    y: 100,
-  }), title_cont);
+  //var title = document.getElementById("start_title");
   
   // Container for start up
   var start_cont = stage.insert(new Q.UI.FttFContainer({
@@ -185,6 +197,7 @@ Q.scene("title", function(stage) {
     Q.audio.stop();
     Q.stageScene("level", 0);
     Q.stageScene("ui", 1, Q('Player').first().p);
+    Q.stageScene("menu", 2);
   }), start_cont);
 
   // Button to show options.
@@ -229,6 +242,19 @@ Q.scene("title", function(stage) {
     start_options_cont.p.hidden = !(start_options_cont.p.hidden);
     start_cont.p.hidden = !(start_cont.p.hidden);
   }), start_options_cont);
+
+  // Title container
+  var title_cont = stage.insert(new Q.UI.FttFContainer({
+    x: Q.width/2,
+    y: Q.height/8,
+  }));
+
+  // Title label
+  var start_title_label = stage.insert(new Q.UI.FttFText({
+    label: "Four-To-The-Fifth",
+    size: 80,
+    y: 100,
+  }), title_cont);
 
   title_cont.fit(100, 400);
   start_cont.fit(50, 75);
