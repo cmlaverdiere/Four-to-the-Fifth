@@ -30160,5 +30160,19 @@
   <object gid="6" x="2916" y="5869"/>
   <object gid="6" x="2840" y="5277"/>
   <object gid="5" x="2980" y="6073"/>
+  <object gid="685" x="2693" y="3391"/>
+  <object gid="685" x="2760" y="3391"/>
+  <object gid="685" x="2690" y="3460"/>
+  <object gid="685" x="2745" y="3473"/>
+  <object gid="685" x="2723" y="3427"/>
+  <object gid="685" x="1514" y="6245"/>
+  <object gid="685" x="1551" y="6242"/>
+  <object gid="685" x="1526" y="6203"/>
+  <object gid="685" x="1563" y="6206"/>
+  <object gid="685" x="1605" y="6267"/>
+  <object gid="685" x="1496" y="6203"/>
+  <object gid="685" x="1605" y="6212"/>
+  <object gid="685" x="1581" y="6270"/>
+  <object gid="685" x="1532" y="6273"/>
  </objectgroup>
 </map>
