@@ -17,7 +17,7 @@ var NUM_MAPS = 2
 var prev_mouse_coords = [0, 0];
 
 // All music tracks.
-var tracks = ["test.wav", "disp_heroes.wav"];
+var tracks = ["test.wav", "metal.wav", "disp_heroes.wav"];
 
 // Turn off gravity, the game is top down.
 Q.gravityX = 0;
@@ -103,6 +103,7 @@ Q.loadTMX([
 
          "disp_heroes.wav", 
          "game_over.wav", 
+         "metal.wav", 
          "test.wav", 
 
          "gun_cock.wav", 
