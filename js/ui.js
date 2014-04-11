@@ -92,7 +92,7 @@ Q.scene("menu", function(stage){
   var options_btn = stage.insert(new Q.UI.Button({
     border: 2,
     fill: FG_COL,
-    label: "Options",
+    label: "Controls",
     color: FG_COL,
     radius: 3,
     w: 140,
