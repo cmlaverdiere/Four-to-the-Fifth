@@ -9,7 +9,7 @@ Q.Sprite.extend("Human", {
       fire_block: false,
       fire_delay: 100,
       hp: 100,
-      shotDelay: 100,
+      shotDelay: 50,
       sprinting: false,
       stepDistance: 10,
       stepDelay: 0.01,
