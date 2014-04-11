@@ -13,6 +13,7 @@ Q.UI.FttFText = Q.UI.Text.extend("UI.FttFText", {
   }
 });
 
+
 // Base theme class for containers.
 Q.UI.FttFContainer = Q.UI.Container.extend("UI.FttFContainer", {
   init: function(p) {
@@ -25,6 +26,7 @@ Q.UI.FttFContainer = Q.UI.Container.extend("UI.FttFContainer", {
     });
   }
 });
+
 
 // Base theme class for buttons.
 // I cannot get this to work... 
@@ -39,8 +41,8 @@ Q.UI.FttFButton = Q.UI.Button.extend("UI.FttFButton", {
   }
 });
 
-Q.scene("menu", function(stage){
 
+Q.scene("menu", function(stage){
   // options container
   var options_cont = stage.insert(new Q.UI.FttFContainer({
   	w: 200,
@@ -50,12 +52,11 @@ Q.scene("menu", function(stage){
   	hidden: true,
   }));
 
-  //
   Q.state.on("change.pause", function(){
   	options_cont.p.hidden = !(options_cont.p.hidden);
   });
 
-  // next leve button
+  // Next level button
   var next_lvl_btn = stage.insert(new Q.UI.Button({
   	border: 1,
   	w: 200,
@@ -87,7 +88,7 @@ Q.scene("menu", function(stage){
     Q.stage(0).viewport.scale = zoom;
   }), options_cont);
 
-  // options button
+  // Options button
   var options_btn = stage.insert(new Q.UI.Button({
     border: 2,
     fill: FG_COL,
@@ -106,8 +107,8 @@ Q.scene("menu", function(stage){
 
 });
 
-Q.scene("ui", function(stage){
 
+Q.scene("ui", function(stage){
   // Weapon container
   var weapon_cont = stage.insert(new Q.UI.FttFContainer({
     w: 200,
