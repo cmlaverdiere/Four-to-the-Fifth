@@ -68,8 +68,10 @@ Q.scene("level", function(stage) {
   });
 
   stage.on("player_death", function() {
-    Q.audio.stop();
-    Q.audio.play("game_over.wav", { loop: true });
+    if(MUSIC_ENABLED){
+      Q.audio.stop();
+      Q.audio.play("game_over.wav", { loop: true });
+    }
     Q.stageScene("title", 1);
   });
 
