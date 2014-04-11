@@ -7,7 +7,7 @@ Q.component("gun", {
   extend: {
     fire: function() {
       if (this.p.bullets > 0 && !this.p.fire_block){
-        Q.audio.play("gun_shot.wav");
+        Q.audio.play("pistol_shot.wav");
         Q.stage().insert(new Q.Bullet(
         { 
           x: this.p.x + 100 * Math.cos(TO_RAD * (this.p.angle+90)),

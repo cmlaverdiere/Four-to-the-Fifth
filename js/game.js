@@ -107,9 +107,15 @@ Q.loadTMX([
 
          "gun_cock.wav", 
          "gun_shot.wav", 
+         "assault_rifle_shot.wav", 
+         "minigun_shot.wav", 
+         "pistol_shot.wav", 
          "rocket_fire.wav",
+         "rocket_fire2.wav",
          "rocket_explode.wav",
+         "rocket_explode2.wav",
          "shotgun_shot.wav", 
+         "shotgun_shot2.wav", 
          ], function() {
     console.log("Done loading assets.");
     Q.stageScene("start_level", 0);
