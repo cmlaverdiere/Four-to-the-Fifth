@@ -182,6 +182,19 @@ Q.scene("ui", function(stage){
 // The initial title screen.
 Q.scene("title", function(stage) {
   //var title = document.getElementById("start_title");
+
+  // Title container
+  var title_cont = stage.insert(new Q.UI.FttFContainer({
+    x: Q.width/2,
+    y: Q.height/8,
+  }));
+
+  // Title label
+  var start_title_label = stage.insert(new Q.UI.FttFText({
+    label: "Four-To-The-Fifth",
+    size: 80,
+    y: 100,
+  }), title_cont);
   
   // Container for start up
   var start_cont = stage.insert(new Q.UI.FttFContainer({
@@ -243,19 +256,6 @@ Q.scene("title", function(stage) {
     start_options_cont.p.hidden = !(start_options_cont.p.hidden);
     start_cont.p.hidden = !(start_cont.p.hidden);
   }), start_options_cont);
-
-  // Title container
-  var title_cont = stage.insert(new Q.UI.FttFContainer({
-    x: Q.width/2,
-    y: Q.height/8,
-  }));
-
-  // Title label
-  var start_title_label = stage.insert(new Q.UI.FttFText({
-    label: "Four-To-The-Fifth",
-    size: 80,
-    y: 100,
-  }), title_cont);
 
   title_cont.fit(100, 400);
   start_cont.fit(50, 75);
