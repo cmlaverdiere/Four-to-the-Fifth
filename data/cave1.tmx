@@ -54,7 +54,7 @@
     <property name="Class" value="Enemy"/>
     <property name="base_sprite" value="enemy.png"/>
     <property name="bullets" value="20"/>
-    <property name="hp" value="5"/>
+    <property name="hp" value="21"/>
     <property name="mg_sprite" value="enemy.png"/>
     <property name="pistol_sprite" value="enemy.png"/>
     <property name="rocket_sprite" value="enemy.png"/>

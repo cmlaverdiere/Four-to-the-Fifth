@@ -39,7 +39,75 @@ Q.UI.FttFButton = Q.UI.Button.extend("UI.FttFButton", {
   }
 });
 
+Q.scene("menu", function(stage){
+
+  // options container
+  var options_cont = stage.insert(new Q.UI.FttFContainer({
+  	w: 200,
+  	h: 60,
+  	x: Q.width - 150,
+  	y: 10,
+  	hidden: true,
+  }));
+
+  //
+  Q.state.on("change.pause", function(){
+  	options_cont.p.hidden = !(options_cont.p.hidden);
+  });
+
+  // next leve button
+  var next_lvl_btn = stage.insert(new Q.UI.Button({
+  	border: 1,
+  	w: 200,
+  	h: 30,
+  	x: 0,
+  	y: 80,
+  	label: "Next Level",
+  }, function() {
+    options_cont.p.hidden = !(options_cont.p.hidden);
+    Q.stage(0).trigger("beat_level");
+    //start_cont.p.hidden = !(start_cont.p.hidden);
+  }),options_cont);
+
+  // Change game zoom
+  var zoom_toggle = stage.insert(new Q.UI.Button({
+  	border: 1,
+  	w: 200,
+  	h: 30,
+  	x: 0,
+    y: 120,
+    label: "Toggle zoom level"
+  }, function(){
+    var zoom = Q.stage(0).viewport.scale;
+    if(zoom > 3) { 
+      zoom = .5; 
+    } else {
+      zoom *= 1.5;
+    }
+    Q.stage(0).viewport.scale = zoom;
+  }), options_cont);
+
+  // options button
+  var options_btn = stage.insert(new Q.UI.Button({
+    border: 2,
+    fill: FG_COL,
+    label: "Options",
+    color: FG_COL,
+    radius: 3,
+    w: 140,
+  	h: 30,
+    x: Q.width - 150,
+    y: 40,
+  }, function() {
+    options_cont.p.hidden = !(options_cont.p.hidden);
+  }));
+
+  options_cont.fit(30,20);
+
+});
+
 Q.scene("ui", function(stage){
+
   // Weapon container
   var weapon_cont = stage.insert(new Q.UI.FttFContainer({
     w: 200,
@@ -84,6 +152,26 @@ Q.scene("ui", function(stage){
     health_label.p.label = "Health: " + stage.options.hp 
   });
 
+  //level container
+  var level_cont = stage.insert(new Q.UI.FttFContainer({
+  	w: 200,
+    h: 60,
+    x: Q.width/2,
+    y: Q.height - 40,
+  }));
+
+  //level label
+  var level_label = stage.insert(new Q.UI.FttFText({
+  	color: "#fff",
+  	size: 40,
+  	label: "Level: " + Q.state.get("level"),
+  }), level_cont);
+
+  // Update level label event. 
+  Q.state.on("change.level", function(){ 
+    level_label.p.label = "Level: " + Q.state.get("level") 
+  });
+
   weapon_cont.fit(20,50);
   info_cont.fit(20,50);
   health_cont.fit(5,5);
@@ -92,20 +180,7 @@ Q.scene("ui", function(stage){
 
 // The initial title screen.
 Q.scene("title", function(stage) {
-  var title = document.getElementById("start_title");
-  
-  // Title container
-  var title_cont = stage.insert(new Q.UI.FttFContainer({
-    x: Q.width/2,
-    y: Q.height/8,
-  }));
-
-  // Title label
-  var start_title_label = stage.insert(new Q.UI.FttFText({
-    label: "Four-To-The-Fifth",
-    size: 80,
-    y: 100,
-  }), title_cont);
+  //var title = document.getElementById("start_title");
   
   // Container for start up
   var start_cont = stage.insert(new Q.UI.FttFContainer({
@@ -122,6 +197,7 @@ Q.scene("title", function(stage) {
     Q.audio.stop();
     Q.stageScene("level", 0);
     Q.stageScene("ui", 1, Q('Player').first().p);
+    Q.stageScene("menu", 2);
   }), start_cont);
 
   // Button to show options.
@@ -166,6 +242,19 @@ Q.scene("title", function(stage) {
     start_options_cont.p.hidden = !(start_options_cont.p.hidden);
     start_cont.p.hidden = !(start_cont.p.hidden);
   }), start_options_cont);
+
+  // Title container
+  var title_cont = stage.insert(new Q.UI.FttFContainer({
+    x: Q.width/2,
+    y: Q.height/8,
+  }));
+
+  // Title label
+  var start_title_label = stage.insert(new Q.UI.FttFText({
+    label: "Four-To-The-Fifth",
+    size: 80,
+    y: 100,
+  }), title_cont);
 
   title_cont.fit(100, 400);
   start_cont.fit(50, 75);
