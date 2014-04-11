@@ -90,6 +90,7 @@ Q.loadTMX([
          "cave.png",
          "explosion.png",
          "enemy.png",
+         "rocket.png",
          "shot_pellet.png",
          "soldier_base.png",
          "soldier_pistol.png",

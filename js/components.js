@@ -102,10 +102,11 @@ Q.component("rocketlauncher", {
         Q.audio.play("rocket_fire.wav");
         Q.stage().insert(new Q.Rocket(
         { 
+          angle: this.p.angle,
           x: this.p.x + 100 * Math.cos(TO_RAD * (this.p.angle+90)),
           y: this.p.y + 100 * Math.sin(TO_RAD * (this.p.angle+90)), 
-          vx: 1000 * Math.cos(TO_RAD * (this.p.angle+90)), 
-          vy: 1000 * Math.sin(TO_RAD * (this.p.angle+90)), 
+          vx: 500 * Math.cos(TO_RAD * (this.p.angle+90)), 
+          vy: 500 * Math.sin(TO_RAD * (this.p.angle+90)), 
         }
         ));
 

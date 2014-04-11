@@ -21,7 +21,7 @@
     <property name="Class" value="Enemy"/>
     <property name="base_sprite" value="zombie1.png"/>
     <property name="bullets" value="50"/>
-    <property name="hp" value="21"/>
+    <property name="hp" value="100"/>
     <property name="mg_sprite" value="zombie1.png"/>
     <property name="pistol_sprite" value="zombie1.png"/>
     <property name="rocket_sprite" value="zombie1.png"/>
@@ -34,12 +34,12 @@
     <property name="Class" value="Enemy"/>
     <property name="base_sprite" value="zombie2.png"/>
     <property name="bullets" value="50"/>
-    <property name="hp" value="21"/>
+    <property name="hp" value="150"/>
     <property name="mg_sprite" value="zombie2.png"/>
     <property name="pistol_sprite" value="zombie2.png"/>
     <property name="rocket_sprite" value="zombie2.png"/>
     <property name="shotgun_sprite" value="zombie2.png"/>
-    <property name="speed" value="3"/>
+    <property name="speed" value="2"/>
    </properties>
   </tile>
  </tileset>

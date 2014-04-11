@@ -301,7 +301,7 @@ Q.Sprite.extend("ShotPellet", {
 Q.Sprite.extend("Rocket", {
   init: function(p) {
     this._super(p, {
-      asset: "bullet.png",
+      asset: "rocket.png",
       atk_type: "projectile",
       collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
       type: Q.SPRITE_POWERUP,
