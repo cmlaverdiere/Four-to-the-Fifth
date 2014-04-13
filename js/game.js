@@ -19,6 +19,17 @@ var prev_mouse_coords = [0, 0];
 // All music tracks.
 var tracks = ["test.wav", "metal.wav", "disp_heroes.wav"];
 
+// Global next track control
+var play_next_track = function() {
+    console.log("Playing next track");
+    if(MUSIC_ENABLED){
+      Q.audio.stop();
+      Q.state.inc("track_id", 1);
+      if(Q.state.get("track_id") >= tracks.length) Q.state.set("track_id", 0);
+      Q.audio.play(tracks[Q.state.get("track_id")], { loop: true });
+    }
+}
+
 // Turn off gravity, the game is top down.
 Q.gravityX = 0;
 Q.gravityY = 0;

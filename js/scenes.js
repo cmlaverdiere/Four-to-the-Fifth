@@ -9,11 +9,7 @@ Q.scene("level", function(stage) {
   // Initialize enemy amount
   Q.state.set("alive", Q("Enemy").length);
 
-  if(MUSIC_ENABLED){
-    Q.state.inc("track_id", 1);
-    if(Q.state.get("track_id") >= tracks.length) Q.state.set("track_id", 0);
-    Q.audio.play(tracks[Q.state.get("track_id")], { loop: true });
-  }
+  play_next_track();
 
   // pause game
   stage.on("pause_game", function(){
@@ -48,13 +44,13 @@ Q.scene("level", function(stage) {
     // Check if game over.
     if(Q("Enemy").length <= 1){
       console.log("Level beaten. Staging Next level."); 
+      play_next_track();
       stage.trigger("beat_level");
     }
   });
 
   // Handle event for when player finishes a level.
   stage.on("beat_level", function() {
-      Q.audio.stop();
 
       // If there's still a level after, proceed to the next level.
       if(Q.state.get("level") < NUM_MAPS){
@@ -81,11 +77,20 @@ Q.scene("level", function(stage) {
 
 // The ending screen.
 Q.scene("endgame", function(stage) {
+  play_next_track();
+
+  // Victory text.
+  var victory_label = stage.insert(new Q.UI.FttFText({
+    label: "Congrats, you've saved the world from all those killer zombies.",
+    x: Q.width/2,
+    y: Q.height/4,
+  }));
+
   // Button to restart Game.
   var restart_btn = stage.insert(new Q.UI.Button({
     border: 2,
-    fill: "white",
-    label: "Replay?",
+    fill: FG_COL,
+    label: "Play Again?",
     radius: 3,
     x: Q.width/2,
     y: Q.height/2,
@@ -110,9 +115,5 @@ Q.scene("start_level", function(stage) {
   // Initialize enemy amount
   Q.state.set("alive", Q("Enemy").length);
 
-  if(MUSIC_ENABLED){
-    Q.audio.stop();
-    Q.audio.play(tracks[Q.state.get("track_id")], { loop: true });
-  }
-
+  play_next_track();
 });
