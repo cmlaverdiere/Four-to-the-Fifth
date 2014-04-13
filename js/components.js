@@ -27,7 +27,6 @@ Q.component("gun", {
   },
 });
 
-// Just a quick hack.
 Q.component("shotgun", {
   added: function() {
     this.entity.p.asset = this.entity.p.shotgun_sprite;

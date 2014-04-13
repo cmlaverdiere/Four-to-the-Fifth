@@ -248,7 +248,7 @@ Q.Sprite.extend("Ammo", {
     this._super(p, {
       asset: "ammo_clip.png",
       collisionMask: Q.SPRITE_PLAYER,
-      capacity: 50,
+      capacity: 15,
     });
 
     this.add('2d');
