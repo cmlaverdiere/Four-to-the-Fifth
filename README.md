@@ -28,3 +28,11 @@ http://userpages.umbc.edu/~chlaver1/Four-to-the-Fifth/game.html
 Along with more information at:
 
 http://userpages.umbc.edu/~chlaver1/Four-to-the-Fifth/about.html
+
+Credits
+-----------------
+Music developed through http://www.pulseboy.com/
+Art assets courtesy of http://opengameart.org/
+Various sound effects gathered from http://soundjay.com/
+
+
