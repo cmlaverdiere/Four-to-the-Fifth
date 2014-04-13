@@ -116,6 +116,7 @@ Q.loadTMX([
          "game_over.wav", 
          "metal.wav", 
          "test.wav", 
+         "victory.wav", 
 
          "gun_cock.wav", 
          "gun_shot.wav", 

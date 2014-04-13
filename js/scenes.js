@@ -77,7 +77,10 @@ Q.scene("level", function(stage) {
 
 // The ending screen.
 Q.scene("endgame", function(stage) {
-  play_next_track();
+  if(MUSIC_ENABLED){
+    Q.audio.stop();
+    Q.audio.play("victory.wav", { loop: true });
+  }
 
   // Victory text.
   var victory_label = stage.insert(new Q.UI.FttFText({
