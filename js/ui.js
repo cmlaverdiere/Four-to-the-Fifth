@@ -102,6 +102,43 @@ Q.scene("menu", function(stage){
     options_cont.p.hidden = !(options_cont.p.hidden);
   }));
 
+  // Toggle music on or off option.
+  var music_toggle = stage.insert(new Q.UI.Button({
+    border: 1,
+    w: 200,
+    h: 30,
+    x: 0,
+    y: 160,
+    label: "Music on/off"
+  }, function(){
+    if(Q.state.get("track_playing")){
+      Q.audio.stop();     
+      Q.state.set("track_playing", false);
+    } else{
+      Q.audio.stop();     
+      Q.audio.play(tracks[Q.state.get("track_id")], { loop: true });
+      Q.state.set("track_playing", true);
+    }
+  }), options_cont);
+
+  // Switch music track
+    var music_track = stage.insert(new Q.UI.Button({
+      border: 1,
+      w: 200,
+      h: 30,
+      x: 0,
+      y: 200,
+      label: "Next Music Track"
+    }, function(){
+      Q.audio.stop();     
+      Q.state.inc("track_id", 1);
+      if(Q.state.get("track_id") >= tracks.length){
+        Q.state.set("track_id", 0);
+      }
+      Q.state.set("track_playing", true);
+      Q.audio.play(tracks[Q.state.get("track_id")], { loop: true });
+    }), options_cont);
+
   options_cont.fit(30,20);
 
 });
@@ -154,7 +191,7 @@ Q.scene("ui", function(stage){
 
   //level container
   var level_cont = stage.insert(new Q.UI.FttFContainer({
-  	w: 200,
+  	w: 400,
     h: 60,
     x: Q.width/2,
     y: Q.height - 40,
@@ -164,14 +201,29 @@ Q.scene("ui", function(stage){
   var level_label = stage.insert(new Q.UI.FttFText({
   	color: "#fff",
   	size: 40,
-  	label: "Level: " + Q.state.get("level"),
+    x: -150,
+  	label: "lvl: " + Q.state.get("level"),
   }), level_cont);
+
+  // Total enemys left label
+  var enemy_left_label = stage.insert(new Q.UI.Text({
+    color: "#fff",
+    size: 40,
+    x: 75,
+    label: "Enemies: " + Q.state.get("alive"),
+  }), level_cont);
+
+  // Update number enemys left label. 
+  Q.state.on("change.alive", function(){ 
+    enemy_left_label.p.label = "Enemies: " + Q.state.get("alive") 
+  });
 
   // Update level label event. 
   Q.state.on("change.level", function(){ 
-    level_label.p.label = "Level: " + Q.state.get("level") 
+    level_label.p.label = "lvl: " + Q.state.get("level") 
   });
 
+  level_cont.fit(20,20);
   weapon_cont.fit(20,50);
   info_cont.fit(20,50);
   health_cont.fit(5,5);
