@@ -22,6 +22,7 @@ var tracks = [ "disp_heroes.wav", "test.wav", "metal.wav" ];
 // Global next track control
 var play_next_track = function() {
     console.log("Playing next track");
+    Q.state.set("track_playing", true);
     if(MUSIC_ENABLED){
       Q.audio.stop();
       Q.state.inc("track_id", 1);
