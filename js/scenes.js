@@ -71,6 +71,7 @@ Q.scene("level", function(stage) {
       Q.audio.play("game_over.wav", { loop: true });
     }
     Q.stageScene("title", 1);
+    Q.stageScene("null", 2);
   });
 
 });
