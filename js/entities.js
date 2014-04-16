@@ -22,12 +22,12 @@ Q.Sprite.extend("Human", {
     this.add('2d');
     this.on("hit", function(collision){
       if(collision.obj.isA("Bullet") || collision.obj.isA("ShotPellet") || collision.obj.isA("Explosion")){
-      	this.p.hp -= 7;
+        this.p.hp -= 7;
 
-      	if(this.isA("Player")){
+        if(this.isA("Player")){
           Q.stageScene("ui", 1, this.p);
-      	  Q.state.dec("player_health", 7);
-      	}
+          Q.state.dec("player_health", 7);
+        }
 
         if(this.p.hp <= 0){
           this.destroy();
@@ -51,7 +51,7 @@ Q.Sprite.extend("Human", {
       }
 
       else if(collision.obj.isA("Sword")){
-    	  this.destroy();
+        this.destroy();
       }
     });
   },
@@ -134,7 +134,7 @@ Q.Human.extend("Player", {
     Q.input.on("wep5", this, "equip_rocketlauncher");
     Q.input.on("sword", this, "swing_sword");
     Q.input.on("pause", this, function(){
-    	Q.state.inc("pause", this, !Q.state.get("pause"));
+      Q.state.inc("pause", this, !Q.state.get("pause"));
     });
   },
 
@@ -218,7 +218,7 @@ Q.Human.extend("Enemy", {
         this.p.shotDelay += 50;
       }
     } else if(Math.abs(this.p.x - player.p.x) > 450 && Math.abs(this.p.y - player.p.y) > 450){
-    	
+      
     }    
     else {
       // Chase player if out of range.
@@ -312,15 +312,15 @@ Q.Sprite.extend("Rocket", {
 
     this.on("hit", function(collision){
       if(!this.collided){
-      Q.audio.play("rocket_explode.wav");
-      Q.stage().insert(new Q.Explosion(
-        { 	
-        	x: collision.obj.p.x,
-        	y: collision.obj.p.y, 
-        }
-      ));
-      this.collided = true;
-        }
+        Q.audio.play("rocket_explode.wav");
+        Q.stage().insert(new Q.Explosion(
+          {   
+            x: collision.obj.p.x,
+            y: collision.obj.p.y, 
+          }
+        ));
+        this.collided = true;
+      }
       this.destroy();
     });
   }
