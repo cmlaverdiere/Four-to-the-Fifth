@@ -60,6 +60,35 @@ Q.component("shotgun", {
   },
 });
 
+Q.component("assaultrifle", {
+	added: function() {
+	this.entity.p.asset = this.entity.p.soldier_assault_rifle;
+	Q.audio.play("gun_cock.wav");
+	},
+	
+	extend: {
+	fire: function() {
+		if (this.p.bullets > 0 && !this.p.fire_block){
+		Q.audio.play("assault_rifle_shot.wav");
+		Q.stage().insert(new Q.Bullet(
+		{
+		  x: this.p.x + 100 * Math.cos(TO_RAD * (this.p.angle+90)),
+          y: this.p.y + 100 * Math.sin(TO_RAD * (this.p.angle+90)), 
+          vx: 1000 * Math.cos(TO_RAD * (this.p.angle+90)), 
+          vy: 1000 * Math.sin(TO_RAD * (this.p.angle+90)), 
+          }
+          ));
+          
+          this.p.bullets -= 1;
+          if(this.isA("Player")){
+            Q.stageScene("ui", 1, this.p);
+            Q.state.dec("ammo", 1);
+          }
+       }
+     }
+   },
+});
+
 Q.component("machinegun", {
   added: function() {
     this.entity.p.asset = this.entity.p.mg_sprite;
@@ -118,4 +147,3 @@ Q.component("rocketlauncher", {
     }
   },
 });
-
