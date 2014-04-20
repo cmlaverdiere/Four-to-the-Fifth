@@ -143,10 +143,11 @@ Q.loadTMX([
       Q.loadTMX("level" + i + ".tmx");
     }
     
+    var ld = document.getElementById("loading");
     var ls = document.getElementById("loading_status");
     ls.innerHTML = "Now Loading... " + Math.floor(loaded / total * 100) + "%";
     if(loaded == total){
-      ls.remove(); 
+      ld.remove(); 
     }
   }
 });
