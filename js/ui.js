@@ -162,7 +162,7 @@ Q.scene("ui", function(stage){
 
   // Update ammo label. 
   Q.state.on("change.ammo", function(){ 
-    ammo_label.p.label = "Ammo: " + stage.options.bullets
+    ammo_label.p.label = "Ammo: " + (stage.options.bullets > 0 ? stage.options.bullets : 0);
   });
 
   // Info container
