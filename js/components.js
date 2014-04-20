@@ -49,12 +49,11 @@ Q.component("shotgun", {
           }
           ));
         }
-      }
-
-      this.p.bullets -= 4;
-      if(this.isA("Player")){
-        Q.stageScene("ui", 1, this.p);
-        Q.state.dec("ammo", 4);
+        this.p.bullets -= 4;
+        if(this.isA("Player")){
+          Q.stageScene("ui", 1, this.p);
+          Q.state.dec("ammo", 4);
+        }
       }
     }
   },
