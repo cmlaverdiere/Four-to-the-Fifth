@@ -9,7 +9,7 @@ Q.Sprite.extend("Human", {
       fire_block: false,
       fire_delay: 100,
       hp: 100,
-      shotDelay: 50,
+      shotDelay: 10,
       sprinting: false,
       stepDistance: 10,
       stepDelay: 0.01,
@@ -215,11 +215,9 @@ Q.Human.extend("Enemy", {
     if(Math.abs(this.p.x - player.p.x) < 300 && Math.abs(this.p.y - player.p.y) < 300){
       if(this.p.shotDelay-- <= 1){
         this.fire();
-        this.p.shotDelay += 50;
+        this.p.shotDelay += 25;
       }
-    } else if(Math.abs(this.p.x - player.p.x) > 450 && Math.abs(this.p.y - player.p.y) > 450){
-      
-    }    
+    } 
     else {
       // Chase player if out of range.
       this.p.x += this.p.speed * Math.cos(TO_RAD * (this.p.angle+90));
