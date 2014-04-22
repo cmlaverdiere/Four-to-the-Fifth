@@ -8,6 +8,7 @@ Q.scene("level", function(stage) {
 
   // Initialize enemy amount
   Q.state.set("alive", Q("Enemy").length);
+  Q.state.set("initial_enemy_count", Q("Enemy").length);
 
   play_next_track();
 
@@ -28,7 +29,7 @@ Q.scene("level", function(stage) {
     };
   });
 
-  // Handle event for when an enemy is killed.
+  // Handle event for when an ` is killed.
   stage.on("enemy_killed", function(){ 
     Q.state.inc("killed", 1);
     Q.state.dec("alive", 1);
@@ -102,6 +103,7 @@ Q.scene("endgame", function(stage) {
     Q.state.set("level", 1);
     Q.state.set("ammo", 50);
     Q.state.set("player_health", 100);
+    Q.state.set("initial_enemy_count", Q("Enemy").length);
     Q.stageScene("level", 0);
     Q.stageScene("ui", 1);
     Q.stageScene("menu", 2);
@@ -118,6 +120,7 @@ Q.scene("start_level", function(stage) {
 
   // Initialize enemy amount
   Q.state.set("alive", Q("Enemy").length);
+  Q.state.set("initial_enemy_count", Q("Enemy").length);
 
   play_next_track();
 });

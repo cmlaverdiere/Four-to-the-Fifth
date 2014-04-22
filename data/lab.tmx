@@ -6,7 +6,7 @@
    <properties>
     <property name="Class" value="Player"/>
     <property name="base_sprite" value="soldier_base.png"/>
-    <property name="bullets" value="50"/>
+    <property name="bullets" value="100"/>
     <property name="mg_sprite" value="soldier_gatling.png"/>
     <property name="pistol_sprite" value="soldier_pistol.png"/>
     <property name="rocket_sprite" value="soldier_rocket.png"/>
@@ -21,7 +21,7 @@
     <property name="Class" value="Enemy"/>
     <property name="base_sprite" value="zombie1.png"/>
     <property name="bullets" value="50"/>
-    <property name="hp" value="100"/>
+    <property name="hp" value="21"/>
     <property name="mg_sprite" value="zombie1.png"/>
     <property name="pistol_sprite" value="zombie1.png"/>
     <property name="rocket_sprite" value="zombie1.png"/>
@@ -34,7 +34,7 @@
     <property name="Class" value="Enemy"/>
     <property name="base_sprite" value="zombie2.png"/>
     <property name="bullets" value="50"/>
-    <property name="hp" value="150"/>
+    <property name="hp" value="35"/>
     <property name="mg_sprite" value="zombie2.png"/>
     <property name="pistol_sprite" value="zombie2.png"/>
     <property name="rocket_sprite" value="zombie2.png"/>
