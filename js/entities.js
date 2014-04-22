@@ -135,10 +135,7 @@ Q.Human.extend("Player", {
     this.on("step", this, "step_player");
 
     Q.input.on("fire", this, function(){ this.fire()
-    	if(this.has("assaultrifle")){
-    		this.fire();
-    		this.fire();
-    	}
+    	
     });
     Q.input.on("wep1", this, "put_away_wep");
     Q.input.on("wep2", this, "equip_gun");
