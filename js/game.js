@@ -8,6 +8,9 @@ var Q = Quintus({ development: true, audioSupported: [ 'wav' ] })
 // GAME SETTINGS
 var MUSIC_ENABLED = true;
 
+// ABILITY SETTINGS
+var HOMING_ROCKETS = true;
+
 // Increment this if you add a new map in pattern 
 // ie: (level1.tmx, level2.tmx, ..., levelN.tmx). 
 var NUM_MAPS = 2

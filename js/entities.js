@@ -321,7 +321,15 @@ Q.Sprite.extend("Rocket", {
       }
       this.destroy();
     });
-  }
+  },
+
+  step: function(dt) {
+    if(HOMING_ROCKETS){
+      this.p.angle = Q("Player").first().p.angle;
+      this.p.vx = 500 * Math.cos(TO_RAD * (this.p.angle+90));
+      this.p.vy = 500 * Math.sin(TO_RAD * (this.p.angle+90));
+    }
+  },
 });
 
   
