@@ -62,7 +62,7 @@ Q.component("shotgun", {
 
 Q.component("assaultrifle", {
 	added: function() {
-	this.entity.p.asset = this.entity.p.soldier_assault_rifle;
+	this.entity.p.asset = this.entity.p.rifle_sprite;
 	Q.audio.play("gun_cock.wav");
 	},
 	

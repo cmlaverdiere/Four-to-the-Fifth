@@ -9,6 +9,7 @@
     <property name="bullets" value="50"/>
     <property name="mg_sprite" value="soldier_gatling.png"/>
     <property name="pistol_sprite" value="soldier_pistol.png"/>
+    <property name="rifle_sprite" value="soldier_assault_rifle.png"/>
     <property name="rocket_sprite" value="soldier_rocket.png"/>
     <property name="shotgun_sprite" value="soldier_rocket.png"/>
    </properties>
