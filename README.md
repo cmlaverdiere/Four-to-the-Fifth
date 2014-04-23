@@ -6,7 +6,7 @@ This is a group project for UMBC's software engineering course, CMSC 345.
 | Team members       | Role               |
 | ------------------ | ----------------   |
 | Kevin Coxe         | Team Lead / UI     |
-| Chiebuka Ezekwenna | Backup Lead / Maps |
+| Chiebuka Ezekwenna | Backup Lead / Docs |
 | Chris Laverdiere   | Technical Lead     |
 | Kasey White        | AI / Gameplay      |
 | Rhea Horton        | Graphics / Art     |
