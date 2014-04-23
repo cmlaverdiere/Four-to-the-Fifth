@@ -10,6 +10,7 @@ Q.Sprite.extend("Human", {
       fire_delay: 100,
       hp: 100,
       shotDelay: 10,
+      meleeDelay: 100,
       sprinting: false,
       stepDistance: 10,
       stepDelay: 0.01,
@@ -75,19 +76,25 @@ Q.Sprite.extend("Human", {
     this.unequip_guns();
     this.add("rocketlauncher"); 
   },
+  
+  equip_assaultrifle: function() {
+  	this.unequip_guns();
+  	this.add("assaultrifle");
+  },
 
   // Event to put away weapons and return to base sprite.
   put_away_wep: function() {
     this.unequip_guns();
     this.p.asset = this.p.base_sprite;
   },
+  
 
   step: function(dt) {
     // Machine gun delay.
     if(this.p.fire_delay < 100){
-      this.p.fire_delay += 5; 
+      this.p.fire_delay += 5;
     }
-
+    
     // Sword swinging animation
     if(this.p.swinging_sword){
       this.p.angle += 20;
@@ -112,6 +119,7 @@ Q.Sprite.extend("Human", {
     this.del("shotgun");
     this.del("machinegun");
     this.del("rocketlauncher");
+    this.del("assaultrifle");
   },
 });
 
@@ -126,12 +134,15 @@ Q.Human.extend("Player", {
     this.add('stepControls');
     this.on("step", this, "step_player");
 
-    Q.input.on("fire", this, function(){ this.fire() });
+    Q.input.on("fire", this, function(){ this.fire()
+    	
+    });
     Q.input.on("wep1", this, "put_away_wep");
     Q.input.on("wep2", this, "equip_gun");
     Q.input.on("wep3", this, "equip_shotgun");
     Q.input.on("wep4", this, "equip_machinegun");
     Q.input.on("wep5", this, "equip_rocketlauncher");
+    Q.input.on("wep6", this, "equip_assaultrifle");
     Q.input.on("sword", this, "swing_sword");
     Q.input.on("pause", this, function(){
       Q.state.inc("pause", this, !Q.state.get("pause"));
@@ -237,6 +248,34 @@ Q.Human.extend("Enemy", {
     // Nothing at the moment
   },
 
+});
+
+
+Q.Enemy.extend("Zombie", {
+  init: function(p) {
+    this._super(p, {
+      collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_PLAYER | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT | Q.SPRITE_ZOMBIE,
+      type: Q.SPRITE_ZOMBIE
+    });
+
+    this.on("chase_player");
+    this.on("maul_player");
+  },
+
+  chase_player: function(player){
+    this.face_player(player);
+    this.p.x += this.p.speed * Math.cos(TO_RAD * (this.p.angle+90));
+    this.p.y += this.p.speed * Math.sin(TO_RAD * (this.p.angle+90));
+  },
+
+  maul_player: function(collision){
+    if(collision.obj.isA("Player")){
+      collision.obj.p.hp -=7;
+      collision.obj.p.x -= 15 * Math.cos(TO_RAD * (this.p.angle+90));
+      collision.obj.p.y -= 15 * Math.sin(TO_RAD * (this.p.angle+90));
+      this.p.speed *= 0.9;
+    }
+  },
 });
 
 

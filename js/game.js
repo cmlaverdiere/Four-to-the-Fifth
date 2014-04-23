@@ -112,6 +112,7 @@ Q.loadTMX([
          "soldier_base.png",
          "soldier_pistol.png",
          "soldier_gatling.png",
+         "soldier_assault_rifle.png",
          "soldier_rocket.png",
          "soldier_shotgun.png",
          "sword.png", 

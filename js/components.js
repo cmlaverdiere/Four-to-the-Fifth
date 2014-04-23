@@ -16,7 +16,6 @@ Q.component("gun", {
           vy: 1000 * Math.sin(TO_RAD * (this.p.angle+90)), 
         }
         ));
-        
         this.p.bullets -= 1;
         if(this.isA("Player")){
           Q.stageScene("ui", 1, this.p);
@@ -57,6 +56,50 @@ Q.component("shotgun", {
       }
     }
   },
+});
+
+Q.component("assaultrifle", {
+	added: function() {
+	this.entity.p.asset = this.entity.p.rifle_sprite;
+	Q.audio.play("gun_cock.wav");
+	},
+	
+	extend: {
+	fire: function() {
+		if (this.p.bullets > 0 && !this.p.fire_block){
+		Q.audio.play("assault_rifle_shot.wav");
+		Q.stage().insert(new Q.Bullet(
+		{
+		  x: this.p.x + 160 * Math.cos(TO_RAD * (this.p.angle+90)),
+          y: this.p.y + 160 * Math.sin(TO_RAD * (this.p.angle+90)), 
+          vx: 1000 * Math.cos(TO_RAD * (this.p.angle+90)), 
+          vy: 1000 * Math.sin(TO_RAD * (this.p.angle+90)), 
+          }
+          ));
+		Q.stage().insert(new Q.Bullet(
+		{
+		  x: this.p.x + 130 * Math.cos(TO_RAD * (this.p.angle+90)),
+          y: this.p.y + 130 * Math.sin(TO_RAD * (this.p.angle+90)), 
+          vx: 1000 * Math.cos(TO_RAD * (this.p.angle+90)), 
+          vy: 1000 * Math.sin(TO_RAD * (this.p.angle+90)), 
+          }
+          ));
+		Q.stage().insert(new Q.Bullet(
+		{
+		  x: this.p.x + 100 * Math.cos(TO_RAD * (this.p.angle+90)),
+          y: this.p.y + 100 * Math.sin(TO_RAD * (this.p.angle+90)), 
+          vx: 1000 * Math.cos(TO_RAD * (this.p.angle+90)), 
+          vy: 1000 * Math.sin(TO_RAD * (this.p.angle+90)), 
+          }
+          ));
+          this.p.bullets -= 3;
+          if(this.isA("Player")){
+            Q.stageScene("ui", 1, this.p);
+            Q.state.dec("ammo", 3);
+          }
+       }
+     }
+   },
 });
 
 Q.component("machinegun", {
@@ -117,4 +160,3 @@ Q.component("rocketlauncher", {
     }
   },
 });
-
