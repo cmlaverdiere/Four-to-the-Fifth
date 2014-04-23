@@ -59,12 +59,12 @@ Q.component("shotgun", {
 });
 
 Q.component("assaultrifle", {
-	added: function() {
+  added: function() {
     this.entity.p.asset = this.entity.p.rifle_sprite;
     Q.audio.play("gun_cock.wav");
-	},
-	
-	extend: {
+  },
+  
+  extend: {
     fire: function() {
       if (this.p.bullets > 0 && !this.p.fire_block){
         for(var i=160; i>=100; i-=30){

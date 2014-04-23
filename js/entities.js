@@ -89,8 +89,8 @@ Q.Sprite.extend("Human", {
   },
   
   equip_assaultrifle: function() {
-  	this.unequip_guns();
-  	this.add("assaultrifle");
+    this.unequip_guns();
+    this.add("assaultrifle");
   },
 
   // Event to put away weapons and return to base sprite.
@@ -146,7 +146,7 @@ Q.Human.extend("Player", {
     this.on("step", this, "step_player");
 
     Q.input.on("fire", this, function(){ this.fire()
-    	
+      
     });
     Q.input.on("wep1", this, "put_away_wep");
     Q.input.on("wep2", this, "equip_gun");
@@ -242,24 +242,24 @@ Q.Human.extend("Enemy", {
     } 
     
     else if(Math.abs(this.p.x - player.p.x) > 450 && Math.abs(this.p.y - player.p.y) > 450){
-    	//sight range ends here
+      //sight range ends here
     }    
 
     else {
-    	if(this.p.stuckCheck){ //stuck so move back 4 times
-    		this.p.stuck -= 6;
-    		this.p.x -= this.p.speed * Math.cos(TO_RAD * (this.p.angle+90));
+      if(this.p.stuckCheck){ //stuck so move back 4 times
+        this.p.stuck -= 6;
+        this.p.x -= this.p.speed * Math.cos(TO_RAD * (this.p.angle+90));
         this.p.y -= this.p.speed * Math.sin(TO_RAD * (this.p.angle+90));
 
         if(this.p.stuck <= 0){
           this.p.stuckCheck = false; //reset check after stuck is 0
         }
-    	}
-    	else{
+      }
+      else{
         // Chase player if out of range.
         this.p.x += this.p.speed * Math.cos(TO_RAD * (this.p.angle+90));
         this.p.y += this.p.speed * Math.sin(TO_RAD * (this.p.angle+90));
-    	}
+      }
     }
   },
 
@@ -441,12 +441,12 @@ Q.Sprite.extend("Sword", {
 });
 
 Q.Sprite.extend("PowerUp", {
-	init: function(p) {
-		this._super(p, {
-			asset: p.base_sprite,
-			bullets: 0,
-			collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT | Q.SPRITE_PLAYER,
-		});
-	}
+  init: function(p) {
+    this._super(p, {
+      asset: p.base_sprite,
+      bullets: 0,
+      collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT | Q.SPRITE_PLAYER,
+    });
+  }
 });
 

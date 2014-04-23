@@ -45,25 +45,25 @@ Q.UI.FttFButton = Q.UI.Button.extend("UI.FttFButton", {
 Q.scene("menu", function(stage){
   // options container
   var options_cont = stage.insert(new Q.UI.FttFContainer({
-  	w: 200,
-  	h: 60,
-  	x: Q.width - 150,
-  	y: 10,
-  	hidden: true,
+    w: 200,
+    h: 60,
+    x: Q.width - 150,
+    y: 10,
+    hidden: true,
   }));
 
   Q.state.on("change.pause", function(){
-  	options_cont.p.hidden = !(options_cont.p.hidden);
+    options_cont.p.hidden = !(options_cont.p.hidden);
   });
 
   // Next level button
   var next_lvl_btn = stage.insert(new Q.UI.Button({
-  	border: 1,
-  	w: 200,
-  	h: 30,
-  	x: 0,
-  	y: 80,
-  	label: "Next Level",
+    border: 1,
+    w: 200,
+    h: 30,
+    x: 0,
+    y: 80,
+    label: "Next Level",
   }, function() {
     options_cont.p.hidden = !(options_cont.p.hidden);
     Q.stage(0).trigger("beat_level");
@@ -72,10 +72,10 @@ Q.scene("menu", function(stage){
 
   // Change game zoom
   var zoom_toggle = stage.insert(new Q.UI.Button({
-  	border: 1,
-  	w: 200,
-  	h: 30,
-  	x: 0,
+    border: 1,
+    w: 200,
+    h: 30,
+    x: 0,
     y: 120,
     label: "Toggle zoom level"
   }, function(){
@@ -96,7 +96,7 @@ Q.scene("menu", function(stage){
     color: FG_COL,
     radius: 3,
     w: 140,
-  	h: 30,
+    h: 30,
     x: Q.width - 150,
     y: 40,
   }, function() {
@@ -156,7 +156,7 @@ Q.scene("ui", function(stage){
 
   // Total ammo label
   var ammo_label = stage.insert(new Q.UI.FttFText({
-  	size: 40,
+    size: 40,
     label: "Ammo: " + stage.options.bullets,
   }), weapon_cont);
 
@@ -180,8 +180,8 @@ Q.scene("ui", function(stage){
 
   // Health label
   var health_label = stage.insert(new Q.UI.FttFText({
-  	color: "#f00",
-  	size: 40,
+    color: "#f00",
+    size: 40,
     label: "Health: " + stage.options.hp,
   }), info_cont);
 
@@ -192,7 +192,7 @@ Q.scene("ui", function(stage){
 
   //level container
   var level_cont = stage.insert(new Q.UI.FttFContainer({
-  	w: 400,
+    w: 400,
     h: 60,
     x: Q.width/2,
     y: Q.height - 40,
@@ -200,10 +200,10 @@ Q.scene("ui", function(stage){
 
   //level label
   var level_label = stage.insert(new Q.UI.FttFText({
-  	color: "#fff",
-  	size: 40,
+    color: "#fff",
+    size: 40,
     x: -150,
-  	label: "lvl: " + Q.state.get("level"),
+    label: "lvl: " + Q.state.get("level"),
   }), level_cont);
 
   // Total enemys left label
