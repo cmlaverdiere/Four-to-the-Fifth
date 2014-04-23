@@ -56,13 +56,14 @@ Q.Sprite.extend("Human", {
       else if(collision.obj.isA("Sword")){
         this.destroy();
       }
+
       else{ //collision with a wall
-    	if(!collision.obj.isA("Enemy") && !this.p.stuckCheck){ //colliding with wall
-    	  this.p.stuck += 6;
-      	}
-    	if(this.p.stuck >= 24){ //game assumes stuck
-    		this.p.stuckCheck = true;
-    	}
+        if(!collision.obj.isA("Enemy") && !this.p.stuckCheck){ //colliding with wall
+            this.p.stuck += 6;
+          }
+        if(this.p.stuck >= 24){ //game assumes stuck
+          this.p.stuckCheck = true;
+        }
       }
     });
   },
@@ -238,18 +239,21 @@ Q.Human.extend("Enemy", {
         this.fire();
         this.p.shotDelay += 25;
       }
-    } else if(Math.abs(this.p.x - player.p.x) > 450 && Math.abs(this.p.y - player.p.y) > 450){
+    } 
+    
+    else if(Math.abs(this.p.x - player.p.x) > 450 && Math.abs(this.p.y - player.p.y) > 450){
     	//sight range ends here
-    	
     }    
+
     else {
     	if(this.p.stuckCheck){ //stuck so move back 4 times
     		this.p.stuck -= 6;
     		this.p.x -= this.p.speed * Math.cos(TO_RAD * (this.p.angle+90));
-            this.p.y -= this.p.speed * Math.sin(TO_RAD * (this.p.angle+90));
-            if(this.p.stuck <= 0){
-            	this.p.stuckCheck = false; //reset check after stuck is 0
-            }
+        this.p.y -= this.p.speed * Math.sin(TO_RAD * (this.p.angle+90));
+
+        if(this.p.stuck <= 0){
+          this.p.stuckCheck = false; //reset check after stuck is 0
+        }
     	}
     	else{
         // Chase player if out of range.
@@ -257,7 +261,7 @@ Q.Human.extend("Enemy", {
         this.p.y += this.p.speed * Math.sin(TO_RAD * (this.p.angle+90));
     	}
     }
-  	},
+  },
 
   face_player: function(player){
     this.p.angle = -1 * TO_DEG * Math.atan2( (player.p.x - this.p.x), (player.p.y - this.p.y) );
@@ -438,13 +442,11 @@ Q.Sprite.extend("Sword", {
 
 Q.Sprite.extend("PowerUp", {
 	init: function(p) {
-		this._supre(p, {
+		this._super(p, {
 			asset: p.base_sprite,
 			bullets: 0,
 			collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT | Q.SPRITE_PLAYER,
-			
 		});
 	}
-	
 });
 
