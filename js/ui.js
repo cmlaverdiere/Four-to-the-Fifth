@@ -185,9 +185,28 @@ Q.scene("ui", function(stage){
     label: "Health: " + stage.options.hp,
   }), info_cont);
 
+  // adds health bar
+  // glitchy
+  /*var Health_Bar = stage.insert(new Q.health_bar({
+    //x: Q.width/2, 
+    //y: Q.height/2,
+    w: 200,
+  }), info_cont);*/
+
+  // adds progress bar
+  var Progress_Bar = stage.insert(new Q.progress_bar({
+    x: Q.width/2, 
+    y: 50,
+    w: 200,
+    scale: (Q.state.get("initial_enemy_count") - Q.state.get("killed")) / Q.state.get("initial_enemy_count"),
+  }));
+
   // Update player_health label event. 
   Q.state.on("change.player_health", function(){ 
-    health_label.p.label = "Health: " + stage.options.hp 
+    health_label.p.label = "Health: " + stage.options.hp
+
+    //Health_Bar.p.scale = (stage.options.hp) / 100;
+
   });
 
   //level container
@@ -216,7 +235,9 @@ Q.scene("ui", function(stage){
 
   // Update number enemys left label. 
   Q.state.on("change.alive", function(){ 
-    enemy_left_label.p.label = "Enemies: " + Q.state.get("alive") 
+    enemy_left_label.p.label = "Enemies: " + Q.state.get("alive");
+
+    Progress_Bar.p.scale = (Q.state.get("initial_enemy_count") - Q.state.get("killed")) / Q.state.get("initial_enemy_count");
   });
 
   // Update level label event. 

@@ -86,6 +86,7 @@ Q.input.mouseControls({ cursor: "on" });
 // Set initial game state.
 Q.state.set({ killed: 0,
               alive: 0,
+              initial_enemy_count: 0,
               player_health: 100,
               ammo: 50, 
               level: 1,
@@ -117,7 +118,9 @@ Q.loadTMX([
          "soldier_shotgun.png",
          "sword.png", 
          "zombie1.png", 
-         "zombie2.png", 
+         "zombie2.png",
+         "health.png",
+         "progress.png", 
 
          "disp_heroes.wav", 
          "game_over.wav", 

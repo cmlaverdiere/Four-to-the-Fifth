@@ -118,6 +118,7 @@ Q.component("machinegun", {
   },
 });
 
+
 Q.component("rocketlauncher", {
   added: function() {
     this.entity.p.asset = this.entity.p.rocket_sprite;
