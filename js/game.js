@@ -118,7 +118,7 @@ Q.loadTMX([
          "sword.png", 
          "zombie1.png", 
          "zombie2.png", 
-
+         "tough_guy.png",
          "disp_heroes.wav", 
          "game_over.wav", 
          "metal.wav", 
