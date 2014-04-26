@@ -68,7 +68,7 @@ Q.Sprite.extend("Human", {
 
       else{ //collision with a wall
         if(!collision.obj.isA("Enemy") && !this.p.stuckCheck){ //colliding with wall
-            this.p.stuck += 6;
+            this.p.stuck += 1;
           }
         if(this.p.stuck >= 24){ //game assumes stuck
           this.p.stuckCheck = true;
@@ -344,6 +344,29 @@ Q.Sprite.extend("Ammo", {
   }
 });
 
+Q.Sprite.extend("HealthPack", {
+	  init: function(p) {
+	    this._super(p, {
+	      asset: "tough_guy.png",
+	      collisionMask: Q.SPRITE_PLAYER,
+	      capacity: 35,
+	    });
+
+	    this.add('2d');
+
+	    this.on("hit", function(collision){
+	      if(collision.obj.isA("Player")){
+	        // ammo collected.
+	        Q.audio.play("gun_cock.wav");
+	        this.destroy();
+	        collision.obj.p.hp += this.p.capacity;
+	        Q.state.inc("player_health", this.p.capacity);
+	        Q.stageScene("ui", 1, collision.obj.p);
+	      }
+	    });
+	  }
+	});
+
 Q.Sprite.extend("Bullet", {
   init: function(p) {
     this._super(p, {
@@ -445,8 +468,7 @@ Q.Sprite.extend("PowerUp", {
   init: function(p) {
     this._super(p, {
       asset: p.base_sprite,
-      bullets: 0,
-      collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT | Q.SPRITE_PLAYER,
+      collisionMask: Q.SPRITE_PLAYER,
     });
   }
 });
