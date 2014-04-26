@@ -25,11 +25,12 @@ Q.Sprite.extend("Human", {
     this.add('2d');
     this.on("hit", function(collision){
       if(collision.obj.isA("Bullet") || collision.obj.isA("ShotPellet") || collision.obj.isA("Explosion")){
-        this.p.hp -= 7;
+        if(collision.obj.isA("Bullet")) { this.p.hp -= 5; }
+        else if(collision.obj.isA("ShotPellet")) { this.p.hp -= 2; }
+        else if(collision.obj.isA("Explosion")) { this.p.hp -= 8; }
 
         if(this.isA("Player")){
           Q.stageScene("ui", 1, this.p);
-          Q.state.dec("player_health", 7);
         }
 
         if(this.p.hp <= 0){

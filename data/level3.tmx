@@ -22,7 +22,7 @@
     <property name="Class" value="Enemy"/>
     <property name="base_sprite" value="zombie1.png"/>
     <property name="bullets" value="50"/>
-    <property name="hp" value="100"/>
+    <property name="hp" value="40"/>
     <property name="mg_sprite" value="zombie1.png"/>
     <property name="pistol_sprite" value="zombie1.png"/>
     <property name="rocket_sprite" value="zombie1.png"/>
@@ -35,7 +35,7 @@
     <property name="Class" value="Enemy"/>
     <property name="base_sprite" value="zombie2.png"/>
     <property name="bullets" value="50"/>
-    <property name="hp" value="150"/>
+    <property name="hp" value="50"/>
     <property name="mg_sprite" value="zombie2.png"/>
     <property name="pistol_sprite" value="zombie2.png"/>
     <property name="rocket_sprite" value="zombie2.png"/>
@@ -51,7 +51,7 @@
     <property name="Class" value="Enemy"/>
     <property name="base_sprite" value="robot_dual.png"/>
     <property name="bullets" value="50"/>
-    <property name="hp" value="200"/>
+    <property name="hp" value="75"/>
     <property name="mg_sprite" value="robot_dual.png"/>
     <property name="pistol_sprite" value="robot_dual.png"/>
     <property name="rocket_sprite" value="robot_dual.png"/>
@@ -64,7 +64,7 @@
     <property name="Class" value="Enemy"/>
     <property name="base_sprite" value="robot_gatling.png"/>
     <property name="bullets" value="500"/>
-    <property name="hp" value="200"/>
+    <property name="hp" value="100"/>
     <property name="mg_sprite" value="robot_gatling.png"/>
     <property name="pistol_sprite" value="robot_gatling.png"/>
     <property name="rocket_sprite" value="robot_gatling.png"/>
