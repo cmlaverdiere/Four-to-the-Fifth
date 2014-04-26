@@ -294,7 +294,7 @@ Q.scene("title", function(stage) {
 
   // Controls label
   var controls_label = stage.insert(new Q.UI.FttFText({
-    label: "Movement: WASD \nSwitch Weapon: NUMKEYS \nFire weapon: SPACE \nPause: BACKSPACE",
+    label: "Movement: WASD or E \nSwitch Weapon: NUMKEYS \nFire weapon: SPACE \nPunch: F \nPause: BACKSPACE",
     size: 16
   }), start_options_cont);
 
