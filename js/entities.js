@@ -13,11 +13,12 @@ Q.Sprite.extend("Human", {
       hp: 100,
       shotDelay: 10,
       meleeDelay: 100,
+      prior_sprite: p.base_sprite,
+      punch_timer: 10,
       sprinting: false,
       stepDistance: 10,
       stepDelay: 0.01,
-      swinging_sword: false,
-      sword: null,
+      punching: false,
       x: 300,
       y: 300
     });
@@ -54,9 +55,16 @@ Q.Sprite.extend("Human", {
         }
       }
 
-      else if(collision.obj.isA("Sword")){
-        this.destroy();
-      }
+      else if(collision.obj.isA("Player")){
+        if(collision.obj.p.punching){
+          this.p.hp -= 20;
+          this.p.x -= 30 * Math.cos(TO_RAD * (this.p.angle+90));
+          this.p.y -= 30 * Math.sin(TO_RAD * (this.p.angle+90));
+          if(this.p.hp <= 0){
+            this.destroy();
+          }
+        }
+      } 
 
       else{ //collision with a wall
         if(!collision.obj.isA("Enemy") && !this.p.stuckCheck){ //colliding with wall
@@ -94,35 +102,40 @@ Q.Sprite.extend("Human", {
     this.add("assaultrifle");
   },
 
+  // Punching event
+  punch: function() {
+
+    if(!this.p.punching){
+      // Play a random punch sound. Yes, very obtuse code.
+      Q.audio.play("punch" + ((Math.floor(Math.random()*10) % 2) + 1) + ".wav")
+
+      this.p.prior_sprite = this.p.asset;
+      this.p.asset = this.p.punch_sprite;
+      this.p.punching = true;
+      this.p.punch_timer = 10;
+    }
+  },
+
   // Event to put away weapons and return to base sprite.
   put_away_wep: function() {
     this.unequip_guns();
     this.p.asset = this.p.base_sprite;
   },
   
-
   step: function(dt) {
     // Machine gun delay.
     if(this.p.fire_delay < 100){
       this.p.fire_delay += 5;
     }
     
-    // Sword swinging animation
-    if(this.p.swinging_sword){
-      this.p.angle += 20;
-      if(this.p.angle > 360){
-        Q("Sword").destroy();
-        this.p.swinging_sword = false;
-        this.p.angle = 0;
+    // Punching animation
+    if(this.p.punching){
+      this.p.punch_timer--;
+      if(this.p.punch_timer < 0){
+        this.p.punching = false;
+        this.p.asset = this.p.prior_sprite;
       }
     }
-  },
-
-  // Sword swinging event
-  swing_sword: function() {
-    this.p.asset = this.p.base_sprite;
-    this.p.sword = Q.stage().insert(new Q.Sword({ x: -32, y: 25 }), this);
-    this.p.swinging_sword = true;
   },
 
   // Remove all guns event.
@@ -155,7 +168,7 @@ Q.Human.extend("Player", {
     Q.input.on("wep4", this, "equip_machinegun");
     Q.input.on("wep5", this, "equip_rocketlauncher");
     Q.input.on("wep6", this, "equip_assaultrifle");
-    Q.input.on("sword", this, "swing_sword");
+    Q.input.on("punch", this, "punch");
     Q.input.on("pause", this, function(){
       Q.state.inc("pause", this, !Q.state.get("pause"));
     });
@@ -164,7 +177,7 @@ Q.Human.extend("Player", {
   step_player: function(dt) {
 
     // Update player angle based on mouse position.
-    if (!this.p.swinging_sword){
+    if (!this.p.punching){
 
       // We keep track of the previous mouse coordinates each step.
       // We then only update the angle when the mouse coords have changed.
@@ -426,19 +439,6 @@ Q.Sprite.extend("Explosion", {
       this.destroy(); 
     }
   },
-});
-
-Q.Sprite.extend("Sword", {
-  init: function(p) {
-    this._super(p, {
-      asset: "sword.png",
-      collisionMask: Q.SPRITE_ENEMY,
-      scale: 2,
-      type: Q.SPRITE_POWERUP
-    });
-
-    this.add('2d');
-  }
 });
 
 Q.Sprite.extend("PowerUp", {

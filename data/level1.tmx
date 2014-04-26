@@ -9,6 +9,7 @@
     <property name="bullets" value="50"/>
     <property name="mg_sprite" value="soldier_gatling.png"/>
     <property name="pistol_sprite" value="soldier_pistol.png"/>
+    <property name="punch_sprite" value="soldier_punch.png"/>
     <property name="rifle_sprite" value="soldier_assault_rifle.png"/>
     <property name="rocket_sprite" value="soldier_rocket.png"/>
     <property name="shotgun_sprite" value="soldier_shotgun.png"/>
@@ -25,6 +26,7 @@
     <property name="hp" value="40"/>
     <property name="mg_sprite" value="zombie1.png"/>
     <property name="pistol_sprite" value="zombie1.png"/>
+    <property name="punch_sprite" value="zombie1.png"/>
     <property name="rocket_sprite" value="zombie1.png"/>
     <property name="shotgun_sprite" value="zombie1.png"/>
     <property name="speed" value="3"/>
@@ -38,6 +40,7 @@
     <property name="hp" value="50"/>
     <property name="mg_sprite" value="zombie2.png"/>
     <property name="pistol_sprite" value="zombie2.png"/>
+    <property name="punch_sprite" value="zombie2.png"/>
     <property name="rocket_sprite" value="zombie2.png"/>
     <property name="shotgun_sprite" value="zombie2.png"/>
     <property name="speed" value="2"/>
@@ -54,6 +57,7 @@
     <property name="hp" value="75"/>
     <property name="mg_sprite" value="robot_dual.png"/>
     <property name="pistol_sprite" value="robot_dual.png"/>
+    <property name="punch_sprite" value="robot_dual.png"/>
     <property name="rocket_sprite" value="robot_dual.png"/>
     <property name="shotgun_sprite" value="robot_dual.png"/>
     <property name="speed" value="5"/>
@@ -67,6 +71,7 @@
     <property name="hp" value="100"/>
     <property name="mg_sprite" value="robot_gatling.png"/>
     <property name="pistol_sprite" value="robot_gatling.png"/>
+    <property name="punch_sprite" value="robot_gatling.png"/>
     <property name="rocket_sprite" value="robot_gatling.png"/>
     <property name="shotgun_sprite" value="robot_gatling.png"/>
     <property name="speed" value="5"/>
