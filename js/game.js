@@ -6,7 +6,7 @@ var Q = Quintus({ development: true, audioSupported: [ 'wav' ] })
           .touch();
 
 // GAME SETTINGS
-var MUSIC_ENABLED = false;
+var MUSIC_ENABLED = true;
 
 // ABILITY SETTINGS
 var HOMING_ROCKETS = true;
