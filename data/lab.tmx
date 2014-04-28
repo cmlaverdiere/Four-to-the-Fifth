@@ -9,6 +9,7 @@
     <property name="bullets" value="50"/>
     <property name="mg_sprite" value="soldier_gatling.png"/>
     <property name="pistol_sprite" value="soldier_pistol.png"/>
+    <property name="punch_sprite" value="soldier_punch.png"/>
     <property name="rifle_sprite" value="soldier_assault_rifle.png"/>
     <property name="rocket_sprite" value="soldier_rocket.png"/>
     <property name="shotgun_sprite" value="soldier_shotgun.png"/>
@@ -22,9 +23,10 @@
     <property name="Class" value="Enemy"/>
     <property name="base_sprite" value="zombie1.png"/>
     <property name="bullets" value="50"/>
-    <property name="hp" value="100"/>
+    <property name="hp" value="40"/>
     <property name="mg_sprite" value="zombie1.png"/>
     <property name="pistol_sprite" value="zombie1.png"/>
+    <property name="punch_sprite" value="zombie1.png"/>
     <property name="rocket_sprite" value="zombie1.png"/>
     <property name="shotgun_sprite" value="zombie1.png"/>
     <property name="speed" value="3"/>
@@ -35,9 +37,10 @@
     <property name="Class" value="Enemy"/>
     <property name="base_sprite" value="zombie2.png"/>
     <property name="bullets" value="50"/>
-    <property name="hp" value="150"/>
+    <property name="hp" value="50"/>
     <property name="mg_sprite" value="zombie2.png"/>
     <property name="pistol_sprite" value="zombie2.png"/>
+    <property name="punch_sprite" value="zombie2.png"/>
     <property name="rocket_sprite" value="zombie2.png"/>
     <property name="shotgun_sprite" value="zombie2.png"/>
     <property name="speed" value="2"/>
@@ -51,9 +54,10 @@
     <property name="Class" value="Enemy"/>
     <property name="base_sprite" value="robot_dual.png"/>
     <property name="bullets" value="50"/>
-    <property name="hp" value="200"/>
+    <property name="hp" value="75"/>
     <property name="mg_sprite" value="robot_dual.png"/>
     <property name="pistol_sprite" value="robot_dual.png"/>
+    <property name="punch_sprite" value="robot_dual.png"/>
     <property name="rocket_sprite" value="robot_dual.png"/>
     <property name="shotgun_sprite" value="robot_dual.png"/>
     <property name="speed" value="5"/>
@@ -64,9 +68,10 @@
     <property name="Class" value="Enemy"/>
     <property name="base_sprite" value="robot_gatling.png"/>
     <property name="bullets" value="500"/>
-    <property name="hp" value="200"/>
+    <property name="hp" value="100"/>
     <property name="mg_sprite" value="robot_gatling.png"/>
     <property name="pistol_sprite" value="robot_gatling.png"/>
+    <property name="punch_sprite" value="robot_gatling.png"/>
     <property name="rocket_sprite" value="robot_gatling.png"/>
     <property name="shotgun_sprite" value="robot_gatling.png"/>
     <property name="speed" value="5"/>
@@ -119,6 +124,11 @@
  </tileset>
  <tileset firstgid="782" name="Powerups" tilewidth="31" tileheight="36">
   <image source="../images/tough_guy.png" trans="ff00ff" width="31" height="36"/>
+  <tile id="0">
+   <properties>
+    <property name="Class" value="HealthPack"/>
+   </properties>
+  </tile>
  </tileset>
  <imagelayer name="background-image" width="100" height="100">
   <image source="../images/lab-floor.png"/>
@@ -30198,9 +30208,9 @@
   <object gid="7" x="1014" y="3772"/>
   <object gid="7" x="1999" y="6242"/>
   <object gid="7" x="1183" y="6130"/>
-  <object gid="782" x="1408" y="5308"/>
-  <object gid="782" x="1823" y="5319"/>
-  <object gid="782" x="2726" y="3559"/>
-  <object gid="782" x="2919" y="4673"/>
+  <object gid="782" x="1389" y="5304"/>
+  <object gid="782" x="1828" y="5306"/>
+  <object gid="782" x="2729" y="3557"/>
+  <object gid="782" x="189" y="4861"/>
  </objectgroup>
 </map>
