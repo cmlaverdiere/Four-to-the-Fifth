@@ -222,7 +222,11 @@ Q.Human.extend("Player", {
 
     // Send event to all enemies to look at and chase the player.
     var enemies = Q("Enemy");
+    var boss = Q("Boss");
     enemies.trigger("chase_player", this);
+    if(boss.length){
+      boss.trigger("kill_player", this);
+    }
   }
 });
 
@@ -286,6 +290,33 @@ Q.Human.extend("Enemy", {
   },
 
   step_enemy: function(){
+    // Nothing at the moment
+  },
+
+});
+
+Q.Human.extend("Boss", {
+  init: function(p) {
+    this._super(p, {
+      collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_PLAYER | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT,
+      scale: 2,
+      type: Q.SPRITE_ENEMY
+    });
+
+    this.equip_shotgun();
+    this.on("face_player");
+    this.on("step", this, "step_boss");
+  },
+  
+  face_player: function(player){
+    this.p.angle = -1 * TO_DEG * Math.atan2( (player.p.x - this.p.x), (player.p.y - this.p.y) );
+  },
+
+  kill_player: function(player){
+    this.face_player(player);
+  },
+
+  step_boss: function(){
     // Nothing at the moment
   },
 
