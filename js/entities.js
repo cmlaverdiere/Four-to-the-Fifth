@@ -224,9 +224,7 @@ Q.Human.extend("Player", {
     var enemies = Q("Enemy");
     var boss = Q("Boss");
     enemies.trigger("chase_player", this);
-    if(boss.length){
-      boss.trigger("kill_player", this);
-    }
+    boss.trigger("kill_player", this);
   }
 });
 
@@ -234,15 +232,21 @@ Q.Human.extend("Player", {
 Q.Human.extend("Enemy", {
   init: function(p) {
     this._super(p, {
+      boss_ai: false,
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_PLAYER | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT,
-      type: Q.SPRITE_ENEMY
+      scale: 1,
+      sight_range: 300,
+      speed: 1,
+      type: Q.SPRITE_ENEMY,
     });
 
     this.add("gun");
     this.on("chase_player");
     this.on("face_player");
     this.on("frenzy");
-    this.on("step", this, "step_enemy");
+    if(this.p.boss_ai) {
+      this.on("step", this, "step_boss");
+    }
   },
   
   chase_player: function(player){
@@ -252,14 +256,22 @@ Q.Human.extend("Enemy", {
     // We use a shotDelay to make sure the enemies only
     //   shoot every so often. Yes, slightly redundant as we already
     //   have fire_delay as well. Should refactor.
-    if(Math.abs(this.p.x - player.p.x) < 300 && Math.abs(this.p.y - player.p.y) < 300){
-      if(this.p.shotDelay-- <= 1){
-        this.fire();
-        this.p.shotDelay += 25;
+    if(Math.abs(this.p.x - player.p.x) < this.p.sight_range && Math.abs(this.p.y - player.p.y) < this.p.sight_range){
+      if(this.p.boss_ai){
+        if(this.p.shotDelay-- <= 1){
+          this.fire();
+          this.p.shotDelay += 10;
+        }
+      }
+      else{
+        if(this.p.shotDelay-- <= 1){
+          this.fire();
+          this.p.shotDelay += 25;
+        }
       }
     } 
     
-    else if(Math.abs(this.p.x - player.p.x) > 450 && Math.abs(this.p.y - player.p.y) > 450){
+    else if(Math.abs(this.p.x - player.p.x) > this.p.sight_range * 1.5 && Math.abs(this.p.y - player.p.y) > this.p.sight_range * 1.5){
       //sight range ends here
     }    
 
@@ -289,39 +301,31 @@ Q.Human.extend("Enemy", {
     this.p.speed *= 1.5;
   },
 
-  step_enemy: function(){
-    // Nothing at the moment
-  },
-
-});
-
-Q.Human.extend("Boss", {
-  init: function(p) {
-    this._super(p, {
-      collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_PLAYER | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT,
-      scale: 2,
-      type: Q.SPRITE_ENEMY
-    });
-
-    this.equip_shotgun();
-    this.on("face_player");
-    this.on("step", this, "step_boss");
-  },
-  
-  face_player: function(player){
-    this.p.angle = -1 * TO_DEG * Math.atan2( (player.p.x - this.p.x), (player.p.y - this.p.y) );
-  },
-
-  kill_player: function(player){
-    this.face_player(player);
-  },
-
   step_boss: function(){
-    // Nothing at the moment
+    if(this.p.hp < .40 * this.p.max_hp){
+      if(!this.has("rocketlauncher")){
+        this.equip_rocketlauncher();
+        this.p.speed *= 1.5;
+      }
+    }
+    else if(this.p.hp < .60 * this.p.max_hp){
+      if(!this.has("machinegun")){
+        this.equip_machinegun();
+        this.p.speed *= 1.2;
+      }
+    }
+    else if(this.p.hp < .85 * this.p.max_hp){
+      if(!this.has("assaultrifle")){
+        this.equip_assaultrifle();
+        this.p.speed *= 1.1;
+      }
+    }
+    else {
+      // Stay on pistol. 
+    }
   },
 
 });
-
 
 Q.Enemy.extend("Zombie", {
   init: function(p) {

@@ -17,15 +17,21 @@
   </tile>
   <tile id="2">
    <properties>
-    <property name="Class" value="Boss"/>
+    <property name="Class" value="Enemy"/>
     <property name="base_sprite" value="soldier_base.png"/>
+    <property name="boss_ai" value="true"/>
     <property name="bullets" value="9999"/>
+    <property name="hp" value="500"/>
+    <property name="max_hp" value="500"/>
     <property name="mg_sprite" value="soldier_gatling.png"/>
     <property name="pistol_sprite" value="soldier_pistol.png"/>
     <property name="punch_sprite" value="soldier_punch.png"/>
     <property name="rifle_sprite" value="soldier_assault_rifle.png"/>
     <property name="rocket_sprite" value="soldier_rocket.png"/>
+    <property name="scale" value="2"/>
     <property name="shotgun_sprite" value="soldier_shotgun.png"/>
+    <property name="sight_range" value="500"/>
+    <property name="speed" value="6"/>
    </properties>
   </tile>
  </tileset>
