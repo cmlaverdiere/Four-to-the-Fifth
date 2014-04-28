@@ -235,6 +235,7 @@ Q.Human.extend("Enemy", {
       boss_ai: false,
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_PLAYER | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT,
       scale: 1,
+      shot_delay_inc: 35,
       sight_range: 300,
       speed: 1,
       type: Q.SPRITE_ENEMY,
@@ -257,17 +258,9 @@ Q.Human.extend("Enemy", {
     //   shoot every so often. Yes, slightly redundant as we already
     //   have fire_delay as well. Should refactor.
     if(Math.abs(this.p.x - player.p.x) < this.p.sight_range && Math.abs(this.p.y - player.p.y) < this.p.sight_range){
-      if(this.p.boss_ai){
-        if(this.p.shotDelay-- <= 1){
-          this.fire();
-          this.p.shotDelay += 10;
-        }
-      }
-      else{
-        if(this.p.shotDelay-- <= 1){
-          this.fire();
-          this.p.shotDelay += 25;
-        }
+      if(this.p.shotDelay-- <= 1){
+        this.fire();
+        this.p.shotDelay += this.p.shot_delay_inc;
       }
     } 
     
@@ -303,14 +296,11 @@ Q.Human.extend("Enemy", {
 
   step_boss: function(){
     if(this.p.hp < .40 * this.p.max_hp){
-      if(!this.has("rocketlauncher")){
-        this.equip_rocketlauncher();
-        this.p.speed *= 1.5;
-      }
+      this.p.speed *= 1.5;
     }
     else if(this.p.hp < .60 * this.p.max_hp){
-      if(!this.has("machinegun")){
-        this.equip_machinegun();
+      if(!this.has("shotgun")){
+        this.equip_shotgun();
         this.p.speed *= 1.2;
       }
     }
