@@ -6,14 +6,14 @@ var Q = Quintus({ development: true, audioSupported: [ 'wav' ] })
           .touch();
 
 // GAME SETTINGS
-var MUSIC_ENABLED = true;
+var MUSIC_ENABLED = false;
 
 // ABILITY SETTINGS
 var HOMING_ROCKETS = true;
 
 // Increment this if you add a new map in pattern 
 // ie: (level1.tmx, level2.tmx, ..., levelN.tmx). 
-var NUM_MAPS = 3
+var NUM_MAPS = 4
 
 // USEFUL GLOBALS 
 // Keep track of change in mouse coords.
