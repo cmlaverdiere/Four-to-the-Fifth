@@ -296,7 +296,7 @@ Q.Human.extend("Enemy", {
 
   step_boss: function(){
     if(this.p.hp < .40 * this.p.max_hp){
-      this.p.speed *= 1.5;
+      // Decide on final form.
     }
     else if(this.p.hp < .60 * this.p.max_hp){
       if(!this.has("shotgun")){
