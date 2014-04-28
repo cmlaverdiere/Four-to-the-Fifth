@@ -16,6 +16,8 @@ Q.Sprite.extend("Human", {
       prior_sprite: p.base_sprite,
       punch_timer: 10,
       sprinting: false,
+      shot_delay_inc: 35,
+      sight_range: 300,
       stepDistance: 10,
       stepDelay: 0.01,
       punching: false,
@@ -235,8 +237,6 @@ Q.Human.extend("Enemy", {
       boss_ai: false,
       collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_PLAYER | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT,
       scale: 1,
-      shot_delay_inc: 35,
-      sight_range: 300,
       speed: 1,
       type: Q.SPRITE_ENEMY,
     });
