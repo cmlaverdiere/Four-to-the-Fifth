@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="50"
+   height="50"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="health_pack.svg"
+   inkscape:export-filename="/home/chris/Class/soft/project/Four-to-the-Fifth/images/health_pack.png"
+   inkscape:export-xdpi="19.5"
+   inkscape:export-ydpi="19.5">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient5217"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#9c3838;stop-opacity:1;"
+         offset="0"
+         id="stop5219" />
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="7.9195959"
+     inkscape:cx="6.7119297"
+     inkscape:cy="23.324521"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1364"
+     inkscape:window-height="743"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-1002.3622)">
+    <path
+       style="fill:#d1cbcd;stroke:#303030;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+       d="M 6.5659916,11.487934 42.805214,11.361665 c 0,0 4.419418,0.631345 4.419418,5.050763 0,4.419417 -0.252539,30.052038 -0.252539,30.052038 L 2.6516504,46.211928 2.5253814,16.033621 c 0,0 -0.2525382,-4.16688 4.0406102,-4.545687 z"
+       id="path3771"
+       inkscape:connector-curvature="0"
+       transform="translate(0,1002.3622)" />
+    <rect
+       style="fill:#d40000;fill-opacity:1;stroke:#000000;stroke-width:0.63361502;stroke-opacity:1"
+       id="rect2985"
+       width="6.0102983"
+       height="23.473621"
+       x="21.427916"
+       y="1019.7278" />
+    <rect
+       style="fill:#d40000;fill-opacity:1;stroke:#000000;stroke-width:0.63361502;stroke-opacity:1"
+       id="rect2987"
+       width="15.139866"
+       height="6.3101139"
+       x="16.863132"
+       y="1025.365" />
+    <rect
+       style="fill:#333333;fill-opacity:0.77884617;stroke:#303030;stroke-opacity:1"
+       id="rect5225"
+       width="8.4600277"
+       height="34.345188"
+       x="5.3033009"
+       y="1014.1027" />
+    <rect
+       style="fill:#333333;fill-opacity:0.77884617;stroke:#303030;stroke-opacity:1"
+       id="rect5225-5"
+       width="8.4600277"
+       height="34.345188"
+       x="35.292206"
+       y="1014.2289" />
+  </g>
+</svg>

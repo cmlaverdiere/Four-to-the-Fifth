@@ -347,7 +347,7 @@ Q.Sprite.extend("Ammo", {
 Q.Sprite.extend("HealthPack", {
 	  init: function(p) {
 	    this._super(p, {
-	      asset: "tough_guy.png",
+	      asset: "health_pack.png",
 	      collisionMask: Q.SPRITE_PLAYER,
 	      capacity: 35,
 	    });
@@ -356,8 +356,7 @@ Q.Sprite.extend("HealthPack", {
 
 	    this.on("hit", function(collision){
 	      if(collision.obj.isA("Player")){
-	        // ammo collected.
-	        Q.audio.play("gun_cock.wav");
+	        Q.audio.play("health_collect.wav");
 	        this.destroy();
 	        collision.obj.p.hp += this.p.capacity;
 	        Q.state.inc("player_health", this.p.capacity);
