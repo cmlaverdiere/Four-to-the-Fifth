@@ -429,6 +429,7 @@ Q.Sprite.extend("Rocket", {
       asset: "rocket.png",
       atk_type: "projectile",
       collided: false,
+      speed: 1,
       collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
       type: Q.SPRITE_POWERUP,
     });
@@ -453,9 +454,10 @@ Q.Sprite.extend("Rocket", {
   step: function(dt) {
     if(HOMING_ROCKETS){
       this.p.angle = Q("Player").first().p.angle;
-      this.p.vx = 500 * Math.cos(TO_RAD * (this.p.angle+90));
-      this.p.vy = 500 * Math.sin(TO_RAD * (this.p.angle+90));
+      this.p.vx = this.p.speed * 500 * Math.cos(TO_RAD * (this.p.angle+90));
+      this.p.vy = this.p.speed * 500 * Math.sin(TO_RAD * (this.p.angle+90));
     }
+    this.p.speed *= 1.05;
   },
 });
 
