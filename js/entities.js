@@ -395,7 +395,7 @@ Q.Sprite.extend("Bullet", {
   init: function(p) {
     this._super(p, {
       asset: "bullet.png",
-      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
+      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE | Q.SPRITE_DEFAULT,
       type: Q.SPRITE_POWERUP,
     });
     
@@ -411,7 +411,7 @@ Q.Sprite.extend("ShotPellet", {
   init: function(p) {
     this._super(p, {
       asset: "shot_pellet.png",
-      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
+      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE | Q.SPRITE_DEFAULT,
       type: Q.SPRITE_POWERUP,
     });
     
@@ -430,7 +430,7 @@ Q.Sprite.extend("Rocket", {
       atk_type: "projectile",
       collided: false,
       speed: 1,
-      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
+      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE | Q.SPRITE_DEFAULT,
       type: Q.SPRITE_POWERUP,
     });
 
@@ -441,8 +441,8 @@ Q.Sprite.extend("Rocket", {
         Q.audio.play("rocket_explode.wav");
         Q.stage().insert(new Q.Explosion(
           {   
-            x: collision.obj.p.x,
-            y: collision.obj.p.y, 
+            x: this.p.x,
+            y: this.p.y, 
           }
         ));
         this.collided = true;
