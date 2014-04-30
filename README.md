@@ -29,6 +29,19 @@ Along with more information at:
 
 http://userpages.umbc.edu/~chlaver1/Four-to-the-Fifth/about.html
 
+Running the Game Locally
+------------------------
+If the game is running slowly (or not at all) on one of our hosts, you can run the game locally on your machine.
+
+1. Clone the repo:
+... `git clone https://github.com/CLaverdiere/Four-to-the-Fifth.git`
+2. Host the game on your localhost. We've just been using Python:
+...`python -m SimpleHTTPServer`
+...or, if you're on Python 3:
+...`python -m http.server` 
+3. Play the game.
+...`chrome ./game.html`
+
 Credits
 -----------------
 Music developed through http://www.pulseboy.com/
