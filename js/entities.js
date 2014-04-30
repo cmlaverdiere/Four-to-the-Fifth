@@ -64,6 +64,7 @@ Q.Sprite.extend("Human", {
           this.p.y -= 30 * Math.sin(TO_RAD * (this.p.angle+90));
           if(this.p.hp <= 0){
             this.destroy();
+            Q.stage().trigger("enemy_killed");
           }
         }
       } 
@@ -106,7 +107,6 @@ Q.Sprite.extend("Human", {
 
   // Punching event
   punch: function() {
-
     if(!this.p.punching){
       // Play a random punch sound. Yes, very obtuse code.
       Q.audio.play("punch" + ((Math.floor(Math.random()*10) % 2) + 1) + ".wav")
