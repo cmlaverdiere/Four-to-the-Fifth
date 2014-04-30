@@ -33,10 +33,29 @@ Running the Game Locally
 ------------------------
 If the game is running slowly (or not at all) on one of our hosts, you can run the game locally on your machine.
 
-1. Clone the repo: ```git clone https://github.com/CLaverdiere/Four-to-the-Fifth.git```
-2. Host the game on your localhost. We've just been using Python: ```python -m SimpleHTTPServer```
-or, if you're on Python 3: ```python -m http.server```
-3. Play the game.  ```chrome ./game.html```
+Clone the repo: 
+
+``` bash
+git clone https://github.com/CLaverdiere/Four-to-the-Fifth.git
+```
+
+Host the game on your localhost. We've just been using Python: 
+
+``` bash
+python -m SimpleHTTPServer
+```
+
+Or, if you're on Python 3: 
+
+``` bash
+python -m http.server
+```
+
+Play the game. 
+
+``` bash
+chrome ./game.html
+```
 
 Credits
 -----------------
