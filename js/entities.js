@@ -458,6 +458,9 @@ Q.Sprite.extend("Rocket", {
       this.p.vy = this.p.speed * 500 * Math.sin(TO_RAD * (this.p.angle+90));
     }
     this.p.speed *= 1.05;
+    if(this.p.speed > 100) {
+      this.destroy(); 
+    }
   },
 });
 
