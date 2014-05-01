@@ -38,7 +38,7 @@ Q.component("shotgun", {
         Q.audio.play("shotgun_shot.wav");
         for(var i=-6; i < 6; i++){
           var spread = i*2;
-          var speed = Math.random() * 750 + 750; // Speed between 750 and 1500.
+          var speed = Math.random() * 1500 + 850; // Speed between 850 and 1500.
           Q.stage().insert(new Q.ShotPellet(
           {
             x: this.p.x + 100 * Math.cos(TO_RAD * (this.p.angle+90)),
