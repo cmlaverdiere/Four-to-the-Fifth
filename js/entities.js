@@ -314,9 +314,8 @@ Q.Human.extend("Enemy", {
       // Decide on final form.
       if(!this.has("machinegun")){
         this.equip_machinegun();
-        this.p.shotDelay = 0;
         this.p.shot_delay_boss_inc = 0;
-        this.p.speed *= 1.2;
+        this.p.speed *= .8;
       }
     }
     else if(this.p.hp < .60 * this.p.max_hp){
@@ -416,7 +415,7 @@ Q.Sprite.extend("Bullet", {
   init: function(p) {
     this._super(p, {
       asset: "bullet.png",
-      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
+      collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT,
       type: Q.SPRITE_POWERUP,
     });
     
@@ -432,7 +431,7 @@ Q.Sprite.extend("ShotPellet", {
   init: function(p) {
     this._super(p, {
       asset: "shot_pellet.png",
-      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
+      collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT,
       type: Q.SPRITE_POWERUP,
     });
     
@@ -451,7 +450,7 @@ Q.Sprite.extend("Rocket", {
       atk_type: "projectile",
       collided: false,
       speed: 1,
-      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE,
+      collisionMask: Q.SPRITE_ACTIVE | Q.SPRITE_ENEMY | Q.SPRITE_DEFAULT,
       type: Q.SPRITE_POWERUP,
     });
 

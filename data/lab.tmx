@@ -123,7 +123,7 @@
   <image source="../images/laboratory3_64.png" width="1024" height="1024"/>
  </tileset>
  <tileset firstgid="782" name="Powerups" tilewidth="31" tileheight="36">
-  <image source="../images/tough_guy.png" trans="ff00ff" width="31" height="36"/>
+  <image source="../images/tough_guy.png" trans="ff00ff" width="50" height="50"/>
   <tile id="0">
    <properties>
     <property name="Class" value="HealthPack"/>
