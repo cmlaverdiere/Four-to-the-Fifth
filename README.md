@@ -21,9 +21,10 @@ Our IRC channel is **#fourtothefifth** at irc.freenode.net.
 
 Playing the Game
 -----------------
-A current deployment of our game can be found at:
+Current deployments of our game can be found at:
 
-http://userpages.umbc.edu/~chlaver1/Four-to-the-Fifth/game.html
+- http://userpages.umbc.edu/~chlaver1/Four-to-the-Fifth/game.html
+- http://kevincoxe.net/html/Four-to-the-Fifth/game.html
 
 Along with more information at:
 
