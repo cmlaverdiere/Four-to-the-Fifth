@@ -17,6 +17,7 @@ Q.Sprite.extend("Human", {
       punch_timer: 10,
       sprinting: false,
       shot_delay_inc: 35,
+      shot_delay_boss_inc: 15,
       sight_range: 300,
       stepDistance: 10,
       stepDelay: 0.01,
@@ -64,7 +65,12 @@ Q.Sprite.extend("Human", {
           this.p.y -= 30 * Math.sin(TO_RAD * (this.p.angle+90));
           if(this.p.hp <= 0){
             this.destroy();
-            Q.stage().trigger("enemy_killed");
+            // Reset to title if player dies.
+            if(this.isA("Player")){
+              Q.stage().trigger("player_death");
+            } else {
+              Q.stage().trigger("enemy_killed");
+            }
           }
         }
       } 
@@ -258,9 +264,17 @@ Q.Human.extend("Enemy", {
     //   shoot every so often. Yes, slightly redundant as we already
     //   have fire_delay as well. Should refactor.
     if(Math.abs(this.p.x - player.p.x) < this.p.sight_range && Math.abs(this.p.y - player.p.y) < this.p.sight_range){
-      if(this.p.shotDelay-- <= 1){
-        this.fire();
-        this.p.shotDelay += this.p.shot_delay_inc;
+      if(!this.p.boss_ai) {
+        if(this.p.shotDelay-- <= 1){
+          this.fire();
+          this.p.shotDelay += this.p.shot_delay_inc;
+        }
+      } else {
+        if(this.p.shotDelay-- <= 1){
+          this.p.fire_delay = 0;
+          this.fire();
+          this.p.shotDelay += this.p.shot_delay_boss_inc;
+        }
       }
     } 
     
@@ -297,6 +311,12 @@ Q.Human.extend("Enemy", {
   step_boss: function(){
     if(this.p.hp < .40 * this.p.max_hp){
       // Decide on final form.
+      if(!this.has("machinegun")){
+        this.equip_machinegun();
+        this.p.shotDelay = 0;
+        this.p.shot_delay_boss_inc = 0;
+        this.p.speed *= 1.2;
+      }
     }
     else if(this.p.hp < .60 * this.p.max_hp){
       if(!this.has("shotgun")){
@@ -370,26 +390,26 @@ Q.Sprite.extend("Ammo", {
 });
 
 Q.Sprite.extend("HealthPack", {
-	  init: function(p) {
-	    this._super(p, {
-	      asset: "health_pack.png",
-	      collisionMask: Q.SPRITE_PLAYER,
-	      capacity: 35,
-	    });
+    init: function(p) {
+      this._super(p, {
+        asset: "health_pack.png",
+        collisionMask: Q.SPRITE_PLAYER,
+        capacity: 35,
+      });
 
-	    this.add('2d');
+      this.add('2d');
 
-	    this.on("hit", function(collision){
-	      if(collision.obj.isA("Player")){
-	        Q.audio.play("health_collect.wav");
-	        this.destroy();
-	        collision.obj.p.hp += this.p.capacity;
-	        Q.state.inc("player_health", this.p.capacity);
-	        Q.stageScene("ui", 1, collision.obj.p);
-	      }
-	    });
-	  }
-	});
+      this.on("hit", function(collision){
+        if(collision.obj.isA("Player")){
+          Q.audio.play("health_collect.wav");
+          this.destroy();
+          collision.obj.p.hp += this.p.capacity;
+          Q.state.inc("player_health", this.p.capacity);
+          Q.stageScene("ui", 1, collision.obj.p);
+        }
+      });
+    }
+  });
 
 Q.Sprite.extend("Bullet", {
   init: function(p) {
