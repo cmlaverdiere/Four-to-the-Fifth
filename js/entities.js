@@ -429,6 +429,7 @@ Q.Sprite.extend("Rocket", {
       asset: "rocket.png",
       atk_type: "projectile",
       collided: false,
+      rebounded: false,
       speed: 1,
       collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE | Q.SPRITE_DEFAULT,
       type: Q.SPRITE_POWERUP,
@@ -437,23 +438,34 @@ Q.Sprite.extend("Rocket", {
     this.add('2d');
 
     this.on("hit", function(collision){
-      if(!this.collided){
-        Q.audio.play("rocket_explode.wav");
-        Q.stage().insert(new Q.Explosion(
-          {   
-            x: this.p.x,
-            y: this.p.y, 
-          }
-        ));
-        this.collided = true;
+      if(collision.obj.p.boss_ai){
+        console.log("Rebounding rocket.");
+        if(!this.p.rebounded){
+          this.p.rebounded = true;
+          this.p.angle -= 180;
+        }
       }
-      this.destroy();
+      else {
+        if(!this.collided){
+          Q.audio.play("rocket_explode.wav");
+          Q.stage().insert(new Q.Explosion(
+            {   
+              x: this.p.x,
+              y: this.p.y, 
+            }
+          ));
+          this.collided = true;
+        }
+        this.destroy();
+      }
     });
   },
 
   step: function(dt) {
     if(HOMING_ROCKETS){
-      this.p.angle = Q("Player").first().p.angle;
+      if(!this.p.rebounded) {
+        this.p.angle = Q("Player").first().p.angle;
+      }
       this.p.vx = this.p.speed * 500 * Math.cos(TO_RAD * (this.p.angle+90));
       this.p.vy = this.p.speed * 500 * Math.sin(TO_RAD * (this.p.angle+90));
     }
