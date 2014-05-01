@@ -9,7 +9,12 @@ Q.scene("level", function(stage) {
   // Initialize enemy amount
   Q.state.set("alive", Q("Enemy").length);
 
-  play_next_track();
+    if(Q.state.get("level") == 4){
+      Q.audio.stop();
+      Q.audio.play("boss_fight.wav", { loop: true });
+    } else {
+      play_next_track();
+    }
 
   // pause game
   stage.on("pause_game", function(){
@@ -44,7 +49,6 @@ Q.scene("level", function(stage) {
     // Check if game over.
     if(Q("Enemy").length <= 1){
       console.log("Level beaten. Staging Next level."); 
-      play_next_track();
       stage.trigger("beat_level");
     }
   });
