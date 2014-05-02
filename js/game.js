@@ -9,7 +9,10 @@ var Q = Quintus({ development: true, audioSupported: [ 'wav' ] })
 var MUSIC_ENABLED = true;
 
 // ABILITY SETTINGS
-var HOMING_ROCKETS = true;
+var COOLDOWN = 0;
+var SUPER_EXPLOSIONS = false;
+var HOMING_ROCKETS = false;
+var SUPER_SHOTGUN = false;
 
 // Increment this if you add a new map in pattern 
 // ie: (level1.tmx, level2.tmx, ..., levelN.tmx). 
@@ -68,7 +71,7 @@ Q.input.keyboardControls({
   DOWN:   'down',   S: 'down',
   RIGHT:  'right',  D: 'right',
   SPACE:  'fire',
-  SHIFT:  'sprint',
+  SHIFT:  'sprint', Q: 'powerUp',
   E:      'forward',
   F:      'punch',
   ONE:    'wep1',
