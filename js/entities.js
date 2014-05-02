@@ -31,7 +31,14 @@ Q.Sprite.extend("Human", {
       if(collision.obj.isA("Bullet") || collision.obj.isA("ShotPellet") || collision.obj.isA("Explosion")){
         if(collision.obj.isA("Bullet")) { this.p.hp -= 5; }
         else if(collision.obj.isA("ShotPellet")) { this.p.hp -= 2; }
-        else if(collision.obj.isA("Explosion")) { this.p.hp -= 8; }
+        else if(collision.obj.isA("Explosion")) { 
+        	if(HOMING_ROCKETS){
+        		this.p.hp -= 12;
+        	}
+        	else{
+        		this.p.hp -= 8; 
+        	} 
+        }
 
         if(this.isA("Player")){
           Q.stageScene("ui", 1, this.p);
@@ -145,6 +152,23 @@ Q.Sprite.extend("Human", {
       }
     }
   },
+    //function to set powerups on
+  	powerUpFunc: function() {
+  		if(COOLDOWN == 0){
+  			if(Q.state.get("level") == 1){
+  				COOLDOWN = 500;
+  				HOMING_ROCKETS = true;
+  			}
+  			else if(Q.state.get("level") == 2){
+  				COOLDOWN = 500;
+  				SUPER_EXPLOSIONS = true;
+  			}
+  			else{
+  				COOLDOWN = 500;
+  				SUPER_SHOTGUN = true;
+  			}
+  		}
+	  },
 
   // Remove all guns event.
   unequip_guns: function() {
@@ -176,6 +200,7 @@ Q.Human.extend("Player", {
     Q.input.on("wep4", this, "equip_machinegun");
     Q.input.on("wep5", this, "equip_rocketlauncher");
     Q.input.on("wep6", this, "equip_assaultrifle");
+    Q.input.on("powerUp", this, "powerUpFunc");
     Q.input.on("punch", this, "punch");
     Q.input.on("pause", this, function(){
       Q.state.inc("pause", this, !Q.state.get("pause"));
@@ -233,6 +258,15 @@ Q.Human.extend("Player", {
     var boss = Q("Boss");
     enemies.trigger("chase_player", this);
     boss.trigger("kill_player", this);
+    
+    if(COOLDOWN > 0){
+		if(COOLDOWN == 100){
+			SUPER_EXPLOSIONS = false;
+			HOMING_ROCKETS = false;
+			SUPER_SHOTGUN = false;
+		}
+		COOLDOWN--;
+	}
   }
 });
 
@@ -468,12 +502,23 @@ Q.Sprite.extend("Rocket", {
       else {
         if(!this.collided){
           Q.audio.play("rocket_explode.wav");
-          Q.stage().insert(new Q.Explosion(
-            {   
-              x: this.p.x,
-              y: this.p.y, 
-            }
-          ));
+          if(SUPER_EXPLOSIONS){
+        	  Q.stage().insert(new Q.SuperExplosion(
+      	            {   
+      	              x: this.p.x,
+      	              y: this.p.y, 
+      	            }
+      	          ));
+          }
+          else{
+        	  Q.stage().insert(new Q.Explosion(
+        	            {   
+        	              x: this.p.x,
+        	              y: this.p.y, 
+        	            }
+        	          ));
+          }
+
           this.collided = true;
         }
         this.destroy();
@@ -533,4 +578,45 @@ Q.Sprite.extend("PowerUp", {
     });
   }
 });
+
+Q.Sprite.extend("SuperExplosion", {
+	  init: function(p) {
+	    this._super(p, {
+	      asset: "explosion.png",
+	      angle: 0,
+	      duration: 30,
+	      creation: 3, //can create 3 more normal explosions
+	      atk_type: "melee",
+	      collisionMask: Q.SPRITE_ENEMY | Q.SPRITE_ACTIVE| Q.SPRITE_DEFAULT,
+	      scale: .1,
+	      type: Q.SPRITE_POWERUP,
+	    });
+	    
+	    this.add('2d');
+	    this.on("hit", function(collision){
+	    	if(this.p.creation > 0){
+	    		Q.stage().insert(new Q.Explosion(
+	    				{   
+	    					x: this.p.x,
+	    					y: this.p.y, 
+	    				}
+	    		));
+	    	}
+	    	this.p.creation --;
+	    });
+	  },
+
+	  step: function(dt) {
+	    // Add logarithmic growth function to explosion.
+	    this.p.scale = Math.log(30 - this.p.duration) / 2;
+
+	    // Spin explosion as it goes off.
+	    this.p.angle += 25
+
+	    if(--this.p.duration <= 0){
+	      this.destroy(); 
+	    }
+	  },
+	  
+	});
 

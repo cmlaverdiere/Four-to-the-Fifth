@@ -36,17 +36,33 @@ Q.component("shotgun", {
     fire: function() {
       if (this.p.bullets > 0 && !this.p.fire_block){
         Q.audio.play("shotgun_shot.wav");
-        for(var i=-6; i < 6; i++){
-          var spread = i*2;
-          var speed = Math.random() * 1500 + 850; // Speed between 850 and 1500.
-          Q.stage().insert(new Q.ShotPellet(
-          {
-            x: this.p.x + 100 * Math.cos(TO_RAD * (this.p.angle+90)),
-            y: this.p.y + 100 * Math.sin(TO_RAD * (this.p.angle+90)), 
-            vx: speed * Math.cos(TO_RAD * (this.p.angle+90+spread)), 
-            vy: speed * Math.sin(TO_RAD * (this.p.angle+90+spread)), 
-          }
-          ));
+        if(SUPER_SHOTGUN){
+        	for(var i=-25; i < 6; i++){
+        		var spread = i*2;
+        		var speed = Math.random() * 1500 + 850; // Speed between 850 and 1500.
+        		Q.stage().insert(new Q.ShotPellet(
+        				{
+        					x: this.p.x + 100 * Math.cos(TO_RAD * (this.p.angle+90)),
+        					y: this.p.y + 100 * Math.sin(TO_RAD * (this.p.angle+90)), 
+        					vx: speed * Math.cos(TO_RAD * (this.p.angle+90+spread)), 
+        					vy: speed * Math.sin(TO_RAD * (this.p.angle+90+spread)), 
+        				}
+        		));
+        	}
+        }
+        else{
+        	for(var i=-6; i < 6; i++){
+        		var spread = i*2;
+        		var speed = Math.random() * 1500 + 850; // Speed between 850 and 1500.
+        		Q.stage().insert(new Q.ShotPellet(
+        				{
+        					x: this.p.x + 100 * Math.cos(TO_RAD * (this.p.angle+90)),
+        					y: this.p.y + 100 * Math.sin(TO_RAD * (this.p.angle+90)), 
+        					vx: speed * Math.cos(TO_RAD * (this.p.angle+90+spread)), 
+        					vy: speed * Math.sin(TO_RAD * (this.p.angle+90+spread)), 
+        				}
+        		));
+        	}
         }
         this.p.bullets -= 4;
         if(this.isA("Player")){
