@@ -155,6 +155,7 @@ Q.Sprite.extend("Human", {
     //function to set powerups on
     powerUpFunc: function() {
       if(COOLDOWN == 0){
+        Q.audio.play("health_collect.wav");
         COOLDOWN = 500;
         if(Q.state.get("level") == 1){
           HOMING_ROCKETS = true;
