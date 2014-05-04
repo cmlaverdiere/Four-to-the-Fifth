@@ -15,6 +15,7 @@ Q.Sprite.extend("Human", {
       meleeDelay: 100,
       prior_sprite: p.base_sprite,
       punch_timer: 10,
+      pushback: 15,
       sprinting: false,
       shot_delay_inc: 35,
       shot_delay_boss_inc: 15,
@@ -56,8 +57,8 @@ Q.Sprite.extend("Human", {
 
         } else {
           // Human bounces back from being shot.  
-          this.p.x -= 15 * Math.cos(TO_RAD * (this.p.angle+90));
-          this.p.y -= 15 * Math.sin(TO_RAD * (this.p.angle+90));
+          this.p.x -= this.p.pushback * Math.cos(TO_RAD * (this.p.angle+90));
+          this.p.y -= this.p.pushback * Math.sin(TO_RAD * (this.p.angle+90));
         }
 
         if(!collision.obj.isA("Explosion")){
@@ -345,6 +346,7 @@ Q.Human.extend("Enemy", {
   },
 
   step_boss: function(){
+    this.p.pushback = 5;
     if(this.p.hp < .40 * this.p.max_hp){
       // Decide on final form.
       if(!this.has("machinegun")){
