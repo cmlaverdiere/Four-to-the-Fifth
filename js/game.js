@@ -104,6 +104,13 @@ Q.loadTMX([
          "start_level.tmx", 
 
          "ammo_clip.png",
+         "boss_base.png",
+         "boss_pistol.png",
+         "boss_punch.png",
+         "boss_gatling.png",
+         "boss_assault_rifle.png",
+         "boss_rocket.png",
+         "boss_shotgun.png",
          "bullet.png",
          "cave.png",
          "explosion.png",
