@@ -160,9 +160,12 @@ Q.Sprite.extend("Human", {
           HOMING_ROCKETS = true;
         }
         else if(Q.state.get("level") == 2){
+          HOMING_ROCKETS = true;
           SUPER_EXPLOSIONS = true;
         }
         else{
+          HOMING_ROCKETS = true;
+          SUPER_EXPLOSIONS = true;
           SUPER_SHOTGUN = true;
         }
       }
