@@ -146,6 +146,42 @@ Q.scene("menu", function(stage){
 
 
 Q.scene("ui", function(stage){
+
+  // Power up Container
+  var power_up_cont = stage.insert(new Q.UI.FttFContainer({
+    w: 200,
+    h: 60,
+    x: 150,
+    y: 50,
+  }));
+
+  if (Q.state.get("level") == 1) {
+    POWER_UP = "Homing Rockets";
+  } else if(Q.state.get("level") == 2) {
+    POWER_UP = "Super Explosion";
+  } else {
+    POWER_UP = "Super Guns";
+  };
+
+  // Power up label
+  var power_up_label = stage.insert(new Q.UI.FttFText({
+    size: 40,
+    label: POWER_UP,
+  }), power_up_cont);
+
+  // Update power up label. 
+  Q.state.on("change.COOLDOWN", function(){ 
+    if (Q.state.get("COOLDOWN") > 0) {
+      power_up_label.p.label = POWER_UP;
+      power_up_label.p.color = "#ff0000";
+    }
+    else {
+      power_up_label.p.color = FG_COL;
+    }
+    
+  });
+
+
   // Weapon container
   var weapon_cont = stage.insert(new Q.UI.FttFContainer({
     w: 200,
@@ -224,6 +260,7 @@ Q.scene("ui", function(stage){
     level_label.p.label = "lvl: " + Q.state.get("level") 
   });
 
+  power_up_cont.fit(20,20);
   level_cont.fit(20,20);
   weapon_cont.fit(20,50);
   info_cont.fit(20,50);
@@ -261,9 +298,8 @@ Q.scene("title", function(stage) {
     label: "Start Game",
   }, function() {
     Q.audio.stop();
-    Q.stageScene("level", 0);
-    Q.stageScene("ui", 1, Q('Player').first().p);
-    Q.stageScene("menu", 2);
+    Q.stageScene("story_scene", 0);
+    Q.stageScene("null", 1);
   }), start_cont);
 
   // Button to show options.
@@ -294,7 +330,7 @@ Q.scene("title", function(stage) {
 
   // Controls label
   var controls_label = stage.insert(new Q.UI.FttFText({
-    label: "Movement: WASD or E \nSwitch Weapon: NUMKEYS \nFire weapon: SPACE \nPunch: F \nAbility: Q \nPause: BACKSPACE",
+    label: "Movement: WASD or E \nSwitch Weapon: NUMKEYS \nFire weapon: SPACE \nPunch: F \nPause: BACKSPACE",
     size: 16
   }), start_options_cont);
 
