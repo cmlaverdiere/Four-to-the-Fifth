@@ -158,6 +158,7 @@ Q.Sprite.extend("Human", {
       if(COOLDOWN == 0){
         Q.audio.play("health_collect.wav");
         COOLDOWN = 500;
+        Q.state.set("COOLDOWN", 500);
         if(Q.state.get("level") == 1){
           HOMING_ROCKETS = true;
         }
@@ -269,6 +270,7 @@ Q.Human.extend("Player", {
         SUPER_SHOTGUN = false;
       }
       COOLDOWN--;
+      Q.state.dec("COOLDOWN", 1);
     }
   }
 });
