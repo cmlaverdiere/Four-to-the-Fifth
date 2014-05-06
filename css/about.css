@@ -1,0 +1,45 @@
+body {
+  background: #222;
+  color: white;
+}
+
+div {
+  border-radius: 5px;
+}
+
+.pane {
+  background: #333;
+  border: 3px solid #eeeeee;
+  padding: 15px;
+}
+
+#content {
+  margin-left: 3px;
+  width: 100%;
+}
+
+#footer {
+  margin: 20px 3px 15px 3px;
+  text-align: center;
+  width: 100%; 
+}
+
+#left-pane {
+  float: left;
+  width: 200px;
+}
+
+#right-pane {
+  margin-left: 240px;
+}
+
+#topbar {
+  margin: 15px 3px 20px 3px;
+  text-align: center;
+  width: 100%; 
+}
+
+#wrapper {
+  margin: 0 auto;
+  width: 900px;
+}

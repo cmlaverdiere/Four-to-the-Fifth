@@ -1,0 +1,21 @@
+body {
+	background: #222;
+	color: #fff
+}
+
+a {
+    width: 100px;
+}
+
+#loading {
+	margin: auto; 
+    top:0; left:0; right:0; bottom:0; 
+    position: absolute; 
+    height: 225px; width: 500px; 
+    background: #333; 
+    padding: 10px; 
+    text-align: center;
+    border: 3px solid white;
+    border-radius: 10px;
+    z-index:999;
+}
