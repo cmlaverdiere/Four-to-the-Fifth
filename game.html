@@ -5,31 +5,26 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <title>Welcome: FttF</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/game.css">
 
   <script src='http://cdn.html5quintus.com/v0.2.0/quintus-all.min.js'></script>
-  <!--<script src='js/quintus.js'></script>-->
+  <!-- For offline use -->
+  <!-- <script src='js/quintus.js'></script> -->
   <script src='js/game.js' defer></script>
   <script src='js/components.js' defer></script>
   <script src='js/entities.js' defer></script>
-  <script src='js/levels.js' defer></script>
+  <!-- <script src='js/levels.js' defer></script> -->
   <script src='js/scenes.js' defer></script>
   <script src='js/ui.js' defer></script>
 </head>
 
-<body style="background: #222; color: #fff">
-  <div id="loading" style="margin: auto; 
-                           top:0; left:0; right:0; bottom:0; 
-                           position: absolute; 
-                           height: 175px; width: 500px; 
-                           background: #333; 
-                           padding: 10px; 
-                           text-align: center;
-                           border: 1px solid white;
-                           z-index:999">
+<body>
+  <div id="loading">
     <h1 id="loading_status">Now Loading... 0</h1>
     <div id="loading_info">
       <p>This might take a minute... relax.</p>
-      <p>Read our <a style="position: relative;" href="./about.html">About</a> page for the game's backstory and more.</p>
+      <p>Read our <a class="btn btn-large btn-primary btn-block" href="./about.html">About</a> page for the game's backstory and more.</p>
       <p>Note: Chrome is the recommended browser.</p>
     </div>
   </div>
