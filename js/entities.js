@@ -158,6 +158,7 @@ Q.Sprite.extend("Human", {
       if(COOLDOWN == 0){
         Q.audio.play("health_collect.wav");
         COOLDOWN = 500;
+        Q.state.set("COOLDOWN", 500);
         if(Q.state.get("level") == 1){
           HOMING_ROCKETS = true;
         }
@@ -269,6 +270,7 @@ Q.Human.extend("Player", {
         SUPER_SHOTGUN = false;
       }
       COOLDOWN--;
+      Q.state.dec("COOLDOWN", 1);
     }
   }
 });
@@ -351,9 +353,8 @@ Q.Human.extend("Enemy", {
       // Decide on final form.
       if(!this.has("machinegun")){
         this.equip_machinegun();
-        this.p.shotDelay = 0;
         this.p.shot_delay_boss_inc = 0;
-        this.p.speed *= 1.2;
+        this.p.speed *= .8;
       }
     }
     else if(this.p.hp < .60 * this.p.max_hp){

@@ -12,6 +12,7 @@
     <property name="punch_sprite" value="soldier_punch.png"/>
     <property name="rifle_sprite" value="soldier_assault_rifle.png"/>
     <property name="rocket_sprite" value="soldier_rocket.png"/>
+    <property name="shotgun_shells" value="15"/>
     <property name="shotgun_sprite" value="soldier_shotgun.png"/>
    </properties>
   </tile>
@@ -123,7 +124,7 @@
   <image source="../images/laboratory3_64.png" width="1024" height="1024"/>
  </tileset>
  <tileset firstgid="782" name="Powerups" tilewidth="31" tileheight="36">
-  <image source="../images/tough_guy.png" trans="ff00ff" width="31" height="36"/>
+  <image source="../images/tough_guy.png" trans="ff00ff" width="50" height="50"/>
   <tile id="0">
    <properties>
     <property name="Class" value="HealthPack"/>
@@ -30182,10 +30183,10 @@
   <object gid="13" x="5756" y="4687"/>
   <object gid="13" x="5721" y="4746"/>
   <object gid="13" x="5782" y="4770"/>
-  <object gid="13" x="4426" y="377"/>
-  <object gid="13" x="4382" y="612"/>
-  <object gid="13" x="4490" y="615"/>
-  <object gid="13" x="4432" y="614"/>
+  <object gid="13" x="4495" y="363"/>
+  <object gid="13" x="4370" y="361"/>
+  <object gid="13" x="4497" y="422"/>
+  <object gid="13" x="4369" y="424"/>
   <object gid="5" x="3100" y="3599"/>
   <object gid="6" x="4555" y="4396"/>
   <object gid="5" x="4022" y="4981"/>
@@ -30201,7 +30202,7 @@
   <object gid="5" x="3640" y="3060"/>
   <object gid="6" x="4243" y="733"/>
   <object gid="5" x="4567" y="742"/>
-  <object gid="8" x="4408" y="441"/>
+  <object gid="8" x="4411" y="532"/>
   <object gid="7" x="3341" y="4078"/>
   <object gid="7" x="3841" y="3698"/>
   <object gid="7" x="3841" y="4174"/>
@@ -30212,5 +30213,6 @@
   <object gid="782" x="1828" y="5306"/>
   <object gid="782" x="2729" y="3557"/>
   <object gid="782" x="189" y="4861"/>
+  <object gid="782" x="4428" y="387"/>
  </objectgroup>
 </map>

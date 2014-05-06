@@ -17,6 +17,8 @@ var SUPER_SHOTGUN = false;
 // Increment this if you add a new map in pattern 
 // ie: (level1.tmx, level2.tmx, ..., levelN.tmx). 
 var NUM_MAPS = 4
+var BOSS_TEXT_PAGE = 1
+var POWER_UP = ""
 
 // USEFUL GLOBALS 
 // Keep track of change in mouse coords.
@@ -96,6 +98,10 @@ Q.state.set({ killed: 0,
               track_id: 0, 
               track_playing: false, 
               pause: 0,
+              COOLDOWN: 0,
+              SUPER_EXPLOSIONS: false,
+              HOMING_ROCKETS: false,
+              SUPER_SHOTGUN: false,
 });
 
 
@@ -131,6 +137,7 @@ Q.loadTMX([
          "zombie1.png", 
          "zombie2.png", 
 
+         "between_levels.wav",
          "boss_fight.wav", 
          "disp_heroes.wav", 
          "game_over.wav", 
