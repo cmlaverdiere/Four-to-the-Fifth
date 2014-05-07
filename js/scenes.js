@@ -302,8 +302,8 @@ Q.scene("story_scene", function(stage) {
     fill: FG_COL,
     label: "Start Level",
     radius: 3,
-    x: -Q.width/3,
-    y: -Q.height/4,
+    x: -Q.width/2+75,
+    y: -Q.height/2+50,
   }, function() {
     // If there's still a level after, proceed to the next level.
     if(Q.state.get("level") <= NUM_MAPS){
