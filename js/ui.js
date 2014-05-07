@@ -151,8 +151,8 @@ Q.scene("ui", function(stage){
   var power_up_cont = stage.insert(new Q.UI.FttFContainer({
     w: 200,
     h: 60,
-    x: 150,
-    y: 50,
+    x: 200,
+    y: 40,
   }));
 
   if (Q.state.get("level") == 1) {
