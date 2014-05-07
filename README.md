@@ -62,7 +62,7 @@ Credits
 -----------------
 Music developed through http://www.pulseboy.com/
 
-Art assets courtesy of http://opengameart.org/
+Tileset assets courtesy of http://opengameart.org/
 
 Various sound effects gathered from http://soundjay.com/
 
