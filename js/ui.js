@@ -171,14 +171,13 @@ Q.scene("ui", function(stage){
 
   // Update power up label. 
   Q.state.on("change.COOLDOWN", function(){ 
-    if (Q.state.get("COOLDOWN") > 0) {
+    if (Q.state.get("COOLDOWN") > 100) {
       power_up_label.p.label = POWER_UP;
       power_up_label.p.color = "#ff0000";
     }
     else {
       power_up_label.p.color = FG_COL;
     }
-    
   });
 
 
