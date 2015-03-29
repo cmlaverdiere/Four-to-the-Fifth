@@ -1,7 +1,7 @@
 Four-to-the-Fifth
 =================
 
-This is a group project for UMBC's software engineering course, CMSC 345.
+This is a group project for a software engineering course.
 
 | Team members       | Role               |
 | ------------------ | ----------------   |
