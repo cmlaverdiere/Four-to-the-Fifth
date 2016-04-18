@@ -30,6 +30,10 @@ Along with more information at:
 
 http://userpages.umbc.edu/~chlaver1/Four-to-the-Fifth/about.html
 
+Video
+-----------------
+https://www.youtube.com/watch?v=6s_N5K5lEe0
+
 Running the Game Locally
 ------------------------
 If the game is running slowly (or not at all) on one of our hosts, you can run the game locally on your machine.
