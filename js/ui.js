@@ -151,8 +151,8 @@ Q.scene("ui", function(stage){
   var power_up_cont = stage.insert(new Q.UI.FttFContainer({
     w: 200,
     h: 60,
-    x: 150,
-    y: 50,
+    x: 200,
+    y: 40,
   }));
 
   if (Q.state.get("level") == 1) {
@@ -171,14 +171,13 @@ Q.scene("ui", function(stage){
 
   // Update power up label. 
   Q.state.on("change.COOLDOWN", function(){ 
-    if (Q.state.get("COOLDOWN") > 0) {
+    if (Q.state.get("COOLDOWN") > 100) {
       power_up_label.p.label = POWER_UP;
       power_up_label.p.color = "#ff0000";
     }
     else {
       power_up_label.p.color = FG_COL;
     }
-    
   });
 
 
@@ -330,7 +329,7 @@ Q.scene("title", function(stage) {
 
   // Controls label
   var controls_label = stage.insert(new Q.UI.FttFText({
-    label: "Movement: WASD or E \nSwitch Weapon: NUMKEYS \nFire weapon: SPACE \nPunch: F \nPause: BACKSPACE",
+    label: "Movement: WASD or E \nSwitch Weapon: NUMKEYS \nFire weapon: SPACE \nPunch: F \nAbility: Q \nPause: BACKSPACE",
     size: 16
   }), start_options_cont);
 

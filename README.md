@@ -1,7 +1,7 @@
 Four-to-the-Fifth
 =================
 
-This is a group project for UMBC's software engineering course, CMSC 345.
+This is a group project for a software engineering course.
 
 | Team members       | Role               |
 | ------------------ | ----------------   |
@@ -29,6 +29,10 @@ Current deployments of our game can be found at:
 Along with more information at:
 
 http://userpages.umbc.edu/~chlaver1/Four-to-the-Fifth/about.html
+
+Video
+-----------------
+https://www.youtube.com/watch?v=6s_N5K5lEe0
 
 Running the Game Locally
 ------------------------
@@ -62,7 +66,7 @@ Credits
 -----------------
 Music developed through http://www.pulseboy.com/
 
-Art assets courtesy of http://opengameart.org/
+Tileset assets courtesy of http://opengameart.org/
 
 Various sound effects gathered from http://soundjay.com/
 
