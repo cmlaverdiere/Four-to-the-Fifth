@@ -194,6 +194,7 @@ Q.Human.extend("Player", {
 
     this.add('stepControls');
     this.on("step", this, "step_player");
+    this.equip_gun();
 
     Q.input.on("fire", this, function(){ this.fire()
       
